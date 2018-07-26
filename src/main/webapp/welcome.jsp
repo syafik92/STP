@@ -50,8 +50,6 @@
 			<jsp:include page="${contextPath}/template/mainHeader.jsp" />
 			<!-- Left side column. contains the logo and sidebar -->
 			<jsp:include page="${contextPath}/template/mainSideBar.jsp" />
-
-
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
 				<!-- Content Header (Page header) -->
