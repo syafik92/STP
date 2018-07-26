@@ -15,6 +15,6 @@ public class WebApplication extends SpringBootServletInitializer {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(WebApplication.class, args);
         
-        System.out.println("testdsads");
+        System.out.println("testdsadadsds");
     }
 }
