@@ -9,10 +9,12 @@ import java.util.Set;
 @Table(name = "permohonan")
 public class Permohonan {
 	private Long id;
-	private Long peruntukan;
 	private Long kp;
-	private Long noBilBom;
+	
+	
+	private Boolean wakilPermohon;
 
+	private String noBilBom;
 	private String nama;
 	private String namaPelulus;
 	private String namaPemohon;
@@ -25,9 +27,10 @@ public class Permohonan {
 	private String passport;
 	private String tujuan;
 	private String tempatBertugas;
+	private String peruntukan;
 
-	private Date tarikhMula;
-	private Date tarikhTamat;
+	private String tarikhMula;
+	private String tarikhTamat;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,20 +41,28 @@ public class Permohonan {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public Boolean getWakilPermohon() {
+		return wakilPermohon;
+	}
 
-	public Date getTarikhMula() {
+	public void setWakilPermohon(Boolean wakilPermohon) {
+		this.wakilPermohon = wakilPermohon;
+	}
+
+	public String getTarikhMula() {
 		return tarikhMula;
 	}
 
-	public void setTarikhMula(Date tarikhMula) {
+	public void setTarikhMula(String tarikhMula) {
 		this.tarikhMula = tarikhMula;
 	}
 
-	public Date getTarikhTamat() {
+	public String getTarikhTamat() {
 		return tarikhTamat;
 	}
 
-	public void setTarikhTamat(Date tarikhTamat) {
+	public void setTarikhTamat(String tarikhTamat) {
 		this.tarikhTamat = tarikhTamat;
 	}
 
@@ -71,11 +82,11 @@ public class Permohonan {
 		this.tujuan = tujuan;
 	}
 
-	public Long getPeruntukan() {
+	public String getPeruntukan() {
 		return peruntukan;
 	}
 
-	public void setPeruntukan(Long peruntukan) {
+	public void setPeruntukan(String peruntukan) {
 		this.peruntukan = peruntukan;
 	}
 
@@ -151,11 +162,11 @@ public class Permohonan {
 		this.jenisPesawat = jenisPesawat;
 	}
 
-	public Long getNoBilBom() {
+	public String getNoBilBom() {
 		return noBilBom;
 	}
 
-	public void setNoBilBom(Long noBilBom) {
+	public void setNoBilBom(String noBilBom) {
 		this.noBilBom = noBilBom;
 	}
 

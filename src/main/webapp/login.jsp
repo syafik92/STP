@@ -11,7 +11,6 @@
 body {
 	background-image: url("../resources/img/flight.jpg");
 	background-size: cover;
-	
 }
 
 div.login-box-header {
@@ -22,11 +21,8 @@ div.login-box-header {
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="">
-<meta name="author" content="">
 
-<title>AdminLTE 2 | Log in</title>
+<title>Sistem Tempahan Penerbangan</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -46,14 +42,6 @@ div.login-box-header {
 <!-- iCheck -->
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/plugins/iCheck/square/blue.css">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -80,26 +68,6 @@ div.login-box-header {
 						<strong>SISTEM TEMPAHAN TIKET PENERBANGAN</strong>
 					</h3>
 				</div>
-				<!-- /.col	<div class="form-group has-feedback">
-					<input type="username" class="form-control"
-						placeholder="Nama Pengguna"> <span
-						class="glyphicon glyphicon-envelope form-control-feedback"></span>
-				</div>
-				<div class="form-group has-feedback">
-					<input type="password" class="form-control"
-						placeholder="Kata Laluan"> <span
-						class="glyphicon glyphicon-lock form-control-feedback"></span>
-				</div>
-				<div class="row">
-				
-					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary btn-block btn-flat">Log
-							Masuk</button>
-					</div>
-					<div class="col-xs-6 pull-right">
-						<a data-toggle="modal" data-target="#modal-reset">I forgot my
-							password</a><br>
-					</div> -->
 				<div class="form-group ${error != null ? 'has-error' : ''}">
 					<span>${message}</span>
 					<div class="form-group has-feedback">
@@ -126,18 +94,15 @@ div.login-box-header {
 
 					</div>
 				</div>
-				 <h4 class="text-center">
+				<h4 class="text-center">
 					<a href="${contextPath}/registration">Create an account</a>
 				</h4>
-			
+			</form>
 		</div>
-		</form>
-
-	</div>
 
 
 	</div>
-
+	
 	<!-- jQuery 3 -->
 	<script
 		src="${contextPath}/resources/css/bower_components/jquery/dist/jquery.min.js"></script>
@@ -161,30 +126,6 @@ div.login-box-header {
 		});
 	</script>
 
-	<!--  <div class="container">
 
-		<form method="POST" action="${contextPath}/login" class="form-signin">
-			<h2 class="form-heading">Log in</h2>
-
-			<div class="form-group ${error != null ? 'has-error' : ''}">
-				<span>${message}</span> 
-				<input name="username" type="text"
-					class="form-control" placeholder="Username" autofocus="true" /> 
-					<input
-					name="password" type="password" class="form-control"
-					placeholder="Password" /> <span>${error}</span> <input
-					type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Log
-					In</button>
-				<h4 class="text-center">
-					<a href="${contextPath}/registration">Create an account</a>
-				</h4>
-			</div>
-
-		</form>
-
-	</div>
--->
 </body>
 </html>
