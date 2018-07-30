@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class Pengguna {
 	private Long id;
 	private String staffNo;
 	private String namaStaff;
@@ -18,6 +18,7 @@ public class User {
 	private String username;
 	private String password;
 	private String passwordConfirm;
+	private String jawatan;
 	private Set<Role> roles;
 
 	@Id
@@ -127,6 +128,14 @@ public class User {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getJawatan() {
+		return jawatan;
+	}
+
+	public void setJawatan(String jawatan) {
+		this.jawatan = jawatan;
 	}
 	
 	

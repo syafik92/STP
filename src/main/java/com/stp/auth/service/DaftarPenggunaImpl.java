@@ -1,0 +1,54 @@
+package com.stp.auth.service;
+
+import java.util.HashSet;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.stp.auth.model.Pengguna;
+import com.stp.auth.repository.DaftarPenggunaRepository;
+import com.stp.auth.repository.RoleRepository;
+
+@Service
+public class DaftarPenggunaImpl implements DaftarPenggunaService {
+    @Autowired
+    private DaftarPenggunaRepository daftarPenggunaRepo;
+
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Override
+	public void save(Pengguna pengguna) {
+		pengguna.setPassword(bCryptPasswordEncoder.encode(pengguna.getPassword()));
+		pengguna.setRoles(new HashSet<>(roleRepository.findAll()));
+		daftarPenggunaRepo.save(pengguna);
+		
+	}
+
+	@Override
+	public Pengguna findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Pengguna> findAll() {
+		// TODO Auto-generated method stub
+		return daftarPenggunaRepo.findAll();
+	}
+
+	@Override
+	public Pengguna findById(Long id) {
+		// TODO Auto-generated method stub
+		return daftarPenggunaRepo.findById( id);
+	}
+
+	@Override
+	public void remove(Pengguna daftarPenggunaForm) {
+		daftarPenggunaRepo.delete(daftarPenggunaForm.getId());
+	}
+}
