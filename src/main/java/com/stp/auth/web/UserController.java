@@ -1,6 +1,7 @@
 package com.stp.auth.web;
 
 import com.stp.auth.model.User;
+import com.stp.auth.service.PermohonanService;
 import com.stp.auth.service.SecurityService;
 import com.stp.auth.service.UserService;
 import com.stp.auth.validator.UserValidator;
@@ -20,6 +21,9 @@ public class UserController {
 
     @Autowired
     private SecurityService securityService;
+    
+    @Autowired
+    private PermohonanService permohonanService;
 
     @Autowired
     private UserValidator userValidator;
@@ -59,6 +63,7 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
+    	model.addAttribute("welcome", permohonanService.getAll());
         return "welcome";
     }
 }

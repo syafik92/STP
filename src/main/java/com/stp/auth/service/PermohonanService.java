@@ -1,10 +1,13 @@
 package com.stp.auth.service;
 
+import java.util.List;
+
 import com.stp.auth.model.Permohonan;
-import com.stp.auth.model.User;
 
 public interface PermohonanService {
     void save(Permohonan permohonan);
+    
+    List<Permohonan> getAll();
 
     Permohonan findByUsername(String username);
 }
