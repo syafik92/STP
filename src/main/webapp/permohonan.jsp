@@ -44,10 +44,9 @@
 			<div class="content-wrapper">
 
 				<div id="modal-permohonan">
-					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h4 class="modal-title">Permohonan</h4>
+								<h4 class="modal-title"><center>Permohonan</center></h4>
 							</div>
 							<div class="modal-body">
 								<form:form method="POST" modelAttribute="permohonanForm"
@@ -218,8 +217,8 @@
 																<spring:bind path="peruntukan">
 																	<form:select path="peruntukan" class="form-control">
 																		<option></option>
-																		<option value="operasi">Operasi</option>
-																		<option value="pembangunan">Pembangunan</option>
+																		<option value="Operasi">Operasi</option>
+																		<option value="Pembangunan">Pembangunan</option>
 																	</form:select>
 																</spring:bind>
 															</div>
@@ -231,9 +230,9 @@
 																<spring:bind path="pembangunan">
 																	<form:select path="pembangunan" class="form-control">
 																		<option></option>
-																		<option value="ppe">PPE</option>
-																		<option value="npdir">NPDIR</option>
-																		<option value="mbr">MBR</option>
+																		<option value="PPE">PPE</option>
+																		<option value="NPDIR">NPDIR</option>
+																		<option value="MBR">MBR</option>
 																	</form:select>
 																</spring:bind>
 															</div>
@@ -245,10 +244,10 @@
 																<spring:bind path="jenisPesawat">
 																	<form:select path="jenisPesawat" class="form-control">
 																		<option></option>
-																		<option value="mas">MAS</option>
-																		<option value="airasia">AIRASIA</option>
-																		<option value="malindo">MALINDO</option>
-																		<option value="firefly">FIREFLY</option>
+																		<option value="MAS">MAS</option>
+																		<option value="AIRASIA">AIRASIA</option>
+																		<option value="MALINDO">MALINDO</option>
+																		<option value="FIREFLY">FIREFLY</option>
 																	</form:select>
 																</spring:bind>
 															</div>
@@ -309,8 +308,6 @@
 							</div>
 						</div>
 						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
 				</div>
 
 			</div>

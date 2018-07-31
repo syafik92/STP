@@ -1,19 +1,24 @@
 package com.stp.auth.model;
 
-import javax.persistence.*;
+import java.awt.print.Book;
 
-import java.util.Date;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "permohonan")
 public class Permohonan {
 	private Long id;
 	private Long kp;
-	
-	
+
 	private Boolean wakilPermohon;
 
+//	private Pengguna pengguna;
 	private String noBilBom;
 	private String nama;
 	private String namaPelulus;
@@ -28,9 +33,37 @@ public class Permohonan {
 	private String tujuan;
 	private String tempatBertugas;
 	private String peruntukan;
-
+	private String tarikhMohon;
 	private String tarikhMula;
 	private String tarikhTamat;
+	private String alasan;
+	private String staffNo;
+	private String statusPermohonan;
+	
+	
+	public String getStaffNo() {
+		return staffNo;
+	}
+
+	public void setStaffNo(String staffNo) {
+		this.staffNo = staffNo;
+	}
+
+	public String getStatusPermohonan() {
+		return statusPermohonan;
+	}
+
+	public void setStatusPermohonan(String statusPermohonan) {
+		this.statusPermohonan = statusPermohonan;
+	}
+
+	public String getAlasan() {
+		return alasan;
+	}
+
+	public void setAlasan(String alasan) {
+		this.alasan = alasan;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +74,15 @@ public class Permohonan {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+	public String getTarikhMohon() {
+		return tarikhMohon;
+	}
+
+	public void setTarikhMohon(String tarikhMohon) {
+		this.tarikhMohon = tarikhMohon;
+	}
+
 	public Boolean getWakilPermohon() {
 		return wakilPermohon;
 	}
@@ -185,5 +226,16 @@ public class Permohonan {
 	public void setTempatBertugas(String tempatBertugas) {
 		this.tempatBertugas = tempatBertugas;
 	}
+	
+//    @ManyToOne
+//    @JoinColumn(name = "staff_no")
+//    public Pengguna getPengguna() {
+//        return pengguna;
+//    }
+//
+//    public void setPengguna(Pengguna pengguna) {
+//        this.pengguna = pengguna;
+//    }
+
 
 }

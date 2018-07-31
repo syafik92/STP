@@ -1,7 +1,20 @@
 package com.stp.auth.model;
 
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user")
@@ -20,6 +33,7 @@ public class Pengguna {
 	private String passwordConfirm;
 	private String jawatan;
 	private Set<Role> roles;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -137,6 +151,14 @@ public class Pengguna {
 	public void setJawatan(String jawatan) {
 		this.jawatan = jawatan;
 	}
-	
-	
+
+//	@OneToMany(mappedBy = "user")
+//	public Set<Permohonan> getPermohon() {
+//		return permohon;
+//	}
+//
+//	public void setPermohon(Set<Permohonan> permohon) {
+//		this.permohon = permohon;
+//	}
+
 }

@@ -97,20 +97,23 @@
 											</tr>
 										</thead>
 										<tbody>
+											<c:forEach items="${welcome}" var="pemohon">
 											<tr>
-												<td data-toggle="modal" data-target="#modal-lulus">10/7/2018</td>
-												<td>25/7/2018</td>
-												<td>Shahreza</td>
-												<td>Kerja</td>
-												<td>Sabah</td>
-												<td>Operasi</td>
-												<td>MAS</td>
-												<td>Diluluskan</td>
+												<td data-toggle="modal" data-target="#modal-lulus">${pemohon.tarikhMohon}</td>
+												<td>${pemohon.tarikhMula}</td>
+												<td>${pemohon.nama}</td>
+												<td>${pemohon.tujuan}</td>
+												<td>${pemohon.tempatBertugas}</td>
+												<td>${pemohon.peruntukan}</td>
+												<td>${pemohon.jenisPesawat}</td>
+												<td>${pemohon.statusPermohonan}</td>
 												<td>
+												<spring:url value="/updateStatus?id=${pemohon.id}" var="updateStatus" />
+
 													<button type="button" class="btn btn-info "
-														data-toggle="modal" data-target="#modal-lulus">Lulus</button>
+														data-toggle="modal" data-target="#modal-lulus" id="${pemohon.id}">Lulus</button>
 													<button type="button" class="btn btn-danger "
-														data-toggle="modal" data-target="#modal-tolak">Tolak</button>
+														data-toggle="modal" data-target="#modal-tolak" id="${pemohon.id}" onclick="location.href='${updateStatus}'">Tolak</button>
 
 													<div class="modal fade" id="modal-lulus">
 														<div class="modal-dialog modal-lg">
@@ -263,29 +266,23 @@
 																			<div class="form-group">
 																				<label for="inputPassword3"
 																					class="col-sm-2 control-label">Tarikh Pergi
-																					Dan Masa</label>
+																					</label>
 
 																				<div class="col-sm-8">
 																					<div class="col-sm-4">
 																						<input type="date" class="form-control" id="kp">
-																					</div>
-																					<div class="col-sm-4">
-																						<input type="time" class="form-control" id="unit">
 																					</div>
 																				</div>
 																			</div>
 																			<div class="form-group">
 																				<label for="inputPassword3"
 																					class="col-sm-2 control-label">Tarikh Balik
-																					Dan Masa</label>
+																					</label>
 
 																				<div class="col-sm-8">
 																					<div class="col-sm-4">
 																						<input type="date" class="form-control" id="kp">
-																					</div>
-																					<div class="col-sm-4">
-																						<input type="time" class="form-control" id="unit">
-																					</div>
+																					</div>											
 																				</div>
 																			</div>
 																			<div class="form-group">
@@ -310,6 +307,7 @@
 													</div>
 												</td>
 											</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
