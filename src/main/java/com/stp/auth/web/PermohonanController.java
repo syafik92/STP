@@ -41,17 +41,19 @@ public class PermohonanController {
 		return "redirect:/welcome";
 	}
 	
-	@RequestMapping(value = "/updateStatus", method = RequestMethod.GET)
-	public String updateStatus(@RequestParam("id") Long id, Model model) {
-
-		model.addAttribute("permohonanForm", new Permohonan());
+	@RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
+	public String updateStatus( @ModelAttribute("kemaskiniPermohon") Permohonan userForm, Model model) {
 		model.addAttribute("welcome", permohonanService.getAll());
-		System.out.println(id);
+		
+		userForm.setStatusPermohonan("Tolak");
+		permohonanService.save(userForm);
+		
+		model.addAttribute("permohonanForm", new Permohonan());
+		model.addAttribute("kemaskiniPermohon", new Permohonan());
 
 		return "welcome";
 		
 	}
-	
 	
 
 }
