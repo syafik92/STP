@@ -55,5 +55,19 @@ public class PermohonanController {
 		
 	}
 	
+	@RequestMapping(value = "/updateStatusLulus", method = RequestMethod.POST)
+	public String updateStatusLulus( @ModelAttribute("kemaskiniPermohon") Permohonan userForm, Model model) {
+		model.addAttribute("welcome", permohonanService.getAll());
+		
+		userForm.setStatusPermohonan("Lulus");
+		permohonanService.save(userForm);
+		
+		model.addAttribute("permohonanForm", new Permohonan());
+		model.addAttribute("kemaskiniPermohon", new Permohonan());
+
+		return "welcome";
+		
+	}
+	
 
 }
