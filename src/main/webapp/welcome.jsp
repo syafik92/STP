@@ -1,6 +1,8 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -98,215 +100,371 @@
 										</thead>
 										<tbody>
 											<c:forEach items="${welcome}" var="pemohon">
-											<tr>
-												<td data-toggle="modal" data-target="#modal-lulus">${pemohon.tarikhMohon}</td>
-												<td>${pemohon.tarikhMula}</td>
-												<td>${pemohon.nama}</td>
-												<td>${pemohon.tujuan}</td>
-												<td>${pemohon.tempatBertugas}</td>
-												<td>${pemohon.peruntukan}</td>
-												<td>${pemohon.jenisPesawat}</td>
-												<td>${pemohon.statusPermohonan}</td>
-												<td>
-												<spring:url value="/updateStatus?id=${pemohon.id}" var="updateStatus" />
+												<tr>
+													<td data-toggle="modal" data-target="#modal-lulus">${pemohon.tarikhMohon}</td>
+													<td>${pemohon.tarikhMula}</td>
+													<td>${pemohon.nama}</td>
+													<td>${pemohon.tujuan}</td>
+													<td>${pemohon.tempatBertugas}</td>
+													<td>${pemohon.peruntukan}</td>
+													<td>${pemohon.jenisPesawat}</td>
+													<td>${pemohon.statusPermohonan}</td>
+													<td><spring:url value="/updateStatus?id=${pemohon.id}"
+															var="updateStatus" />
 
-													<button type="button" class="btn btn-info "
-														data-toggle="modal" data-target="#modal-lulus" id="${pemohon.id}">Lulus</button>
-													<button type="button" class="btn btn-danger "
-														data-toggle="modal" data-target="#modal-tolak" id="${pemohon.id}" onclick="location.href='${updateStatus}'">Tolak</button>
+														<button type="button" class="btn btn-info "
+															data-toggle="modal"
+															data-target="#modal-lulus${pemohon.id}">Lulus</button>
+														<button type="button" class="btn btn-danger "
+															data-toggle="modal"
+															data-target="#modal-tolak${pemohon.id}">Tolak</button>
 
-													<div class="modal fade" id="modal-lulus">
-														<div class="modal-dialog modal-lg">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close"
-																		data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																	</button>
-																	<h4 class="modal-title">Lulus</h4>
+														<div class="modal fade" id="modal-lulus${pemohon.id}">
+															<div class="modal-dialog modal-lg">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close"
+																			data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																		<h4 class="modal-title">Lulus</h4>
+																	</div>
+																	<div class="modal-body">
+																		<form:form method="POST"
+																			modelAttribute="kemaskiniPermohon"
+																			action="${contextPath}/updateStatusLulus"
+																			class="form-horizontal">
+																			<div class="box-body">
+																				<div class="form-group">
+																					<spring:bind path="id">
+																						<form:input type="hidden" class="form-control"
+																							path="id" value="${pemohon.id}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="namaPelulus">
+																						<form:input type="hidden" class="form-control"
+																							path="namaPelulus" value="${pemohon.namaPelulus}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="kp">
+																						<form:input type="hidden" class="form-control"
+																							path="kp" value="${pemohon.kp}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="emel">
+																						<form:input type="hidden" class="form-control"
+																							path="emel" value="${pemohon.emel}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="passport">
+																						<form:input type="hidden" class="form-control"
+																							path="passport" value="${pemohon.passport}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="tujuan">
+																						<form:input type="hidden" class="form-control"
+																							path="tujuan" value="${pemohon.tujuan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="noTelefonBimbit">
+																						<form:input type="hidden" class="form-control"
+																							path="noTelefonBimbit"
+																							value="${pemohon.noTelefonBimbit}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="peruntukan">
+																						<form:input type="hidden" class="form-control"
+																							path="peruntukan" value="${pemohon.peruntukan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="pembangunan">
+																						<form:input type="hidden" class="form-control"
+																							path="pembangunan" value="${pemohon.pembangunan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="jenisPesawat">
+																						<form:input type="hidden" class="form-control"
+																							path="jenisPesawat"
+																							value="${pemohon.jenisPesawat}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="noBilBom">
+																						<form:input type="hidden" class="form-control"
+																							path="noBilBom" value="${pemohon.noBilBom}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="kelulusan">
+																						<form:input type="hidden" class="form-control"
+																							path="kelulusan" value="${pemohon.kelulusan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="namaPemohon">
+																						<form:input type="hidden" class="form-control"
+																							path="kelulusan" value="${pemohon.namaPemohon}"></form:input>
+																					</spring:bind>
+
+																					<label for="inputEmail3"
+																						class="col-sm-2 control-label">Nama
+																						Pemohon</label>
+
+																					<div class="col-sm-6">
+																						<spring:bind path="nama">
+																							<form:input type="text" class="form-control"
+																								id="nama" path="nama" value="${pemohon.nama}"></form:input>
+																						</spring:bind>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputPassword3"
+																						class="col-sm-2 control-label">Tarikh
+																						Permohonan</label>
+
+																					<div class="col-sm-6">
+																						<spring:bind path="tarikhMohon">
+																							<form:input type="date" class="form-control"
+																								id="tarikhMohon" path="tarikhMohon" value="${pemohon.tarikhMohon}"></form:input>
+																						</spring:bind>
+																					</div>
+																				</div>
+
+																				<div class="form-group">
+																					<label for="inputPassword3"
+																						class="col-sm-2 control-label">Unit /
+																						Bahagian</label>
+
+																					<div class="col-sm-6">
+																						<spring:bind path="bahagian">
+																							<form:input type="text" class="form-control"
+																								id="bahagian" path="bahagian" value="${pemohon.bahagian}"></form:input>
+																						</spring:bind>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputPassword3"
+																						class="col-sm-2 control-label">Destinasi</label>
+
+																					<div class="col-sm-6">
+																						<spring:bind path="tempatBertugas">
+																							<form:input type="text" class="form-control"
+																								id="tempatBertugas" path="tempatBertugas" value="${pemohon.tempatBertugas}"></form:input>
+																						</spring:bind>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputPassword3"
+																						class="col-sm-2 control-label">Tarikh
+																						Pergi</label>
+
+																					<div class="col-sm-8">
+																						<div class="col-sm-4">
+																							<spring:bind path="tarikhMula">
+																								<form:input type="date" class="form-control"
+																									id="tarikhMula" path="tarikhMula" value="${pemohon.tarikhMula}"></form:input>
+																							</spring:bind>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputPassword3"
+																						class="col-sm-2 control-label">Tarikh
+																						Balik</label>
+
+																					<div class="col-sm-8">
+																						<div class="col-sm-4">
+																							<spring:bind path="tarikhTamat">
+																								<form:input type="date" class="form-control"
+																									id="tarikhTamat" path="tarikhTamat" value="${pemohon.tarikhTamat}"></form:input>
+																							</spring:bind>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label for="inputPassword3"
+																						class="col-sm-2 control-label">Alasan</label>
+
+																					<div class="col-sm-6">
+																						<spring:bind path="alasan">
+																							<form:input type="text" class="form-control"
+																								id="alasan" path="alasan"></form:input>
+																						</spring:bind>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- /.box-body -->
+																			<div class="box-footer">
+																				<button type="submit"
+																					class="btn btn-info pull-right">Hantar</button>
+																			</div>
+																			<!-- /.box-footer -->
+																		</form:form>
+																	</div>
 																</div>
-																<div class="modal-body">
-																	<form class="form-horizontal">
-																		<div class="box-body">
-																			<div class="form-group">
-																				<label for="inputEmail3"
-																					class="col-sm-2 control-label">Nama Pemohon</label>
-
-																				<div class="col-sm-6">
-																					<input type="text" class="form-control" id="nama"
-																						placeholder="Seperti Dalam Kad Pengenalan">
-																				</div>
-																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Tarikh
-																					Permohonan</label>
-
-																				<div class="col-sm-6">
-																					<input type="date" class="form-control" id="kp">
-																				</div>
-																			</div>
-
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Unit /
-																					Bahagian</label>
-
-																				<div class="col-sm-6">
-																					<input type="text" class="form-control" id="unit">
-																				</div>
-																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Destinasi</label>
-
-																				<div class="col-sm-6">
-																					<input type="text" class="form-control" id="unit">
-																				</div>
-																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Tarikh Pergi
-																					Dan Masa</label>
-
-																				<div class="col-sm-8">
-																					<div class="col-sm-4">
-																						<input type="date" class="form-control" id="kp">
-																					</div>
-																					<div class="col-sm-4">
-																						<input type="time" class="form-control" id="unit">
-																					</div>
-																				</div>
-																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Tarikh Balik
-																					Dan Masa</label>
-
-																				<div class="col-sm-8">
-																					<div class="col-sm-4">
-																						<input type="date" class="form-control" id="kp">
-																					</div>
-																					<div class="col-sm-4">
-																						<input type="time" class="form-control" id="unit">
-																					</div>
-																				</div>
-																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Alasan</label>
-
-																				<div class="col-sm-6">
-																					<input type="text" class="form-control" id="unit">
-																				</div>
-																			</div>
-																		</div>
-																		<!-- /.box-body -->
-																		<div class="box-footer">
-																			<button type="submit" class="btn btn-info pull-right">Hantar</button>
-																		</div>
-																		<!-- /.box-footer -->
-																	</form>
-																</div>
+																<!-- /.modal-content -->
 															</div>
-															<!-- /.modal-content -->
+															<!-- /.modal-dialog -->
 														</div>
-														<!-- /.modal-dialog -->
-													</div>
 
-													<div class="modal fade" id="modal-tolak">
-														<div class="modal-dialog modal-lg">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<button type="button" class="close"
-																		data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																	</button>
-																	<h4 class="modal-title">Tolak</h4>
-																</div>
-																<div class="modal-body">
-																	<form class="form-horizontal">
-																		<div class="box-body">
-																			<div class="form-group">
-																				<label for="inputEmail3"
-																					class="col-sm-2 control-label">Nama Pemohon</label>
+														<div class="modal fade" id="modal-tolak${pemohon.id}">
+															<div class="modal-dialog modal-lg">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close"
+																			data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																		<h4 class="modal-title">Tolak</h4>
+																	</div>
+																	<div class="modal-body">
+																		<form:form method="POST"
+																			modelAttribute="kemaskiniPermohon"
+																			action="${contextPath}/updateStatus"
+																			class="form-horizontal">
+																			<div class="box-body">
+																				<div class="form-group">
+																					<spring:bind path="id">
+																						<form:input type="hidden" class="form-control"
+																							path="id" value="${pemohon.id}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="namaPelulus">
+																						<form:input type="hidden" class="form-control"
+																							path="namaPelulus" value="${pemohon.namaPelulus}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="kp">
+																						<form:input type="hidden" class="form-control"
+																							path="kp" value="${pemohon.kp}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="emel">
+																						<form:input type="hidden" class="form-control"
+																							path="emel" value="${pemohon.emel}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="passport">
+																						<form:input type="hidden" class="form-control"
+																							path="passport" value="${pemohon.passport}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="tujuan">
+																						<form:input type="hidden" class="form-control"
+																							path="tujuan" value="${pemohon.tujuan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="noTelefonBimbit">
+																						<form:input type="hidden" class="form-control"
+																							path="noTelefonBimbit"
+																							value="${pemohon.noTelefonBimbit}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="peruntukan">
+																						<form:input type="hidden" class="form-control"
+																							path="peruntukan" value="${pemohon.peruntukan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="pembangunan">
+																						<form:input type="hidden" class="form-control"
+																							path="pembangunan" value="${pemohon.pembangunan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="jenisPesawat">
+																						<form:input type="hidden" class="form-control"
+																							path="jenisPesawat"
+																							value="${pemohon.jenisPesawat}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="noBilBom">
+																						<form:input type="hidden" class="form-control"
+																							path="noBilBom" value="${pemohon.noBilBom}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="kelulusan">
+																						<form:input type="hidden" class="form-control"
+																							path="kelulusan" value="${pemohon.kelulusan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="namaPemohon">
+																						<form:input type="hidden" class="form-control"
+																							path="kelulusan" value="${pemohon.namaPemohon}"></form:input>
+																					</spring:bind>
 
-																				<div class="col-sm-6">
-																					<input type="text" class="form-control" id="nama"
-																						placeholder="Seperti Dalam Kad Pengenalan">
+
+																					<label for="inputEmail3"
+																						class="col-sm-2 control-label">Nama
+																						Pemohon</label>
+
+																					<div class="col-sm-6">
+																						<spring:bind path="nama">
+																							<form:input type="text" class="form-control"
+																								id="namaTolak" path="nama"
+																								value="${pemohon.nama}"></form:input>
+																						</spring:bind>
+																					</div>
 																				</div>
-																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Tarikh
-																					Permohonan</label>
+																				<div class="form-group">
+																					<label class="col-sm-2 control-label">Tarikh
+																						Permohonan</label>
 
-																				<div class="col-sm-6">
-																					<input type="date" class="form-control" id="kp">
+																					<div class="col-sm-6">
+																						<spring:bind path="tarikhMohon">
+																							<form:input type="date" class="form-control"
+																								id="kp" path="tarikhMohon"
+																								value="${pemohon.tarikhMohon}"></form:input>
+																						</spring:bind>
+																					</div>
 																				</div>
-																			</div>
 
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Unit /
-																					Bahagian</label>
+																				<div class="form-group">
+																					<label class="col-sm-2 control-label">Unit
+																						/ Bahagian</label>
 
-																				<div class="col-sm-6">
-																					<input type="text" class="form-control" id="unit">
+																					<div class="col-sm-6">
+																						<spring:bind path="bahagian">
+																							<form:input type="text" class="form-control"
+																								id="unit" path="bahagian"
+																								value="${pemohon.bahagian}"></form:input>
+																						</spring:bind>
+																					</div>
 																				</div>
-																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Destinasi</label>
+																				<div class="form-group">
+																					<label class="col-sm-2 control-label">Destinasi</label>
 
-																				<div class="col-sm-6">
-																					<input type="text" class="form-control" id="unit">
+																					<div class="col-sm-6">
+																						<spring:bind path="tempatBertugas">
+																							<form:input type="text" class="form-control"
+																								id="unit" path="tempatBertugas"
+																								value="${pemohon.tempatBertugas}"></form:input>
+																						</spring:bind>
+																					</div>
 																				</div>
-																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Tarikh Pergi
-																					</label>
+																				<div class="form-group">
+																					<label class="col-sm-2 control-label">Tarikh
+																						Pergi </label>
 
-																				<div class="col-sm-8">
-																					<div class="col-sm-4">
-																						<input type="date" class="form-control" id="kp">
+																					<div class="col-sm-8">
+																						<div class="col-sm-4">
+																							<spring:bind path="tarikhMula">
+																								<form:input type="date" class="form-control"
+																									id="kp" path="tarikhMula"
+																									value="${pemohon.tarikhMula}"></form:input>
+																							</spring:bind>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-sm-2 control-label">Tarikh
+																						Balik </label>
+
+																					<div class="col-sm-8">
+																						<div class="col-sm-4">
+																							<spring:bind path="tarikhTamat">
+																								<form:input type="date" class="form-control"
+																									id="kp" path="tarikhTamat"
+																									value="${pemohon.tarikhTamat}"></form:input>
+																							</spring:bind>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-sm-2 control-label">Alasan</label>
+
+																					<div class="col-sm-6">
+																						<spring:bind path="alasan">
+																							<form:input type="text" class="form-control"
+																								id="unit" path="alasan"></form:input>
+																						</spring:bind>
 																					</div>
 																				</div>
 																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Tarikh Balik
-																					</label>
-
-																				<div class="col-sm-8">
-																					<div class="col-sm-4">
-																						<input type="date" class="form-control" id="kp">
-																					</div>											
-																				</div>
+																			<!-- /.box-body -->
+																			<div class="box-footer">
+																				<button type="submit"
+																					class="btn btn-info pull-right">Hantar</button>
 																			</div>
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Alasan</label>
-
-																				<div class="col-sm-6">
-																					<input type="text" class="form-control" id="unit">
-																				</div>
-																			</div>
-																		</div>
-																		<!-- /.box-body -->
-																		<div class="box-footer">
-																			<button type="submit" class="btn btn-info pull-right">Hantar</button>
-																		</div>
-																		<!-- /.box-footer -->
-																	</form>
+																			<!-- /.box-footer -->
+																		</form:form>
+																	</div>
 																</div>
+																<!-- /.modal-content -->
 															</div>
-															<!-- /.modal-content -->
-														</div>
-													</div>
-												</td>
-											</tr>
+														</div></td>
+												</tr>
 											</c:forEach>
 										</tbody>
 									</table>

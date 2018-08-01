@@ -1,11 +1,5 @@
 package com.stp.auth.web;
 
-import com.stp.auth.model.User;
-import com.stp.auth.service.PermohonanService;
-import com.stp.auth.service.SecurityService;
-import com.stp.auth.service.UserService;
-import com.stp.auth.validator.UserValidator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +7,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.stp.auth.model.Permohonan;
+import com.stp.auth.model.User;
+import com.stp.auth.service.PermohonanService;
+import com.stp.auth.service.SecurityService;
+import com.stp.auth.service.UserService;
+import com.stp.auth.validator.UserValidator;
 
 @Controller
 public class UserController {
@@ -64,6 +65,7 @@ public class UserController {
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
     	model.addAttribute("welcome", permohonanService.getAll());
+    	model.addAttribute("kemaskiniPermohon", new Permohonan());
         return "welcome";
     }
 }
