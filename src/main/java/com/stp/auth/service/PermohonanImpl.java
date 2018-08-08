@@ -17,8 +17,8 @@ public class PermohonanImpl implements PermohonanService {
 
 
 	@Override
-	public void save(Permohonan permohonan) {
-		permohonanRepo.save(permohonan);
+	public void save(Permohonan permohonanView) {
+		permohonanRepo.save(permohonanView);
 		
 	}
 

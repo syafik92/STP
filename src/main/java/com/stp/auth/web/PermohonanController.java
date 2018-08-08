@@ -21,15 +21,15 @@ public class PermohonanController {
 	@Autowired
 	private PermohonanService permohonanService;
 
-	@RequestMapping(value = "/permohonan", method = RequestMethod.GET)
+	@RequestMapping(value = "/permohonanView", method = RequestMethod.GET)
 	public String permohonan(Model model) {
-
+		model.addAttribute("welcome", permohonanService.getAll());
 		model.addAttribute("permohonanForm", new Permohonan());
 
-		return "permohonan";
+		return "permohonanView";
 	}
 
-	@RequestMapping(value = "/permohonan", method = RequestMethod.POST)
+	@RequestMapping(value = "/permohonanForm", method = RequestMethod.POST)
 	public String registration(@ModelAttribute("permohonanForm") Permohonan userForm) {
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -38,7 +38,7 @@ public class PermohonanController {
 		userForm.setTarikhMohon(dateFormat.format(date));
 		permohonanService.save(userForm);
 
-		return "redirect:/welcome";
+		return "redirect:/permohonanView";
 	}
 	
 	@RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
@@ -66,6 +66,20 @@ public class PermohonanController {
 		model.addAttribute("kemaskiniPermohon", new Permohonan());
 
 		return "welcome";
+		
+	}
+	
+	@RequestMapping(value = "/updateStatusBatal", method = RequestMethod.POST)
+	public String updateStatusBatal( @ModelAttribute("pembatalanPermohonan") Permohonan userForm, Model model) {
+		model.addAttribute("welcome", permohonanService.getAll());
+		
+		userForm.setStatusPermohonan("Open Tiket");
+		permohonanService.save(userForm);
+		
+		model.addAttribute("permohonanForm", new Permohonan());
+		model.addAttribute("pembatalanPermohonan", new Permohonan());
+
+		return "permohonanView";
 		
 	}
 	

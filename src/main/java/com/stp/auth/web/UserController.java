@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.stp.auth.model.Pembelian;
 import com.stp.auth.model.Permohonan;
 import com.stp.auth.model.User;
+import com.stp.auth.service.PembelianService;
 import com.stp.auth.service.PermohonanService;
 import com.stp.auth.service.SecurityService;
 import com.stp.auth.service.UserService;
@@ -25,6 +27,9 @@ public class UserController {
     
     @Autowired
     private PermohonanService permohonanService;
+    
+    @Autowired
+    private PembelianService pembelianService;
 
     @Autowired
     private UserValidator userValidator;
@@ -68,4 +73,5 @@ public class UserController {
     	model.addAttribute("kemaskiniPermohon", new Permohonan());
         return "welcome";
     }
+    
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import com.stp.auth.model.Permohonan;
 
 public interface PermohonanService {
-    void save(Permohonan permohonan);
+    void save(Permohonan permohonanView);
     
     List<Permohonan> getAll();
 
