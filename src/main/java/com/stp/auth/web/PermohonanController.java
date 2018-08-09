@@ -37,6 +37,7 @@ public class PermohonanController {
 		Date date = new Date();
 		
 		userForm.setTarikhMohon(dateFormat.format(date));
+		userForm.setStatusPermohonan("Baru");
 		permohonanService.save(userForm);
 
 		return "redirect:/permohonanView";
