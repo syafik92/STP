@@ -1,13 +1,9 @@
 package com.stp.auth.model;
 
-import java.awt.print.Book;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -46,6 +42,10 @@ public class Permohonan {
 	private String noPesawat;
 	private String dariLokasi;
 	private String destinasi;
+	private String bilangan;
+	private String baranganDibawa;
+	private String jumlah;
+	private String anggaranBerat;
 	
 	
 	public String getPenerbangan() {
@@ -288,6 +288,38 @@ public class Permohonan {
 
 	public void setTempatBertugas(String tempatBertugas) {
 		this.tempatBertugas = tempatBertugas;
+	}
+
+	public String getBilangan() {
+		return bilangan;
+	}
+
+	public void setBilangan(String bilangan) {
+		this.bilangan = bilangan;
+	}
+
+	public String getBaranganDibawa() {
+		return baranganDibawa;
+	}
+
+	public void setBaranganDibawa(String baranganDibawa) {
+		this.baranganDibawa = baranganDibawa;
+	}
+
+	public String getAnggaranBerat() {
+		return anggaranBerat;
+	}
+
+	public void setAnggaranBerat(String anggaranBerat) {
+		this.anggaranBerat = anggaranBerat;
+	}
+
+	public String getJumlah() {
+		return jumlah;
+	}
+
+	public void setJumlah(String jumlah) {
+		this.jumlah = jumlah;
 	}
 	
 //    @ManyToOne

@@ -20,12 +20,15 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li class="active"><a href="permohonan"><i
+					<li class="active"><a href="permohonanView"><i
 							class="fa fa-circle-o"></i>Permohonan</a></li>
-					<li class="active"><a href="pgdaftarmajikan.html"><i
+					<li class="active"><a href="welcome"><i
 							class="fa fa-circle-o"></i>Kelulusan</a></li>
-				</ul>
-			</li>
+					<li class="active"><a href="pembelian"><i
+							class="fa fa-circle-o"></i>Pembelian</a></li>
+					<li class="active"><a href="pengesahan"><i
+							class="fa fa-circle-o"></i>Pengesahan</a></li>
+				</ul></li>
 
 		</ul>
 

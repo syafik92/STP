@@ -74,4 +74,11 @@ public class UserController {
         return "welcome";
     }
     
+    @RequestMapping(value = {"/pengesahan"}, method = RequestMethod.GET)
+    public String pengesahan(Model model) {
+    	model.addAttribute("welcome", permohonanService.getAll());
+    	model.addAttribute("kemaskiniPengesahan", new Permohonan());
+        return "pengesahan";
+    }
+    
 }

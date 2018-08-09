@@ -25,6 +25,7 @@ public class PermohonanController {
 	public String permohonan(Model model) {
 		model.addAttribute("welcome", permohonanService.getAll());
 		model.addAttribute("permohonanForm", new Permohonan());
+		model.addAttribute("pembatalanPermohonan", new Permohonan());
 
 		return "permohonanView";
 	}
@@ -80,6 +81,20 @@ public class PermohonanController {
 		model.addAttribute("pembatalanPermohonan", new Permohonan());
 
 		return "permohonanView";
+		
+	}
+	
+	@RequestMapping(value = "/updateStatusPengesahan", method = RequestMethod.POST)
+	public String updateStatusPengesahan( @ModelAttribute("kemaskiniPengesahan") Permohonan userForm, Model model) {
+		model.addAttribute("welcome", permohonanService.getAll());
+		
+		userForm.setStatusPermohonan("Selesai");
+		permohonanService.save(userForm);
+		
+		model.addAttribute("permohonanForm", new Permohonan());
+		model.addAttribute("kemaskiniPengesahan", new Permohonan());
+
+		return "pengesahan";
 		
 	}
 	
