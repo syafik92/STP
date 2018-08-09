@@ -129,7 +129,7 @@
 															<div class="col-sm-4">
 																<spring:bind path="nama">
 																	<form:input type="text" class="form-control"
-																		path="nama" placeholder="Seperti Dalam Kad Pengenalan"></form:input>
+																		path="nama" placeholder="Seperti Dalam Kad Pengenalan" required="required"></form:input>
 																</spring:bind>
 															</div>
 															<label for="inputEmail3" class="col-sm-2 control-label">Nama
@@ -149,7 +149,7 @@
 
 															<div class="col-sm-4">
 																<spring:bind path="kp">
-																	<form:input type="text" class="form-control" path="kp"></form:input>
+																	<form:input type="text" class="form-control" path="kp" required="required"></form:input>
 																</spring:bind>
 															</div>
 															<label for="inputPassword3"
@@ -158,7 +158,7 @@
 															<div class="col-sm-4">
 																<spring:bind path="bahagian">
 																	<form:input type="text" class="form-control"
-																		path="bahagian"></form:input>
+																		path="bahagian" required="required"></form:input>
 																</spring:bind>
 															</div>
 														</div>
@@ -170,7 +170,7 @@
 															<div class="col-sm-4">
 																<spring:bind path="emel">
 																	<form:input type="email" class="form-control"
-																		path="emel"></form:input>
+																		path="emel" required="required"></form:input>
 																</spring:bind>
 															</div>
 															<label for="inputPassword3"
@@ -179,7 +179,7 @@
 															<div class="col-sm-4">
 																<spring:bind path="passport">
 																	<form:input type="text" class="form-control"
-																		path="passport"></form:input>
+																		path="passport" required="required"></form:input>
 																</spring:bind>
 															</div>
 														</div>
@@ -191,7 +191,7 @@
 															<div class="col-sm-4">
 																<spring:bind path="tujuan">
 																	<form:input type="text" class="form-control"
-																		path="tujuan"></form:input>
+																		path="tujuan" required="required"></form:input>
 																</spring:bind>
 															</div>
 															<label for="inputPassword3"
@@ -200,7 +200,7 @@
 															<div class="col-sm-4">
 																<spring:bind path="tempatBertugas">
 																	<form:input type="text" class="form-control"
-																		path="tempatBertugas"></form:input>
+																		path="tempatBertugas" required="required"></form:input>
 																</spring:bind>
 															</div>
 														</div>
@@ -213,7 +213,7 @@
 															<div class="col-sm-4">
 																<spring:bind path="tarikhMula">
 																	<form:input type="date" class="form-control"
-																		path="tarikhMula"></form:input>
+																		path="tarikhMula" required="required"></form:input>
 																</spring:bind>
 															</div>
 															<label for="inputPassword3"
@@ -223,7 +223,7 @@
 															<div class="col-sm-4">
 																<spring:bind path="tarikhTamat">
 																	<form:input type="date" class="form-control"
-																		path="tarikhTamat"></form:input>
+																		path="tarikhTamat" required="required"></form:input>
 																</spring:bind>
 															</div>
 														</div>
@@ -236,14 +236,14 @@
 															<div class="col-sm-4">
 																<spring:bind path="noTelefonBimbit">
 																	<form:input type="text" class="form-control"
-																		path="noTelefonBimbit"></form:input>
+																		path="noTelefonBimbit" required="required"></form:input>
 																</spring:bind>
 															</div>
 															<label for="inputPassword3"
 																class="col-sm-2 control-label">Peruntukan</label>
 															<div class="col-sm-4">
 																<spring:bind path="peruntukan">
-																	<form:select path="peruntukan" class="form-control">
+																	<form:select path="peruntukan" class="form-control" id="peruntukanId" onchange="show()" required="required">
 																		<option></option>
 																		<option value="Operasi">Operasi</option>
 																		<option value="Pembangunan">Pembangunan</option>
@@ -251,7 +251,8 @@
 																</spring:bind>
 															</div>
 														</div>
-														<div class="form-group">
+														<div class="form-group" >
+														<div id="pembangunanHidden">
 															<label for="inputPassword3"
 																class="col-sm-2 control-label">Pembangunan</label>
 															<div class="col-sm-4">
@@ -264,11 +265,12 @@
 																	</form:select>
 																</spring:bind>
 															</div>
+															</div>
 															<label for="inputPassword3"
 																class="col-sm-2 control-label">Jenis Pesawat</label>
 															<div class="col-sm-4">
 																<spring:bind path="jenisPesawat">
-																	<form:select path="jenisPesawat" class="form-control">
+																	<form:select path="jenisPesawat" class="form-control" required="required">
 																		<option></option>
 																		<option value="MAS">MAS</option>
 																		<option value="AIRASIA">AIRASIA</option>
@@ -279,7 +281,8 @@
 															</div>
 														</div>
 
-														<div class="form-group">
+														<div class="form-group" >
+														<div id="bomHidden">
 															<label for="inputPassword3"
 																class="col-sm-2 control-label">No. Bil BOM</label>
 
@@ -289,11 +292,12 @@
 																		path="noBilBom"></form:input>
 																</spring:bind>
 															</div>
+															</div>
 															<label for="inputPassword3"
 																class="col-sm-2 control-label">Kelulusan</label>
 															<div class="col-sm-4">
 																<spring:bind path="kelulusan">
-																	<form:select path="kelulusan" class="form-control">
+																	<form:select path="kelulusan" class="form-control" required="required">
 																		<option></option>
 																		<option value="mas">MAS</option>
 																		<option value="airasia">AIRASIA</option>
@@ -304,7 +308,7 @@
 															</div>
 														</div>
 
-														<div class="form-group">
+														<div class="form-group" id="muatNaikHidden">
 															<label for="exampleInputFile"
 																class="col-sm-2 control-label">Muatnaik BOM</label>
 															<div class="col-sm-4">
@@ -428,14 +432,38 @@
 															</thead>
 															<tbody>
 																<tr>
-																	<td><input type="text" class="form-control"
+																<td>
+																<spring:bind path="bilangan">
+																	<form:input type="text" class="form-control"
+																		path="bilangan"></form:input>
+																</spring:bind>
+																</td>
+																<td>
+																<spring:bind path="baranganDibawa">
+																	<form:input type="text" class="form-control"
+																		path="baranganDibawa"></form:input>
+																</spring:bind>
+																</td>
+																<td>
+																<spring:bind path="jumlah">
+																	<form:input type="text" class="form-control"
+																		path="jumlah"></form:input>
+																</spring:bind>
+																</td>
+																<td>
+																<spring:bind path="anggaranBerat">
+																	<form:input type="text" class="form-control"
+																		path="anggaranBerat"></form:input>
+																</spring:bind>
+																</td>
+																	<!--  <td><input type="text" class="form-control"
 																		id="bom"></td>
 																	<td><input type="text" class="form-control"
 																		id="bom"></td>
 																	<td><input type="text" class="form-control"
 																		id="bom"></td>
 																	<td><input type="text" class="form-control"
-																		id="bom"></td>
+																		id="bom"></td>-->
 																</tr>
 															</tbody>
 														</table>
@@ -523,10 +551,10 @@
 																				class="form-horizontal">
 																				<div class="box-body">
 																					<div class="form-group">
-																						<spring:bind path="id">
+																					<!-- 	<spring:bind path="id">
 																							<form:input type="hidden" class="form-control"
 																								path="id" value="${pemohon.id}"></form:input>
-																						</spring:bind>
+																						</spring:bind> -->
 																						<spring:bind path="namaPelulus">
 																							<form:input type="hidden" class="form-control"
 																								path="namaPelulus"
@@ -675,7 +703,7 @@
 																				<!-- /.box-body -->
 																				<div class="box-footer">
 																					<button type="submit"
-																						class="btn btn-info pull-right">Hantar</button>
+																						class="btn btn-info pull-right">Batal</button>
 																				</div>
 																				<!-- /.box-footer -->
 																			</form:form>
@@ -776,6 +804,87 @@
 				src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 			<script
 				src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+	$(function () {
+
+      // Get the form fields and hidden div
+      var checkbox = $("#wakil");
+      var hidden = $("#hidden");
+
+
+  // Hide the fields.
+  // Use JS to do this in case the user doesn't have JS 
+  // enabled.
+  hidden.hide();
+  
+  // Setup an event listener for when the state of the 
+  // checkbox changes.
+  checkbox.change(function() {
+    // Check to see if the checkbox is checked.
+    // If it is, show the fields and populate the input.
+    // If not, hide the fields.
+    if (checkbox.is(':checked')) {
+      // Show the hidden fields.
+      hidden.show();
+      // Populate the input.
+  } else {
+      // Make sure that the hidden fields are indeed
+      // hidden.
+      hidden.hide();
+      
+      // You may also want to clear the value of the 
+      // hidden fields here. Just in case somebody 
+      // shows the fields, enters data to them and then 
+      // unticks the checkbox.
+      //
+      // This would do the job:
+      //
+      // $("#hidden_field").val("");
+  }
+});
+  $('#example1').DataTable({
+  	'paging'      : true,
+  	'lengthChange': false,
+  	'searching'   : false,
+  	'ordering'    : true,
+  	'info'        : true,
+  	'autoWidth'   : false
+  })
+  $('#example2').DataTable({
+  	'paging'      : true,
+  	'lengthChange': false,
+  	'searching'   : false,
+  	'ordering'    : true,
+  	'info'        : true,
+  	'autoWidth'   : false
+  })
+})
+</script>
+<script>
+var pembangunanHidden = document.getElementById('pembangunanHidden');
+pembangunanHidden.style.display = "none";
+
+var bomHidden = document.getElementById('bomHidden');
+bomHidden.style.display = "none";
+
+var muatNaikHidden = document.getElementById('muatNaikHidden');
+muatNaikHidden.style.display = "none";
+
+function show(){
+	var peruntukanId = document.getElementById('peruntukanId').value;
+	
+	if(peruntukanId == 'Pembangunan'){
+		pembangunanHidden.style.display = "inline";
+		bomHidden.style.display = "inline";
+		muatNaikHidden.style.display = "inline";
+	}else if(peruntukanId == "Operasi"){
+		pembangunanHidden.style.display = "none";
+		bomHidden.style.display = "none";
+		muatNaikHidden.style.display = "none";
+		}
+}
+
+</script>
 	</c:if>
 </body>
 </html>

@@ -38,7 +38,7 @@ public class PembelianController {
 		model.addAttribute("kemaskiniPermohon", new Permohonan());
 		model.addAttribute("updatePembelian", new Pembelian());
 		
-		return "redirect:/welcome";
+		return "redirect:/pembelian";
 	}
 
 	

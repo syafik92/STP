@@ -114,10 +114,10 @@
 
 														<button type="button" class="btn btn-info "
 															data-toggle="modal"
-															data-target="#modal-lulus${pemohon.id}">Pembelian</button>
+															data-target="#modal-pengesahan${pemohon.id}">Pengesahan</button>
 
-
-														<div class="modal fade" id="modal-lulus${pemohon.id}">
+														<div class="modal fade"
+															id="modal-pengesahan${pemohon.id}">
 															<div class="modal-dialog modal-lg">
 																<div class="modal-content">
 																	<div class="modal-header">
@@ -125,12 +125,12 @@
 																			data-dismiss="modal" aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
-																		<h4 class="modal-title">Pembelian</h4>
+																		<h4 class="modal-title">Pengesahan</h4>
 																	</div>
 																	<div class="modal-body">
 																		<form:form method="POST"
-																			modelAttribute="kemaskiniPermohon"
-																			action="${contextPath}/updateStatusLulus"
+																			modelAttribute="kemaskiniPengesahan"
+																			action="${contextPath}/updateStatusPengesahan"
 																			class="form-horizontal">
 																			<div class="box-body">
 																				<div class="form-group">
@@ -269,88 +269,30 @@
 																						</div>
 																					</div>
 																				</div>
-																		</form:form>
-																		<form:form method="POST"
-																			modelAttribute="updatePembelian"
-																			action="${contextPath}/updatePembelianForm"
-																			class="form-horizontal">
-
-																			<div class="form-group">
-																				<label for="inputPassword3"
-																					class="col-sm-2 control-label">Cara Beli</label>
-																				<div class="col-sm-6">
-																					<spring:bind path="caraBeli">
-																						<form:select path="caraBeli" class="form-control"
-																							id="caraBeliId" onchange="showCaraBeli()">
-																							<option></option>
-																							<option value="KadKredit">Kad Kredit</option>
-																							<option value="Waran">Waran</option>
-																						</form:select>
-																					</spring:bind>
-																				</div>
-																			</div>
-																			<div class="form-group">
-																				<label for="inputEmail3"
-																					class="col-sm-2 control-label">Harga Tiket</label>
-																				<div class="col-sm-6">
-																					<spring:bind path="hargaTiket">
-																						<form:input type="text" class="form-control"
-																							path="hargaTiket" placeholder="Harga Tiket"></form:input>
-																					</spring:bind>
-																				</div>
-																			</div>
-																			<div class="form-group">
-																				<div id="waranHidden">
+																				<div class="form-group">
 																					<label for="inputPassword3"
-																						class="col-sm-2 control-label">Waran</label>
-																					<div class="col-sm-6">
-																						<spring:bind path="waran">
-																							<form:select path="waran" class="form-control">
-																								<option></option>
-																								<option>Kad Kredit</option>
-																								<option>Waran</option>
-																							</form:select>
-																						</spring:bind>
-																					</div>
-																				</div>
-																			</div>
-																			<div class="form-group">
-																				<div id="hargaPenguranganHidden">
-																					<label for="inputEmail3"
-																						class="col-sm-2 control-label">Harga
-																						Pengurangan</label>
+																						class="col-sm-2 control-label">Alasan</label>
 
 																					<div class="col-sm-6">
-																						<spring:bind path="hargaPengurangan">
+																						<spring:bind path="alasan">
 																							<form:input type="text" class="form-control"
-																								path="hargaPengurangan"
-																								placeholder="Harga Pengurangan"></form:input>
+																								id="pengesahan" path="alasan"></form:input>
 																						</spring:bind>
 																					</div>
 																				</div>
 																			</div>
-																			<div class="form-group">
-																				<label for="exampleInputFile"
-																					class="col-sm-2 control-label">Muatnaik
-																					Tiket</label>
-																				<div class="col-sm-6">
-																					<spring:bind path="muatNaikTiket">
-																						<form:input type="file" class="form-control"
-																							path="muatNaikTiket"></form:input>
-																					</spring:bind>
-																				</div>
+																			<!-- /.box-body -->
+																			<div class="box-footer">
+																				<button type="submit"
+																					class="btn btn-info pull-right">Hantar</button>
 																			</div>
+																		</form:form>
+																		<!-- /.box-footer -->
 																	</div>
-																	<!-- /.box-body -->
-																	<div class="box-footer">
-																		<button type="submit" class="btn btn-info pull-right">Hantar</button>
-																	</div>
-																	</form:form>
-																	<!-- /.box-footer -->
 																</div>
+																<!-- /.modal-content -->
 															</div>
-															<!-- /.modal-content -->
-														</div> <!-- /.modal-dialog -->
+															<!-- /.modal-dialog -->
 														</div></td>
 												</tr>
 											</c:forEach>
@@ -396,26 +338,6 @@
 			src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 		<script
 			src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-		<script>
-			var waranHidden = document.getElementById('waranHidden');
-			waranHidden.style.display = "none";
-
-			var hargaPenguranganHidden = document
-					.getElementById('hargaPenguranganHidden');
-			hargaPenguranganHidden.style.display = "none";
-
-			function showCaraBeli() {
-				var caraBeliId = document.getElementById('caraBeliId').value;
-
-				if (caraBeliId == 'Waran') {
-					waranHidden.style.display = "inline";
-					hargaPenguranganHidden.style.display = "inline";
-				} else if (caraBeliId == "KadKredit") {
-					waranHidden.style.display = "none";
-					hargaPenguranganHidden.style.display = "none";
-				}
-			}
-		</script>
 	</c:if>
 </body>
 </html>
