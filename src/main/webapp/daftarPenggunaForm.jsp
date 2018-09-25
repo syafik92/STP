@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -106,7 +105,9 @@
 								<form:select path="Jawatan" class="form-control">
 									<option></option>
 									<option>Pegawai</option>
-									<option>Staf</option>
+									<option>Ketua Pegawai</option>
+									<option>Pentadbir</option>
+									<option>Pengarah</option>
 								</form:select>
 							</div>
 							<label class="col-sm-2 control-label">Status</label>
@@ -121,18 +122,13 @@
 						</div>
 					</div>
 				</div>
-		</div>
-
-		<!-- /.box-body -->
+					<!-- /.box-body -->
 		<div class="box-footer">
 			<button type="submit" class="btn btn-info pull-right">Daftar</button>
 		</div>
 		</form:form>
-
+		</div>
 		<!-- /.box-footer -->
 	</div>
 </div>
 <!-- /.modal-content -->
-</div>
-<!-- /.modal-dialog -->
-</div>

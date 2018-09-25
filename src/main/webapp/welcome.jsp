@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -107,17 +106,27 @@
 													<td>${pemohon.tujuan}</td>
 													<td>${pemohon.tempatBertugas}</td>
 													<td>${pemohon.peruntukan}</td>
-													<td>${pemohon.jenisPesawat}</td>
+													<td></td>
 													<td>${pemohon.statusPermohonan}</td>
-													<td><spring:url value="/updateStatus?id=${pemohon.id}"
-															var="updateStatus" />
+													<td width="15%"><spring:url
+															value="/updateStatus?id=${pemohon.id}" var="updateStatus" />
 
-														<button type="button" class="btn btn-info "
-															data-toggle="modal"
-															data-target="#modal-lulus${pemohon.id}">Lulus</button>
-														<button type="button" class="btn btn-danger "
-															data-toggle="modal"
-															data-target="#modal-tolak${pemohon.id}">Tolak</button>
+														<c:if test="${pemohon.statusPermohonan == 'Baru'}">
+															<button type="button" class="btn btn-info "
+																data-toggle="modal"
+																data-target="#modal-lulus${pemohon.id}">Lulus</button>
+															<button type="button" class="btn btn-danger "
+																data-toggle="modal"
+																data-target="#modal-tolak${pemohon.id}">Tolak</button>
+														</c:if> <c:if test="${pemohon.statusPermohonan == 'Proses'}">
+															<button type="button" class="btn btn-danger "
+																data-toggle="modal"
+																data-target="#modal-tolak${pemohon.id}">Tolak</button>
+														</c:if> <c:if test="${pemohon.statusPermohonan == 'Tolak'}">
+															<button type="button" class="btn btn-info "
+																data-toggle="modal"
+																data-target="#modal-lulus${pemohon.id}">Lulus</button>
+														</c:if>
 
 														<div class="modal fade" id="modal-lulus${pemohon.id}">
 															<div class="modal-dialog modal-lg">
@@ -173,11 +182,11 @@
 																						<form:input type="hidden" class="form-control"
 																							path="pembangunan" value="${pemohon.pembangunan}"></form:input>
 																					</spring:bind>
-																					<spring:bind path="jenisPesawat">
+																					<%-- <spring:bind path="jenisPesawat">
 																						<form:input type="hidden" class="form-control"
 																							path="jenisPesawat"
 																							value="${pemohon.jenisPesawat}"></form:input>
-																					</spring:bind>
+																					</spring:bind> --%>
 																					<spring:bind path="noBilBom">
 																						<form:input type="hidden" class="form-control"
 																							path="noBilBom" value="${pemohon.noBilBom}"></form:input>
@@ -210,7 +219,8 @@
 																					<div class="col-sm-6">
 																						<spring:bind path="tarikhMohon">
 																							<form:input type="date" class="form-control"
-																								id="tarikhMohon" path="tarikhMohon" value="${pemohon.tarikhMohon}"></form:input>
+																								id="tarikhMohon" path="tarikhMohon"
+																								value="${pemohon.tarikhMohon}"></form:input>
 																						</spring:bind>
 																					</div>
 																				</div>
@@ -223,7 +233,8 @@
 																					<div class="col-sm-6">
 																						<spring:bind path="bahagian">
 																							<form:input type="text" class="form-control"
-																								id="bahagian" path="bahagian" value="${pemohon.bahagian}"></form:input>
+																								id="bahagian" path="bahagian"
+																								value="${pemohon.bahagian}"></form:input>
 																						</spring:bind>
 																					</div>
 																				</div>
@@ -234,41 +245,88 @@
 																					<div class="col-sm-6">
 																						<spring:bind path="tempatBertugas">
 																							<form:input type="text" class="form-control"
-																								id="tempatBertugas" path="tempatBertugas" value="${pemohon.tempatBertugas}"></form:input>
+																								id="tempatBertugas" path="tempatBertugas"
+																								value="${pemohon.tempatBertugas}"></form:input>
 																						</spring:bind>
 																					</div>
 																				</div>
+																				<table class="table table-bordered table-hover"  id="tableKelulusan">
+																					<thead>
+																						<tr>
+																							<th>Penerbangan</th>
+																							<td>Tarikh Pergi</td>
+																							<th>Waktu Berlepas</th>
+																							<th>Waktu Tiba</th>
+																							<th>No Pesawat</th>
+																							<th>Dari Lokasi</th>
+																							<th>Destinasi</th>
+																						</tr>
+																					</thead>
+																					<tbody>
+																						<%
+																							int i = 1;
+																						%>
+																						<c:forEach var="Penerbangan"
+																							items="${listPenerbangan}">
+																							<tr>
+																								<td><%=i%></td>
+																								<td><spring:bind path="penerbangan">
+																										<form:input type="text" class="form-control"
+																											path="penerbangan"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="tarikhPergi">
+																										<form:input type="text" class="form-control"
+																											path="tarikhPergi"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="waktuBerlepas">
+																										<form:input type="text" class="form-control"
+																											path="waktuBerlepas"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="waktuTiba">
+																										<form:input type="text" class="form-control"
+																											path="waktuTiba"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="noPesawat">
+																										<form:input type="text" class="form-control"
+																											path="noPesawat"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="dariLokasi">
+																										<form:input type="text" class="form-control"
+																											path="dariLokasi"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="destinasi">
+																										<form:input type="text" class="form-control"
+																											path="destinasi"></form:input>
+																									</spring:bind></td>
+																								<td><button type="button" id="tambah"
+																										class="btn btn-info pull-right">Tambah</button></td>
+																								<!--  <td><input type="text" class="form-control"
+																		id="bom"></td>
+																	<td><input type="text" class="form-control"
+																		id="bom"></td>
+																	<td><input type="text" class="form-control"
+																		id="bom"></td>
+																	<td><input type="text" class="form-control"
+																		id="bom"></td>-->
+																							</tr>
+																							<%
+																								i++;
+																							%>
+																						</c:forEach>
+																					</tbody>
+																				</table>
 																				<div class="form-group">
-																					<label for="inputPassword3"
-																						class="col-sm-2 control-label">Tarikh
-																						Pergi</label>
+																					<label for="inputEmail3"
+																						class="col-sm-2 control-label">Bom</label>
 
-																					<div class="col-sm-8">
-																						<div class="col-sm-4">
-																							<spring:bind path="tarikhMula">
-																								<form:input type="date" class="form-control"
-																									id="tarikhMula" path="tarikhMula" value="${pemohon.tarikhMula}"></form:input>
-																							</spring:bind>
-																						</div>
+																					<div class="col-sm-6">
+																						<input type="text" class="form-control" id="nama"
+																							placeholder="Contoh.docx">
 																					</div>
 																				</div>
 																				<div class="form-group">
 																					<label for="inputPassword3"
-																						class="col-sm-2 control-label">Tarikh
-																						Balik</label>
-
-																					<div class="col-sm-8">
-																						<div class="col-sm-4">
-																							<spring:bind path="tarikhTamat">
-																								<form:input type="date" class="form-control"
-																									id="tarikhTamat" path="tarikhTamat" value="${pemohon.tarikhTamat}"></form:input>
-																							</spring:bind>
-																						</div>
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label for="inputPassword3"
-																						class="col-sm-2 control-label">Alasan</label>
+																						class="col-sm-2 control-label">Catatan</label>
 
 																					<div class="col-sm-6">
 																						<spring:bind path="alasan">
@@ -281,7 +339,7 @@
 																			<!-- /.box-body -->
 																			<div class="box-footer">
 																				<button type="submit"
-																					class="btn btn-info pull-right">Hantar</button>
+																					class="btn btn-info pull-right">Lulus</button>
 																			</div>
 																			<!-- /.box-footer -->
 																		</form:form>
@@ -346,11 +404,11 @@
 																						<form:input type="hidden" class="form-control"
 																							path="pembangunan" value="${pemohon.pembangunan}"></form:input>
 																					</spring:bind>
-																					<spring:bind path="jenisPesawat">
+																					<%-- <spring:bind path="jenisPesawat">
 																						<form:input type="hidden" class="form-control"
 																							path="jenisPesawat"
 																							value="${pemohon.jenisPesawat}"></form:input>
-																					</spring:bind>
+																					</spring:bind> --%>
 																					<spring:bind path="noBilBom">
 																						<form:input type="hidden" class="form-control"
 																							path="noBilBom" value="${pemohon.noBilBom}"></form:input>
@@ -413,36 +471,73 @@
 																						</spring:bind>
 																					</div>
 																				</div>
+																				<table class="table table-bordered table-hover" id="tableTolak">
+																					<thead>
+																						<tr>
+																							<th>Penerbangan</th>
+																							<td>Tarikh Pergi</td>
+																							<th>Waktu Berlepas</th>
+																							<th>Waktu Tiba</th>
+																							<th>No Pesawat</th>
+																							<th>Dari Lokasi</th>
+																							<th>Destinasi</th>
+																						</tr>
+																					</thead>
+																					<tbody>
+																						<%
+																							int x = 1;
+																						%>
+																						<c:forEach var="Penerbangan"
+																							items="${listPenerbangan}">
+																							<tr>
+																								<td><%=x%></td>
+																								<td><spring:bind path="penerbangan">
+																										<form:input type="text" class="form-control"
+																											path="penerbangan"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="tarikhPergi">
+																										<form:input type="text" class="form-control"
+																											path="tarikhPergi"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="waktuBerlepas">
+																										<form:input type="text" class="form-control"
+																											path="waktuBerlepas"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="waktuTiba">
+																										<form:input type="text" class="form-control"
+																											path="waktuTiba"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="noPesawat">
+																										<form:input type="text" class="form-control"
+																											path="noPesawat"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="dariLokasi">
+																										<form:input type="text" class="form-control"
+																											path="dariLokasi"></form:input>
+																									</spring:bind></td>
+																								<td><spring:bind path="destinasi">
+																										<form:input type="text" class="form-control"
+																											path="destinasi"></form:input>
+																									</spring:bind></td>
+																								<td><button type="button" id="tambah"
+																										class="btn btn-info pull-right">Tambah</button></td>
+																								<!--  <td><input type="text" class="form-control"
+																		id="bom"></td>
+																	<td><input type="text" class="form-control"
+																		id="bom"></td>
+																	<td><input type="text" class="form-control"
+																		id="bom"></td>
+																	<td><input type="text" class="form-control"
+																		id="bom"></td>-->
+																							</tr>
+																							<%
+																								x++;
+																							%>
+																						</c:forEach>
+																					</tbody>
+																				</table>
 																				<div class="form-group">
-																					<label class="col-sm-2 control-label">Tarikh
-																						Pergi </label>
-
-																					<div class="col-sm-8">
-																						<div class="col-sm-4">
-																							<spring:bind path="tarikhMula">
-																								<form:input type="date" class="form-control"
-																									id="kp" path="tarikhMula"
-																									value="${pemohon.tarikhMula}"></form:input>
-																							</spring:bind>
-																						</div>
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label class="col-sm-2 control-label">Tarikh
-																						Balik </label>
-
-																					<div class="col-sm-8">
-																						<div class="col-sm-4">
-																							<spring:bind path="tarikhTamat">
-																								<form:input type="date" class="form-control"
-																									id="kp" path="tarikhTamat"
-																									value="${pemohon.tarikhTamat}"></form:input>
-																							</spring:bind>
-																						</div>
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label class="col-sm-2 control-label">Alasan</label>
+																					<label class="col-sm-2 control-label">Catatan</label>
 
 																					<div class="col-sm-6">
 																						<spring:bind path="alasan">
@@ -455,7 +550,7 @@
 																			<!-- /.box-body -->
 																			<div class="box-footer">
 																				<button type="submit"
-																					class="btn btn-info pull-right">Hantar</button>
+																					class="btn btn-info pull-right">Tolak</button>
 																			</div>
 																			<!-- /.box-footer -->
 																		</form:form>
@@ -508,6 +603,24 @@
 			src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 		<script
 			src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+			<script>
+			$('#tableKelulusan').DataTable({
+				'paging' : true,
+				'lengthChange' : false,
+				'searching' : false,
+				'ordering' : true,
+				'info' : true,
+				'autoWidth' : false
+			})
+			$('#tableTolak').DataTable({
+				'paging' : true,
+				'lengthChange' : false,
+				'searching' : false,
+				'ordering' : true,
+				'info' : true,
+				'autoWidth' : false
+			})
+			</script>
 	</c:if>
 </body>
 </html>

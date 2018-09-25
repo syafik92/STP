@@ -156,7 +156,7 @@
 						<div class="modal-body">Adakah anda pasti untuk menghapuskan maklumat pengguna ini ?</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Close</button>
+								data-dismiss="modal">Tidak</button>
 							<button type="submit"class="btn btn-danger  pull-right">Padam</button>
 						</div>
 					</div>

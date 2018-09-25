@@ -1,9 +1,28 @@
 package com.stp.auth.model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import org.springframework.context.annotation.Scope;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Scope("session")
 @Table(name = "user")
 public class User {
 	private Long id;
@@ -18,10 +37,14 @@ public class User {
 	private String username;
 	private String password;
 	private String passwordConfirm;
+	private String jawatan;
 	private Set<Role> roles;
 
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	private Set<Permohonan> permohonan = new HashSet<>();
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
@@ -128,6 +151,13 @@ public class User {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
+	public String getJawatan() {
+		return jawatan;
+	}
+
+	public void setJawatan(String jawatan) {
+		this.jawatan = jawatan;
+	}
 	
 }

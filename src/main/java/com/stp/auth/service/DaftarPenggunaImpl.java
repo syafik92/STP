@@ -24,7 +24,7 @@ public class DaftarPenggunaImpl implements DaftarPenggunaService {
 	@Override
 	public void save(Pengguna pengguna) {
 		pengguna.setPassword(bCryptPasswordEncoder.encode(pengguna.getPassword()));
-		pengguna.setRoles(new HashSet<>(roleRepository.findAll()));
+//		pengguna.setRoles(new HashSet<>(roleRepository.findAll()));
 		daftarPenggunaRepo.save(pengguna);
 		
 	}

@@ -107,15 +107,18 @@
 													<td>${pemohon.tujuan}</td>
 													<td>${pemohon.tempatBertugas}</td>
 													<td>${pemohon.peruntukan}</td>
-													<td>${pemohon.jenisPesawat}</td>
+													<td></td>
 													<td>${pemohon.statusPermohonan}</td>
 													<td><spring:url value="/updateStatus?id=${pemohon.id}"
-															var="updateStatus" />
-
-														<button type="button" class="btn btn-info "
+															var="updateStatus" /> 
+															
+														<c:if
+															test="${pemohon.statusPermohonan == 'Lulus'}">
+															<button type="button" class="btn btn-info "
 															data-toggle="modal"
 															data-target="#modal-lulus${pemohon.id}">Pembelian</button>
-
+														</c:if>
+														
 
 														<div class="modal fade" id="modal-lulus${pemohon.id}">
 															<div class="modal-dialog modal-lg">
@@ -171,11 +174,11 @@
 																						<form:input type="hidden" class="form-control"
 																							path="pembangunan" value="${pemohon.pembangunan}"></form:input>
 																					</spring:bind>
-																					<spring:bind path="jenisPesawat">
+																					<%-- <spring:bind path="jenisPesawat">
 																						<form:input type="hidden" class="form-control"
 																							path="jenisPesawat"
 																							value="${pemohon.jenisPesawat}"></form:input>
-																					</spring:bind>
+																					</spring:bind> --%>
 																					<spring:bind path="noBilBom">
 																						<form:input type="hidden" class="form-control"
 																							path="noBilBom" value="${pemohon.noBilBom}"></form:input>
@@ -294,8 +297,9 @@
 																					class="col-sm-2 control-label">Harga Tiket</label>
 																				<div class="col-sm-6">
 																					<spring:bind path="hargaTiket">
-																						<form:input type="text" class="form-control"
-																							path="hargaTiket" placeholder="Harga Tiket"></form:input>
+																						<form:input id="hargaTiket" type="text"
+																							class="form-control" path="hargaTiket"
+																							placeholder="Harga Tiket"></form:input>
 																					</spring:bind>
 																				</div>
 																			</div>
@@ -305,12 +309,20 @@
 																						class="col-sm-2 control-label">Waran</label>
 																					<div class="col-sm-6">
 																						<spring:bind path="waran">
-																							<form:select path="waran" class="form-control">
-																								<option></option>
-																								<option>Kad Kredit</option>
-																								<option>Waran</option>
-																							</form:select>
+																							<form:input id="hargaWaran" type="text"
+																								class="form-control" path="waran"
+																								placeholder="Harga Waran"></form:input>
 																						</spring:bind>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="form-group"></div>
+																			<div class="form-group">
+																				<div id="hargaPenguranganHidden">
+																					<div class="col-sm-6">
+																						<button type="button" id="buttonHarga"
+																							onClick="calculate()"
+																							class="btn btn-info pull-right">Hantar</button>
 																					</div>
 																				</div>
 																			</div>
@@ -323,12 +335,22 @@
 																					<div class="col-sm-6">
 																						<spring:bind path="hargaPengurangan">
 																							<form:input type="text" class="form-control"
-																								path="hargaPengurangan"
+																								id="hargaKurang" path="hargaPengurangan"
 																								placeholder="Harga Pengurangan"></form:input>
 																						</spring:bind>
 																					</div>
 																				</div>
 																			</div>
+
+																			<spring:bind path="permohonan.id">
+																				<form:hidden class="form-control"
+																					path="permohonan.id" value="5"></form:hidden>
+																			</spring:bind>
+
+																			<spring:bind path="permohonan.statusPermohonan">
+																				<form:hidden class="form-control"
+																					path="permohonan.statusPermohonan" value="Selesai"></form:hidden>
+																			</spring:bind>
 																			<div class="form-group">
 																				<label for="exampleInputFile"
 																					class="col-sm-2 control-label">Muatnaik
@@ -350,8 +372,8 @@
 																</div>
 															</div>
 															<!-- /.modal-content -->
-														</div> <!-- /.modal-dialog -->
-														</div></td>
+														</div> <!-- /.modal-dialog --></td>
+
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -414,6 +436,13 @@
 					waranHidden.style.display = "none";
 					hargaPenguranganHidden.style.display = "none";
 				}
+			}
+		</script>
+		<script>
+			function calculate() {
+				num1 = document.getElementById("hargaTiket").value;
+				num2 = document.getElementById("hargaWaran").value;
+				document.getElementById("hargaKurang").innerHTML = num1 * num2;
 			}
 		</script>
 	</c:if>

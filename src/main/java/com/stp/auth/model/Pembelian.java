@@ -1,23 +1,44 @@
 package com.stp.auth.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "pembelian")
 public class Pembelian {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String caraBeli;
 	private String hargaTiket;
 	private String waran;
 	private String hargaPengurangan;
 	private String muatNaikTiket;
+	private String alasan;
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "permohonan_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Permohonan permohonan;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Permohonan getPermohonan() {
+		return permohonan;
+	}
+
+	public void setPermohonan(Permohonan permohonan) {
+		this.permohonan = permohonan;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -64,6 +85,14 @@ public class Pembelian {
 
 	public void setMuatNaikTiket(String muatNaikTiket) {
 		this.muatNaikTiket = muatNaikTiket;
+	}
+
+	public String getAlasan() {
+		return alasan;
+	}
+
+	public void setAlasan(String alasan) {
+		this.alasan = alasan;
 	}
 	
 	

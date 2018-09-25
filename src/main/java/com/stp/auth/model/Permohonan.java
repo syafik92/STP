@@ -1,14 +1,30 @@
 package com.stp.auth.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "permohonan")
 public class Permohonan {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Long kp;
 
@@ -16,6 +32,7 @@ public class Permohonan {
 
 //	private Pengguna pengguna;
 	private String noBilBom;
+	private String muatNaikBom;
 	private String nama;
 	private String namaPelulus;
 	private String namaPemohon;
@@ -23,7 +40,6 @@ public class Permohonan {
 	private String emel;
 	private String noTelefonBimbit;
 	private String pembangunan;
-	private String jenisPesawat;
 	private String kelulusan;
 	private String passport;
 	private String tujuan;
@@ -35,77 +51,132 @@ public class Permohonan {
 	private String alasan;
 	private String staffNo;
 	private String statusPermohonan;
-	private String penerbangan;
-	private String tarikhPergi;
-	private String waktuBerlepas;
-	private String waktuTiba;
-	private String noPesawat;
-	private String dariLokasi;
-	private String destinasi;
-	private String bilangan;
-	private String baranganDibawa;
-	private String jumlah;
-	private String anggaranBerat;
+//	private String penerbangan;
+//	private String tarikhPergi;
+//	private String waktuBerlepas;
+//	private String waktuTiba;
+//	private String noPesawat;
+//	private String dariLokasi;
+//	private String destinasi;
+//	private String bilangan;
+//	private String baranganDibawa;
+//	private String jumlah;
+//	private String anggaranBerat;
+	private String catatan;
+//	private String total;
 	
+	@OneToMany(mappedBy="permohonan", cascade = CascadeType.ALL)
+	private Set<Penerbangan> penerbangan = new HashSet<>();
 	
-	public String getPenerbangan() {
-		return penerbangan;
+	@OneToMany(mappedBy="permohonan", cascade = CascadeType.ALL)
+	private Set<Barangan> barangan = new HashSet<>();
+	
+	@OneToMany(mappedBy="permohonan", cascade = CascadeType.ALL)
+	private Set<Pembelian> pembelian = new HashSet<>();
+	
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+//	@JoinColumn(name = "userid", nullable = false)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	private User user;
+	
+//	public String getPenerbangan() {
+//		return penerbangan;
+//	}
+//
+//	public void setPenerbangan(String penerbangan) {
+//		this.penerbangan = penerbangan;
+//	}
+//
+//	public String getTarikhPergi() {
+//		return tarikhPergi;
+//	}
+//
+//	public void setTarikhPergi(String tarikhPergi) {
+//		this.tarikhPergi = tarikhPergi;
+//	}
+//
+//	public String getWaktuBerlepas() {
+//		return waktuBerlepas;
+//	}
+//
+//	public void setWaktuBerlepas(String waktuBerlepas) {
+//		this.waktuBerlepas = waktuBerlepas;
+//	}
+//
+//	public String getWaktuTiba() {
+//		return waktuTiba;
+//	}
+//
+//	public void setWaktuTiba(String waktuTiba) {
+//		this.waktuTiba = waktuTiba;
+//	}
+//
+//	public String getNoPesawat() {
+//		return noPesawat;
+//	}
+//
+//	public void setNoPesawat(String noPesawat) {
+//		this.noPesawat = noPesawat;
+//	}
+//
+//	public String getDariLokasi() {
+//		return dariLokasi;
+//	}
+//
+//	public void setDariLokasi(String dariLokasi) {
+//		this.dariLokasi = dariLokasi;
+//	}
+//
+//	public String getDestinasi() {
+//		return destinasi;
+//	}
+//
+//	public void setDestinasi(String destinasi) {
+//		this.destinasi = destinasi;
+//	}
+
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
+
+//	public Pengguna getPengguna() {
+//		return pengguna;
+//	}
+//
+//	public void setPengguna(Pengguna pengguna) {
+//		this.pengguna = pengguna;
+//	}
+
+	public Set<Pembelian> getPembelian() {
+		return pembelian;
 	}
 
-	public void setPenerbangan(String penerbangan) {
-		this.penerbangan = penerbangan;
+	public void setPembelian(Set<Pembelian> pembelian) {
+		this.pembelian = pembelian;
 	}
 
-	public String getTarikhPergi() {
-		return tarikhPergi;
+	public Set<Barangan> getBarangan() {
+		return barangan;
 	}
 
-	public void setTarikhPergi(String tarikhPergi) {
-		this.tarikhPergi = tarikhPergi;
-	}
-
-	public String getWaktuBerlepas() {
-		return waktuBerlepas;
-	}
-
-	public void setWaktuBerlepas(String waktuBerlepas) {
-		this.waktuBerlepas = waktuBerlepas;
-	}
-
-	public String getWaktuTiba() {
-		return waktuTiba;
-	}
-
-	public void setWaktuTiba(String waktuTiba) {
-		this.waktuTiba = waktuTiba;
-	}
-
-	public String getNoPesawat() {
-		return noPesawat;
-	}
-
-	public void setNoPesawat(String noPesawat) {
-		this.noPesawat = noPesawat;
-	}
-
-	public String getDariLokasi() {
-		return dariLokasi;
-	}
-
-	public void setDariLokasi(String dariLokasi) {
-		this.dariLokasi = dariLokasi;
-	}
-
-	public String getDestinasi() {
-		return destinasi;
-	}
-
-	public void setDestinasi(String destinasi) {
-		this.destinasi = destinasi;
+	public void setBarangan(Set<Barangan> barangan) {
+		this.barangan = barangan;
 	}
 
 	public String getStaffNo() {
 		return staffNo;
+	}
+	
+	public Set<Penerbangan> getPenerbangan() {
+		return penerbangan;
+	}
+
+	public void setPenerbangan(Set<Penerbangan> penerbangan) {
+		this.penerbangan = penerbangan;
 	}
 
 	public void setStaffNo(String staffNo) {
@@ -128,8 +199,6 @@ public class Permohonan {
 		this.alasan = alasan;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -258,14 +327,6 @@ public class Permohonan {
 		this.pembangunan = pembangunan;
 	}
 
-	public String getJenisPesawat() {
-		return jenisPesawat;
-	}
-
-	public void setJenisPesawat(String jenisPesawat) {
-		this.jenisPesawat = jenisPesawat;
-	}
-
 	public String getNoBilBom() {
 		return noBilBom;
 	}
@@ -290,37 +351,69 @@ public class Permohonan {
 		this.tempatBertugas = tempatBertugas;
 	}
 
-	public String getBilangan() {
-		return bilangan;
+//	public String getBilangan() {
+//		return bilangan;
+//	}
+//
+//	public void setBilangan(String bilangan) {
+//		this.bilangan = bilangan;
+//	}
+//
+//	public String getBaranganDibawa() {
+//		return baranganDibawa;
+//	}
+//
+//	public void setBaranganDibawa(String baranganDibawa) {
+//		this.baranganDibawa = baranganDibawa;
+//	}
+//
+//	public String getAnggaranBerat() {
+//		return anggaranBerat;
+//	}
+//
+//	public void setAnggaranBerat(String anggaranBerat) {
+//		this.anggaranBerat = anggaranBerat;
+//	}
+//
+//	public String getJumlah() {
+//		return jumlah;
+//	}
+//
+//	public void setJumlah(String jumlah) {
+//		this.jumlah = jumlah;
+//	}
+
+	public String getMuatNaikBom() {
+		return muatNaikBom;
 	}
 
-	public void setBilangan(String bilangan) {
-		this.bilangan = bilangan;
+	public void setMuatNaikBom(String muatNaikBom) {
+		this.muatNaikBom = muatNaikBom;
 	}
 
-	public String getBaranganDibawa() {
-		return baranganDibawa;
+	public String getCatatan() {
+		return catatan;
 	}
 
-	public void setBaranganDibawa(String baranganDibawa) {
-		this.baranganDibawa = baranganDibawa;
+	public void setCatatan(String catatan) {
+		this.catatan = catatan;
 	}
 
-	public String getAnggaranBerat() {
-		return anggaranBerat;
-	}
-
-	public void setAnggaranBerat(String anggaranBerat) {
-		this.anggaranBerat = anggaranBerat;
-	}
-
-	public String getJumlah() {
-		return jumlah;
-	}
-
-	public void setJumlah(String jumlah) {
-		this.jumlah = jumlah;
-	}
+//	public String getCatatan() {
+//		return catatan;
+//	}
+//
+//	public void setCatatan(String catatan) {
+//		this.catatan = catatan;
+//	}
+//
+//	public String getTotal() {
+//		return total;
+//	}
+//
+//	public void setTotal(String total) {
+//		this.total = total;
+//	}
 	
 //    @ManyToOne
 //    @JoinColumn(name = "staff_no")
