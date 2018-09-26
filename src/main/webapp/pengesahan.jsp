@@ -107,7 +107,7 @@
 													<td>${pemohon.tujuan}</td>
 													<td>${pemohon.tempatBertugas}</td>
 													<td>${pemohon.peruntukan}</td>
-													<td>${pemohon.jenisPesawat}</td>
+													<td></td>
 													<td>${pemohon.statusPermohonan}</td>
 													<td><spring:url value="/updateStatus?id=${pemohon.id}"
 															var="updateStatus" />
@@ -171,11 +171,11 @@
 																						<form:input type="hidden" class="form-control"
 																							path="pembangunan" value="${pemohon.pembangunan}"></form:input>
 																					</spring:bind>
-																					<spring:bind path="jenisPesawat">
+																					<%-- <spring:bind path="jenisPesawat">
 																						<form:input type="hidden" class="form-control"
 																							path="jenisPesawat"
 																							value="${pemohon.jenisPesawat}"></form:input>
-																					</spring:bind>
+																					</spring:bind> --%>
 																					<spring:bind path="noBilBom">
 																						<form:input type="hidden" class="form-control"
 																							path="noBilBom" value="${pemohon.noBilBom}"></form:input>

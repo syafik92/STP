@@ -1,8 +1,10 @@
 <header class="main-header">
 	<!-- Logo -->
-	<a href="welcome" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+	<a href="http://www.mpc.gov.my" target="_blank" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 		<span class="logo-mini"><b>STP</b></span> <!-- logo for regular state and mobile devices -->
-		<span class="logo-lg"><b>STP</b></span>
+		<span class="logo-lg"><img class="img.responsive"
+				src="${contextPath}/resources/img/mpc-header.png"
+				style="width: 100%;"></span>
 	</a>
 	<!-- Header Navbar: style can be found in header.less -->
 	<nav class="navbar navbar-static-top">

@@ -16,25 +16,29 @@
 
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </head>
 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+
+<jsp:include page="${contextPath}/template/header.jsp" />
 <body class="hold-transition skin-blue sidebar-mini fixed">
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-
-
-
-	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
-	<jsp:include page="${contextPath}/template/header.jsp" />
 	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<form id="logoutForm" method="POST" action="${contextPath}/logout">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
 		<div class="wrapper">
 
 			<jsp:include page="${contextPath}/template/mainHeader.jsp" />
 			<!-- Left side column. contains the logo and sidebar -->
-			<jsp:include page="${contextPath}/template/adminMainSideBar.jsp" />
+			<jsp:include page="${contextPath}/template/mainSideBar.jsp" />
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
 
@@ -48,7 +52,7 @@
 							<!-- /.box-header -->
 							<div class="box-body">
 
-								<form:form method="POST" modelAttribute="daftarPenggunaForm"
+								<form:form method="POST" modelAttribute="permohonanForm"
 									class="form-horizontal">
 
 								</form:form>
@@ -66,32 +70,33 @@
 								<section class="content-header">
 									<div class="row">
 										<div class="col-xs-2">
-											<label>No Staff</label>
+											<label>Tarikh Permohonan</label>
 										</div>
 										<div class="col-xs-2">
-											<label>Nama</label>
+											<label>Tarikh Penerbangan</label>
 										</div>
-
+										<div class="col-xs-2">
+											<label>Tarikh Mula Bertugas</label>
+										</div>
 									</div>
 
 									<div class="row">
 										<div class="col-xs-2">
-											<input type="text" class="form-control" id="unit1">
+											<input type="date" class="form-control" id="unit1">
 										</div>
 										<div class="col-xs-2">
-											<input type="text" class="form-control" id="unit2">
+											<input type="date" class="form-control" id="unit2">
 										</div>
-
+										<div class="col-xs-2">
+											<input type="date" class="form-control" id="unit3">
+										</div>
 										<div class="col-xs-2">
 											<button type="button" class="btn btn-info form-control">Carian</button>
 										</div>
-
 										<div class="col-xs-2">
-											<button type="button" class="btn btn-info form-control "
-												data-toggle="modal" data-target="#modal-penggunaForm">
-												<b>+</b>
-											</button>
-
+											<button type="button" class="btn btn-info form-control"
+												data-toggle="modal" data-target="#modal-permohonan"
+												id="permohonanBaru">Permohonan</button>
 										</div>
 									</div>
 								</section>
@@ -99,49 +104,58 @@
 								<table id="example1" class="table table-bordered table-hover">
 									<thead>
 										<tr>
-											<th>Bil</th>
-											<th>Nombor Staf</th>
-											<th>Nama Staf</th>
-											<th>Nama Pengguna</th>
+											<th>Tarikh Permohonan</th>
+											<th>Tarikh Penerbangan</th>
+											<th>Nama Pemohon</th>
+											<td>Tujuan</td>
+											<th>Tempat Bertugas</th>
+											<th>Peruntukan</th>
+											<th>Jenis Pesawat</th>
 											<th>Status</th>
-											<th>Action</th>
+											<th>Tindakan</th>
 										</tr>
 									</thead>
 									<%
 										int i = 1;
 									%>
-									<c:forEach var="user" items="${listPengguna}">
+									<c:forEach var="pemohon" items="${welcome}">
 										<tr>
-											<td><%=i%></td>
-											<td>${user.staffNo}</td>
-											<td>${user.namaStaff}</td>
-											<td>${user.username}</td>
-											<td>${user.status}</td>
+											<td>${pemohon.tarikhMohon}</td>
+											<td>${pemohon.tarikhMula}</td>
+											<td>${pemohon.nama}</td>
+											<td>${pemohon.tujuan}</td>
+											<td>${pemohon.tempatBertugas}</td>
+											<td>${pemohon.peruntukan}</td>
+											<td></td>
+											<td>${pemohon.statusPermohonan}</td>
 											<td><spring:url
-													value="/admin/lihatPengguna?id=${user.id}" var="userUrl" />
-												<spring:url value="/admin/padamPengguna?id=${user.id}"
-													var="deleteUrl" /> <spring:url
-													value="/admin/kemaskiniPengguna?id=${user.id}"
-													var="updateUrl" />
+													value="/hapusPermohonan?id=${pemohon.id}" var="deleteUrl" />
+												<spring:url value="/permohonanOpen?id=${pemohon.id}"
+													var="updateUrl" /> <spring:url
+													value="/batalPermohonan?id=${pemohon.id}" var="batalUrl" />
 
-												<button class="btn btn-info"
-													onclick="location.href='${userUrl}'">Lihat</button>
-												<button class="btn btn-primary"
-													onclick="location.href='${updateUrl}'">Kemaskini</button>
-												<button class="btn btn-danger"
-													onclick="location.href='${deleteUrl}'">Padam</button></td>
+												<c:if test="${pemohon.statusPermohonan == 'Baru'}">
+													<button id="btnHapus" class="btn btn-warning"
+														onclick="location.href='${deleteUrl}'">Hapus</button>
+												</c:if> <c:if test="${pemohon.statusPermohonan == 'Tiket Terbuka'}">
+													<button id="btnPermohonanSemula" class="btn btn-primary"
+														onclick="location.href='${updateUrl}'">Permohonan
+														Semula</button>
+												</c:if> <c:if test="${pemohon.statusPermohonan == 'Proses'}">
+													<button id="btnBatal" class="btn btn-danger"
+														onclick="location.href='${batalUrl}'">Batal</button>
+												</c:if>
 										</tr>
 										<%
 											i++;
 										%>
 									</c:forEach>
 								</table>
-								<!-- Add daftar pengguna  	-->
-								<jsp:include page="${contextPath}/daftarPenggunaForm.jsp" />
-								<jsp:include page="${contextPath}/editPenggunaForm.jsp" />
-								<jsp:include page="${contextPath}/lihatPenggunaForm.jsp" />
-								<jsp:include page="${contextPath}/padamPenggunaForm.jsp" />
-
+								<!-- Add permohonan  -->
+								<jsp:include page="${contextPath}/permohonanBaru.jsp" />
+								<jsp:include page="${contextPath}/permohonanHapus.jsp" />
+								<jsp:include page="${contextPath}/permohonanOpenTiket.jsp" />
+								<jsp:include page="${contextPath}/permohonanBatal.jsp" />
 							</div>
 						</div>
 					</div>
@@ -171,6 +185,16 @@
 			src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 		<script
 			src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+		<script>
+			$('#example1').DataTable({
+				'paging' : true,
+				'lengthChange' : false,
+				'searching' : false,
+				'ordering' : true,
+				'info' : true,
+				'autoWidth' : false
+			})
+		</script>
 	</c:if>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.stp.auth.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +20,9 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "user")
 public class Pengguna {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String staffNo;
 	private String namaStaff;
@@ -32,11 +36,8 @@ public class Pengguna {
 	private String password;
 	private String passwordConfirm;
 	private String jawatan;
-	private Set<Role> roles;
-
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	private Set<Role> roles;
+	
 	public Long getId() {
 		return id;
 	}
@@ -70,15 +71,15 @@ public class Pengguna {
 		this.passwordConfirm = passwordConfirm;
 	}
 
-	@ManyToMany
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
+//	@ManyToMany
+//	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+//	public Set<Role> getRoles() {
+//		return roles;
+//	}
+//
+//	public void setRoles(Set<Role> roles) {
+//		this.roles = roles;
+//	}
 
 	public String getStaffNo() {
 		return staffNo;
@@ -151,6 +152,14 @@ public class Pengguna {
 	public void setJawatan(String jawatan) {
 		this.jawatan = jawatan;
 	}
+	
+//	public Set<Permohonan> getPermohonan() {
+//		return permohonan;
+//	}
+//
+//	public void setPermohonan(Set<Permohonan> permohonan) {
+//		this.permohonan = permohonan;
+//	}
 
 //	@OneToMany(mappedBy = "user")
 //	public Set<Permohonan> getPermohon() {

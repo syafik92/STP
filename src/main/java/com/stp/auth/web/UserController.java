@@ -1,6 +1,9 @@
 package com.stp.auth.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,9 +30,6 @@ public class UserController {
     
     @Autowired
     private PermohonanService permohonanService;
-    
-    @Autowired
-    private PembelianService pembelianService;
 
     @Autowired
     private UserValidator userValidator;
@@ -58,6 +58,8 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
+    	System.out.println("in here====================");
+    	System.out.println("hibernate veraion"+org.hibernate.Version.getVersionString());
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
@@ -68,9 +70,16 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
+    public String welcome(Model model , HttpSession session) {
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+    	User user=userService.findByUsername(username);
+    	session.setAttribute("user",user );
     	model.addAttribute("welcome", permohonanService.getAll());
     	model.addAttribute("kemaskiniPermohon", new Permohonan());
+    	model.addAttribute("jawatan", user.getJawatan());
+        System.out.println(username +"============================="+ user.getJawatan());
+        
         return "welcome";
     }
     
