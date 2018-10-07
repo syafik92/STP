@@ -6,5 +6,5 @@ import com.stp.auth.model.Penerbangan;
 
 public interface PenerbanganRepository extends JpaRepository<Penerbangan, Long> {
 
-//	Page<Penerbangan> findById(Long id);
+//	public Penerbangan findById(Long penerbanganId);
 }

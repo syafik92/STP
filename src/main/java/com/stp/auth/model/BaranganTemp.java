@@ -1,24 +1,7 @@
 package com.stp.auth.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-@Entity
-@Table(name = "Barangan")
-public class Barangan {
+public class BaranganTemp {
 	
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long baranganId;
 	
 	private String bilangan;
@@ -27,19 +10,7 @@ public class Barangan {
 	private String anggaranBerat;
 	private String catatan;
 	private String total;
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "permohonan_id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Permohonan permohonan;
-	
-	
-	public Permohonan getPermohonan() {
-		return permohonan;
-	}
-	public void setPermohonan(Permohonan permohonan) {
-		this.permohonan = permohonan;
-	}
+
 	
 	public String getTotal() {
 		return total;

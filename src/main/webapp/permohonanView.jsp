@@ -20,6 +20,11 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 </head>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -688,9 +693,8 @@
 																</div>
 																<!-- /.modal-content -->
 															</div>
-														</div>
-														</td>
-														<td>
+														</div></td>
+													<td>
 														<div class="modal fade" id="modal-open${pemohon.id}">
 															<div class="modal-dialog modal-lg">
 																<div class="modal-content">
@@ -1228,7 +1232,7 @@
 																		id="bom"></td>
 																	<td><input type="text" class="form-control"
 																		id="bom"></td>-->
-																		</td>
+																											</td>
 																										</tr>
 																									</tbody>
 																								</table>
@@ -1291,11 +1295,6 @@
 		<script src="${contextPath}/resources/css/dist/js/adminlte.min.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="${contextPath}/resources/css/dist/js/demo.js"></script>
-		<!-- DataTables -->
-		<script
-			src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-		<script
-			src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 		<script>
 			$(function() {
 

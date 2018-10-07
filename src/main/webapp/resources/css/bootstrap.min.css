@@ -6301,7 +6301,9 @@ button.close {
     border-radius: 6px;
     outline: 0;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
-    box-shadow: 0 3px 9px rgba(0, 0, 0, .5)
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    display: table;
+    width: 800px;
 }
 
 .modal-backdrop {
@@ -6341,7 +6343,7 @@ button.close {
 
 .modal-body {
     position: relative;
-    padding: 15px
+    padding: 15px;
 }
 
 .modal-footer {
@@ -7197,3 +7199,4 @@ button.close {
         display: none !important
     }
 }
+
