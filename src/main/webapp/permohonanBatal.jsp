@@ -2,6 +2,11 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!-- DataTables -->
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
 	$(function() {
 		var check = $('#batal').val();
@@ -12,14 +17,14 @@
 	});
 </script>
 <script>
-$('#example1').DataTable({
-	'paging' : true,
-	'lengthChange' : false,
-	'searching' : false,
-	'ordering' : true,
-	'info' : true,
-	'autoWidth' : false
-})
+	$('#example1').DataTable({
+		'paging' : true,
+		'lengthChange' : false,
+		'searching' : false,
+		'ordering' : true,
+		'info' : true,
+		'autoWidth' : false
+	})
 </script>
 <div class="modal fade" id="modal-batal${pemohon.id}">
 	<div class="modal-dialog modal-lg">
@@ -134,26 +139,26 @@ $('#example1').DataTable({
 							</div>
 						</div>
 						<table id="example1" class="table table-bordered table-hover">
-											<thead>
-												<tr>
-													<th>Bil</th>
-													<td>Barangan Dibawa</td>
-													<th>Jumlah</th>
-													<th>Anggaran Berat</th>
-													<th>Tambahan</th>
-												</tr>
-											</thead>
-											<tbody>
-												<%
-													int i = 1;
-												%>
-												<tr>
-												</tr>
-												<%
-													i++;
-												%>
-											</tbody>
-										</table>
+							<thead>
+								<tr>
+									<th>Bil</th>
+									<td>Barangan Dibawa</td>
+									<th>Jumlah</th>
+									<th>Anggaran Berat</th>
+									<th>Tambahan</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+									int i = 1;
+								%>
+								<tr>
+								</tr>
+								<%
+									i++;
+								%>
+							</tbody>
+						</table>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Tarikh
 								Pergi</label>

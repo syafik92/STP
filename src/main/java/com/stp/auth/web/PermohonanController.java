@@ -2,6 +2,7 @@ package com.stp.auth.web;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,15 +14,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.stp.auth.model.Barangan;
+import com.stp.auth.model.BaranganTemp;
 import com.stp.auth.model.Penerbangan;
+import com.stp.auth.model.PenerbanganTemp;
 //import com.stp.auth.model.Penerbangan;
 import com.stp.auth.model.Permohonan;
+import com.stp.auth.model.PermohonanTemp;
 import com.stp.auth.model.User;
+import com.stp.auth.service.BaranganService;
 import com.stp.auth.service.PenerbanganService;
 import com.stp.auth.service.PermohonanService;
 import com.stp.auth.service.SendHTMLEmail;
@@ -35,12 +41,15 @@ public class PermohonanController {
 	
 	@Autowired
     private UserService userService;
-	
-//	@Autowired
-//	private PenerbanganService penerbanganService;
+
+	@Autowired
+	private PenerbanganService penerbanganService;
 //	
-//	@Autowired
-//	private BaranganService baranganService;
+	@Autowired
+	private BaranganService baranganService;
+	
+	ArrayList<PenerbanganTemp> pt = new ArrayList<PenerbanganTemp>();
+	ArrayList<BaranganTemp> barangant = new ArrayList<BaranganTemp>();
 
 	@RequestMapping(value = "/permohonanTiket", method = RequestMethod.GET)
 	public String permohonan(Model model,  HttpSession session) {
@@ -51,9 +60,8 @@ public class PermohonanController {
 		model.addAttribute("welcome", permohonanService.getAll());
 //		model.addAttribute("welcome", penerbanganService.getAll());
 //		model.addAttribute("welcome", baranganService.getAll());
-		model.addAttribute("permohonanForm", new Permohonan());
-		model.addAttribute("permohonanPenerbangan", new Penerbangan());
-		model.addAttribute("permohonanBarangan", new Barangan());
+		model.addAttribute("permohonanForm", new PermohonanTemp());
+		
 		model.addAttribute("permohonanOpen", new Permohonan());
 		model.addAttribute("penghapusanPermohonan", new Permohonan());
 		model.addAttribute("permohonanBatal", new Permohonan());
@@ -106,17 +114,89 @@ public class PermohonanController {
 		
 	}
 	
+	
+	@RequestMapping(value = "/baranganTemp",method = RequestMethod.POST, produces = "application/json")
+	public void penerbanganTemp(@RequestBody BaranganTemp barangant2) {
+		
+		barangant.add(barangant2);	 
+
+	}
+	
+	@RequestMapping(value = "/penerbanganTemp",method = RequestMethod.POST, produces = "application/json")
+	public void penerbanganTemp(@RequestBody PenerbanganTemp pt2) {
+		
+		 pt.add(pt2);	 
+
+	}
 
 	@RequestMapping(value = "/permohonanForm", method = RequestMethod.POST)
-	public String registration(@ModelAttribute("permohonanForm") Permohonan userForm, Penerbangan penerbanganForm) {
+	public String registration(@ModelAttribute("permohonanForm") PermohonanTemp temp) {
 		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		
-		userForm.setTarikhMohon(dateFormat.format(date));
-		userForm.setStatusPermohonan("Baru");
-		permohonanService.save(userForm);
+		DateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateMohon = new Date();
 
+		Permohonan permohonan = new Permohonan();
+		
+		
+		permohonan.setWakilPermohon(temp.getWakilPermohon());
+		permohonan.setNama(temp.getNama());
+		permohonan.setNamaPelulus(temp.getNamaPelulus());
+		permohonan.setKp(temp.getKp());
+		permohonan.setBahagian(temp.getBahagian());
+		permohonan.setEmel(temp.getEmel());
+		permohonan.setPassport(temp.getPassport());
+		permohonan.setTujuan(temp.getTujuan());
+		permohonan.setTempatBertugas(temp.getTempatBertugas());
+		permohonan.setTarikhMula(temp.getTarikhMula());
+		permohonan.setTarikhTamat(temp.getTarikhTamat());
+		permohonan.setNoTelefonBimbit(temp.getNoTelefonBimbit());
+		permohonan.setPeruntukan(temp.getPeruntukan());
+		permohonan.setCatatan(temp.getCatatan());
+		permohonan.setTarikhMohon(dtf.format(dateMohon));
+		permohonan.setPembangunan(temp.getPembangunan());
+		permohonan.setNoBilBom(temp.getNoBilBom());
+		permohonan.setStatusPermohonan("Baru");
+		
+		permohonanService.save(permohonan);
+		
+		if(pt.size() != 0){
+			
+			for(int i = 0;i <pt.size(); i++){
+				Penerbangan penerbangan = new Penerbangan();
+				penerbangan.setPenerbangan(pt.get(i).getPenerbangan());
+				penerbangan.setTarikhPergi(pt.get(i).getTarikhPergi());
+				penerbangan.setWaktuBerlepas(pt.get(i).getWaktuBerlepas());
+				penerbangan.setWaktuTiba(pt.get(i).getWaktuTiba());
+				penerbangan.setJenisPesawat(pt.get(i).getJenisPesawat());
+				penerbangan.setNoPesawat(pt.get(i).getNoPesawat());
+				penerbangan.setDariLokasi(pt.get(i).getDariLokasi());
+				penerbangan.setDestinasi(pt.get(i).getDestinasi());
+				penerbangan.setPermohonan(permohonan);
+				
+				penerbanganService.save(penerbangan);
+			}
+			
+			
+		}
+		
+		if(barangant.size() != 0){
+			
+			for(int i = 0;i <barangant.size(); i++){
+				Barangan barangan = new Barangan();
+				barangan.setAnggaranBerat(barangant.get(i).getAnggaranBerat());
+				barangan.setBaranganDibawa(barangant.get(i).getBaranganDibawa());
+				barangan.setJumlah(barangant.get(i).getJumlah());
+				barangan.setTotal(barangant.get(barangant.size()-1).getTotal());
+				barangan.setPermohonan(permohonan);
+				baranganService.save(barangan);
+				
+			}
+			
+		}
+		
+		barangant.removeAll(barangant);
+		pt.removeAll(pt);
+		
 		return "redirect:/permohonanTiket";
 	}
 	
@@ -136,6 +216,8 @@ public class PermohonanController {
 	@RequestMapping(value = "/penerbanganForm", method = RequestMethod.POST)
 	public String registrationOpenTiket(@ModelAttribute("permohonanPenerbangan") Penerbangan userForm) {
 
+		
+		
 //		penerbanganService.save(userForm);
 //		permohonanService.save(userForm);
 

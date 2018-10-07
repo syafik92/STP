@@ -20,6 +20,11 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 </head>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -110,15 +115,13 @@
 													<td></td>
 													<td>${pemohon.statusPermohonan}</td>
 													<td><spring:url value="/updateStatus?id=${pemohon.id}"
-															var="updateStatus" /> 
-															
-														<c:if
+															var="updateStatus" /> <c:if
 															test="${pemohon.statusPermohonan == 'Lulus'}">
 															<button type="button" class="btn btn-info "
-															data-toggle="modal"
-															data-target="#modal-lulus${pemohon.id}">Pembelian</button>
+																data-toggle="modal"
+																data-target="#modal-lulus${pemohon.id}">Pembelian</button>
 														</c:if>
-														
+
 
 														<div class="modal fade" id="modal-lulus${pemohon.id}">
 															<div class="modal-dialog modal-lg">
@@ -413,11 +416,6 @@
 		<script src="${contextPath}/resources/css/dist/js/adminlte.min.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="${contextPath}/resources/css/dist/js/demo.js"></script>
-		<!-- DataTables -->
-		<script
-			src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-		<script
-			src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 		<script>
 			var waranHidden = document.getElementById('waranHidden');
 			waranHidden.style.display = "none";
