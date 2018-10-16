@@ -1,6 +1,9 @@
 package com.stp.auth.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.stp.auth.model.Pengguna;
+import com.stp.auth.model.User;
 import com.stp.auth.service.DaftarPenggunaService;
 
 @Controller
@@ -20,13 +24,17 @@ public class AdminController {
 
 
     @RequestMapping(value = "/admin/daftarPengguna", method = RequestMethod.GET)
-    public String daftarPengguna(Model model) {
+    public String daftarPengguna(Model model, HttpSession session) {
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		Pengguna user = userService.findByUsername(username);
+		session.setAttribute("user", user);
 		model.addAttribute("listPengguna", userService.findAll());
         model.addAttribute("daftarPenggunaForm", new Pengguna());
         model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
         model.addAttribute("padamPenggunaForm", new Pengguna());
         model.addAttribute("lihatPenggunaForm", new Pengguna());
-
+        model.addAttribute("jawatan", user.getJawatan());
 
         return "daftarPengguna";
     }
@@ -46,12 +54,17 @@ public class AdminController {
     }
     
     @RequestMapping(value = "/admin/kemaskiniPengguna", method = RequestMethod.GET)
-    public String kemaskiniPengguna(@RequestParam("id") Long id ,Model model) {
+    public String kemaskiniPengguna(@RequestParam("id") Long id ,Model model,HttpSession session) {
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		Pengguna user = userService.findByUsername(username);
+		session.setAttribute("user", user);
 		model.addAttribute("listPengguna", userService.findAll());
         model.addAttribute("daftarPenggunaForm", new Pengguna());
         model.addAttribute("kemaskiniPenggunaForm",userService.findById(id));
         model.addAttribute("padamPenggunaForm", new Pengguna());
         model.addAttribute("lihatPenggunaForm", new Pengguna());
+        model.addAttribute("jawatan", user.getJawatan());
 
 
         return "daftarPengguna";
@@ -59,23 +72,33 @@ public class AdminController {
     
     
     @RequestMapping(value = "/admin/lihatPengguna", method = RequestMethod.GET)
-    public String lihatPengguna(@RequestParam("id") Long id ,Model model) {
+    public String lihatPengguna(@RequestParam("id") Long id ,Model model, HttpSession session) {
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		Pengguna user = userService.findByUsername(username);
+		session.setAttribute("user", user);
 		model.addAttribute("listPengguna", userService.findAll());
         model.addAttribute("daftarPenggunaForm", new Pengguna());
         model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
         model.addAttribute("padamPenggunaForm", new Pengguna());
         model.addAttribute("lihatPenggunaForm",userService.findById(id));
+        model.addAttribute("jawatan", user.getJawatan());
 
         return "daftarPengguna";
     }
     
     @RequestMapping(value = "/admin/padamPengguna", method = RequestMethod.GET)
-    public String padamPengguna(@RequestParam("id") Long id ,Model model) {
+    public String padamPengguna(@RequestParam("id") Long id ,Model model, HttpSession session) {
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		Pengguna user = userService.findByUsername(username);
+		session.setAttribute("user", user);
 		model.addAttribute("listPengguna", userService.findAll());
         model.addAttribute("daftarPenggunaForm", new Pengguna());
         model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
         model.addAttribute("lihatPenggunaForm", new Pengguna());
         model.addAttribute("padamPenggunaForm",userService.findById(id));
+        model.addAttribute("jawatan", user.getJawatan());
 
         return "daftarPengguna";
     }
@@ -88,7 +111,6 @@ public class AdminController {
         model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
         model.addAttribute("padamPenggunaForm", new Pengguna());
         model.addAttribute("lihatPenggunaForm", new Pengguna());
-
 
         return "redirect:/admin/daftarPengguna";
     }

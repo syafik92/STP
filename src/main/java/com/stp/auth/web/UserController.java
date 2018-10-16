@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stp.auth.model.Pembelian;
 import com.stp.auth.model.Permohonan;
+import com.stp.auth.model.PermohonanTemp;
 import com.stp.auth.model.User;
 import com.stp.auth.service.PembelianService;
+import com.stp.auth.service.PenerbanganService;
 import com.stp.auth.service.PermohonanService;
 import com.stp.auth.service.SecurityService;
 import com.stp.auth.service.UserService;
@@ -30,6 +32,9 @@ public class UserController {
     
     @Autowired
     private PermohonanService permohonanService;
+    
+    @Autowired
+	private PenerbanganService penerbanganService;
 
     @Autowired
     private UserValidator userValidator;
@@ -76,17 +81,26 @@ public class UserController {
     	User user=userService.findByUsername(username);
     	session.setAttribute("user",user );
     	model.addAttribute("welcome", permohonanService.getAll());
+    	model.addAttribute("Penerbangan", penerbanganService.getAll());
     	model.addAttribute("kemaskiniPermohon", new Permohonan());
     	model.addAttribute("jawatan", user.getJawatan());
+    	model.addAttribute("username", user.getUsername());
         System.out.println(username +"============================="+ user.getJawatan());
         
         return "welcome";
     }
     
     @RequestMapping(value = {"/pengesahan"}, method = RequestMethod.GET)
-    public String pengesahan(Model model) {
+    public String pengesahan(Model model, HttpSession session) {
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+    	User user=userService.findByUsername(username);
+    	session.setAttribute("user",user );
+    	model.addAttribute("Penerbangan", penerbanganService.getAll());
     	model.addAttribute("welcome", permohonanService.getAll());
     	model.addAttribute("kemaskiniPengesahan", new Permohonan());
+    	model.addAttribute("jawatan", user.getJawatan());
+    	model.addAttribute("username", user.getUsername());
         return "pengesahan";
     }
     

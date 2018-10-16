@@ -1,24 +1,8 @@
 package com.stp.auth.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+public class PenerbanganTemp {
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-@Entity
-@Table(name = "Penerbangan")
-public class Penerbangan {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long penerbanganId;
+//	private String penerbanganId;
 	
 	private String jenisPesawat;
 	private String penerbangan;
@@ -28,18 +12,8 @@ public class Penerbangan {
 	private String noPesawat;
 	private String dariLokasi;
 	private String destinasi;
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "permohonan_id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Permohonan permohonan;
+
 		
-	public Permohonan getPermohonan() {
-		return permohonan;
-	}
-	public void setPermohonan(Permohonan permohonan) {
-		this.permohonan = permohonan;
-	}
 	public String getPenerbangan() {
 		return penerbangan;
 	}
@@ -83,12 +57,12 @@ public class Penerbangan {
 		this.destinasi = destinasi;
 	}
 	
-	public Long getPenerbanganId() {
-		return penerbanganId;
-	}
-	public void setPenerbanganId(Long penerbanganId) {
-		this.penerbanganId = penerbanganId;
-	}
+//	public Long getPenerbanganId() {
+//		return penerbanganId;
+//	}
+//	public void setPenerbanganId(Long penerbanganId) {
+//		this.penerbanganId = penerbanganId;
+//	}
 	public String getJenisPesawat() {
 		return jenisPesawat;
 	}

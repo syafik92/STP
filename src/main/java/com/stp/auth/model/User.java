@@ -33,6 +33,7 @@ public class User {
 	private String email;
 	private String noTelefon;
 	private String namaPengurus;
+	private String passport;
 	private String status;
 	private String username;
 	private String password;
@@ -158,6 +159,14 @@ public class User {
 
 	public void setJawatan(String jawatan) {
 		this.jawatan = jawatan;
+	}
+	
+	public String getPassport() {
+		return passport;
+	}
+
+	public void setPassport(String passport) {
+		this.passport = passport;
 	}
 	
 }

@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -20,6 +19,11 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 </head>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -90,10 +94,9 @@
 												<th>Tarikh Permohonan</th>
 												<th>Tarikh Penerbangan</th>
 												<th>Nama Pemohon</th>
-												<td>Tujuan</td>
+												<th>Tujuan</th>
 												<th>Tempat Bertugas</th>
 												<th>Peruntukan</th>
-												<th>Jenis Pesawat</th>
 												<th>Status</th>
 												<th>Tindakan</th>
 											</tr>
@@ -107,18 +110,15 @@
 													<td>${pemohon.tujuan}</td>
 													<td>${pemohon.tempatBertugas}</td>
 													<td>${pemohon.peruntukan}</td>
-													<td></td>
 													<td>${pemohon.statusPermohonan}</td>
 													<td><spring:url value="/updateStatus?id=${pemohon.id}"
-															var="updateStatus" /> 
-															
-														<c:if
-															test="${pemohon.statusPermohonan == 'Lulus'}">
+															var="updateStatus" /> <c:if
+															test="${pemohon.statusPermohonan == 'Proses'}">
 															<button type="button" class="btn btn-info "
-															data-toggle="modal"
-															data-target="#modal-lulus${pemohon.id}">Pembelian</button>
+																data-toggle="modal"
+																data-target="#modal-lulus${pemohon.id}">Pembelian</button>
 														</c:if>
-														
+
 
 														<div class="modal fade" id="modal-lulus${pemohon.id}">
 															<div class="modal-dialog modal-lg">
@@ -189,7 +189,11 @@
 																					</spring:bind>
 																					<spring:bind path="namaPemohon">
 																						<form:input type="hidden" class="form-control"
-																							path="kelulusan" value="${pemohon.namaPemohon}"></form:input>
+																							path="namaPemohon" value="${pemohon.namaPemohon}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="tarikhMula">
+																						<form:input type="hidden" class="form-control"
+																							path="tarikhMula" value="${pemohon.tarikhMula}"></form:input>
 																					</spring:bind>
 
 																					<label for="inputEmail3"
@@ -210,7 +214,7 @@
 
 																					<div class="col-sm-6">
 																						<spring:bind path="tarikhMohon">
-																							<form:input type="date" class="form-control"
+																							<form:input type="text" class="form-control"
 																								id="tarikhMohon" path="tarikhMohon"
 																								value="${pemohon.tarikhMohon}"></form:input>
 																						</spring:bind>
@@ -230,48 +234,39 @@
 																						</spring:bind>
 																					</div>
 																				</div>
-																				<div class="form-group">
-																					<label for="inputPassword3"
-																						class="col-sm-2 control-label">Destinasi</label>
-
-																					<div class="col-sm-6">
-																						<spring:bind path="tempatBertugas">
-																							<form:input type="text" class="form-control"
-																								id="tempatBertugas" path="tempatBertugas"
-																								value="${pemohon.tempatBertugas}"></form:input>
-																						</spring:bind>
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label for="inputPassword3"
-																						class="col-sm-2 control-label">Tarikh
-																						Pergi</label>
-
-																					<div class="col-sm-8">
-																						<div class="col-sm-4">
-																							<spring:bind path="tarikhMula">
-																								<form:input type="date" class="form-control"
-																									id="tarikhMula" path="tarikhMula"
-																									value="${pemohon.tarikhMula}"></form:input>
-																							</spring:bind>
-																						</div>
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label for="inputPassword3"
-																						class="col-sm-2 control-label">Tarikh
-																						Balik</label>
-
-																					<div class="col-sm-8">
-																						<div class="col-sm-4">
-																							<spring:bind path="tarikhTamat">
-																								<form:input type="date" class="form-control"
-																									id="tarikhTamat" path="tarikhTamat"
-																									value="${pemohon.tarikhTamat}"></form:input>
-																							</spring:bind>
-																						</div>
-																					</div>
-																				</div>
+																				<table class="table table-bordered table-hover"
+																					id="tablePembelian${pemohon.id}">
+																					<thead>
+																						<tr>
+																							<td>Tarikh Pergi</td>
+																							<th>Waktu Berlepas</th>
+																							<th>Waktu Tiba</th>
+																							<th>No Pesawat</th>
+																							<th>Dari Lokasi</th>
+																							<th>Destinasi</th>
+																						</tr>
+																					</thead>
+																					<tbody>
+																						<%
+																							int x = 1;
+																						%>
+																						<c:forEach var="penerbangan"
+																							items="${Penerbangan}">
+																							<tr>
+																								<td><%=x%></td>
+																								<td>${penerbangan.tarikhPergi}</td>
+																								<td>${penerbangan.waktuBerlepas}</td>
+																								<td>${penerbangan.waktuTiba}</td>
+																								<td>${penerbangan.noPesawat}</td>
+																								<td>${penerbangan.dariLokasi}</td>
+																								<td>${penerbangan.destinasi}</td>
+																							</tr>
+																							<%
+																								x++;
+																							%>
+																						</c:forEach>
+																					</tbody>
+																				</table>
 																		</form:form>
 																		<form:form method="POST"
 																			modelAttribute="updatePembelian"
@@ -284,7 +279,8 @@
 																				<div class="col-sm-6">
 																					<spring:bind path="caraBeli">
 																						<form:select path="caraBeli" class="form-control"
-																							id="caraBeliId" onchange="showCaraBeli()">
+																							id="caraBeliId${pemohon.id}"
+																							onchange="showCaraBeli(${pemohon.id})">
 																							<option></option>
 																							<option value="KadKredit">Kad Kredit</option>
 																							<option value="Waran">Waran</option>
@@ -304,7 +300,7 @@
 																				</div>
 																			</div>
 																			<div class="form-group">
-																				<div id="waranHidden">
+																				<div id="waranHidden${pemohon.id}"}>
 																					<label for="inputPassword3"
 																						class="col-sm-2 control-label">Waran</label>
 																					<div class="col-sm-6">
@@ -316,18 +312,8 @@
 																					</div>
 																				</div>
 																			</div>
-																			<div class="form-group"></div>
 																			<div class="form-group">
-																				<div id="hargaPenguranganHidden">
-																					<div class="col-sm-6">
-																						<button type="button" id="buttonHarga"
-																							onClick="calculate()"
-																							class="btn btn-info pull-right">Hantar</button>
-																					</div>
-																				</div>
-																			</div>
-																			<div class="form-group">
-																				<div id="hargaPenguranganHidden">
+																				<div id="hargaPenguranganHidden${pemohon.id}">
 																					<label for="inputEmail3"
 																						class="col-sm-2 control-label">Harga
 																						Pengurangan</label>
@@ -341,16 +327,6 @@
 																					</div>
 																				</div>
 																			</div>
-
-																			<spring:bind path="permohonan.id">
-																				<form:hidden class="form-control"
-																					path="permohonan.id" value="5"></form:hidden>
-																			</spring:bind>
-
-																			<spring:bind path="permohonan.statusPermohonan">
-																				<form:hidden class="form-control"
-																					path="permohonan.statusPermohonan" value="Selesai"></form:hidden>
-																			</spring:bind>
 																			<div class="form-group">
 																				<label for="exampleInputFile"
 																					class="col-sm-2 control-label">Muatnaik
@@ -367,6 +343,7 @@
 																	<div class="box-footer">
 																		<button type="submit" class="btn btn-info pull-right">Hantar</button>
 																	</div>
+
 																	</form:form>
 																	<!-- /.box-footer -->
 																</div>
@@ -375,6 +352,52 @@
 														</div> <!-- /.modal-dialog --></td>
 
 												</tr>
+
+
+
+												<script>
+													var waranHidden = document
+															.getElementById('waranHidden${pemohon.id}');
+													waranHidden.style.display = "none";
+													var hargaPenguranganHidden = document
+															.getElementById('hargaPenguranganHidden${pemohon.id}');
+													hargaPenguranganHidden.style.display = "none";
+													function showCaraBeli(iD) {
+
+														var caraBeliId = document
+																.getElementById('caraBeliId'+iD).value;
+														if (caraBeliId == 'Waran') {
+															var waranHidden2 = document
+															.getElementById('waranHidden'+iD);
+
+															var hargaPenguranganHidden2 = document
+															.getElementById('hargaPenguranganHidden'+iD);
+															
+															waranHidden2.style.display = "inline";
+															hargaPenguranganHidden2.style.display = "inline";
+														} else if (caraBeliId == "KadKredit") {
+															var waranHidden2 = document
+															.getElementById('waranHidden'+iD);
+
+															var hargaPenguranganHidden2 = document
+															.getElementById('hargaPenguranganHidden'+iD);
+															
+															waranHidden2.style.display = "none";
+															hargaPenguranganHidden2.style.display = "none";
+														}
+													}
+												</script>
+												<script>
+																				$('#tablePembelian${pemohon.id}').DataTable({
+																					'paging' : true,
+																					'lengthChange' : false,
+																					'searching' : false,
+																					'ordering' : true,
+																					'info' : true,
+																					'autoWidth' : false
+																				})
+																				</script>
+
 											</c:forEach>
 										</tbody>
 									</table>
@@ -413,38 +436,7 @@
 		<script src="${contextPath}/resources/css/dist/js/adminlte.min.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="${contextPath}/resources/css/dist/js/demo.js"></script>
-		<!-- DataTables -->
-		<script
-			src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-		<script
-			src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-		<script>
-			var waranHidden = document.getElementById('waranHidden');
-			waranHidden.style.display = "none";
 
-			var hargaPenguranganHidden = document
-					.getElementById('hargaPenguranganHidden');
-			hargaPenguranganHidden.style.display = "none";
-
-			function showCaraBeli() {
-				var caraBeliId = document.getElementById('caraBeliId').value;
-
-				if (caraBeliId == 'Waran') {
-					waranHidden.style.display = "inline";
-					hargaPenguranganHidden.style.display = "inline";
-				} else if (caraBeliId == "KadKredit") {
-					waranHidden.style.display = "none";
-					hargaPenguranganHidden.style.display = "none";
-				}
-			}
-		</script>
-		<script>
-			function calculate() {
-				num1 = document.getElementById("hargaTiket").value;
-				num2 = document.getElementById("hargaWaran").value;
-				document.getElementById("hargaKurang").innerHTML = num1 * num2;
-			}
-		</script>
 	</c:if>
 </body>
 </html>

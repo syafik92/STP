@@ -131,6 +131,16 @@
 								</form:select>
 							</div>
 						</div>
+						<div class="form-group">
+						<label class="col-sm-2 control-label">Passport</label>
+
+							<div class="col-sm-4">
+								<spring:bind path="passport">
+									<form:input type="text" class="form-control" path="passport"
+										placeholder="No Passport"></form:input>
+								</spring:bind>
+							</div>
+						</div>
 					</div>
 				</div>
 		</div>

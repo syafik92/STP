@@ -10,145 +10,73 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.stp.auth.model.Barangan;
 import com.stp.auth.model.Pembelian;
+import com.stp.auth.model.Penerbangan;
 import com.stp.auth.model.Permohonan;
+import com.stp.auth.model.PermohonanTemp;
 import com.stp.auth.model.User;
 import com.stp.auth.service.PembelianService;
+import com.stp.auth.service.PenerbanganService;
 import com.stp.auth.service.PermohonanService;
 import com.stp.auth.service.UserService;
 
 @Controller
 public class PembelianController {
 
-   @Autowired
-   private PembelianService pembelianService;
-   
-   @Autowired
-   private PermohonanService permohonanService;
-   
 	@Autowired
-    private UserService userService;
+	private PembelianService pembelianService;
 
+	@Autowired
+	private PermohonanService permohonanService;
+	
+	@Autowired
+	private PenerbanganService penerbanganService;
 
-   @RequestMapping(value = {"/pembelian"}, method = RequestMethod.GET)
-   public String pembelian(Model model, HttpSession session) {
-	   
-	   String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	@Autowired
+	private UserService userService;
 
-   	User user=userService.findByUsername(username);
-   	session.setAttribute("user",user );
-   	model.addAttribute("welcome", permohonanService.getAll());
-		model.addAttribute("kemaskiniPermohon", new Permohonan());
+	@RequestMapping(value = { "/pembelian" }, method = RequestMethod.GET)
+	public String pembelian(Model model, HttpSession session) {
+
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		User user = userService.findByUsername(username);
+		session.setAttribute("user", user);
+		model.addAttribute("welcome", permohonanService.getAll());
+		model.addAttribute("Penerbangan", penerbanganService.getAll());
+		model.addAttribute("kemaskiniPermohon", new PermohonanTemp());
 		model.addAttribute("updatePembelian", new Pembelian());
 		model.addAttribute("jawatan", user.getJawatan());
-        System.out.println(username +"============================="+ user.getJawatan());
-		
-       return "pembelian";
-   }
-   
-//   @RequestMapping(value = {"/pembelian"}, method = RequestMethod.GET)
-//   public String pembelianBatal(Model model) {
-//   	model.addAttribute("welcome", permohonanService.getAll());
-//		model.addAttribute("kemaskiniPermohon", new Permohonan());
-//		model.addAttribute("pembatalanPermohonan", new Pembelian());
-//		
-//       return "pembelian";
-//   }
-	
+		System.out.println(username + "=============================" + user.getJawatan());
+
+		return "pembelian";
+	}
+
 	@RequestMapping(value = "/updatePembelianForm", method = RequestMethod.POST)
-	public String pembelian(@ModelAttribute("updatePembelian") Permohonan permohonanForm, Pembelian userForm, Model model) {
-		
+	public String pembelian(@ModelAttribute("updatePembelian") Permohonan userForm, Pembelian pembelianForm,
+			Model model, HttpSession session) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		User user = userService.findByUsername(username);
+		session.setAttribute("user", user);
+
 		model.addAttribute("welcome", permohonanService.getAll());
-		//userForm.setPermohonan(permohonanForm);
-		///permohonanService.save(permohonanForm);
-		pembelianService.save(userForm);
-		//permohonanForm.setStatusPermohonan("Selesai");
+		// userForm.setPermohonan(permohonanForm);
+		// permohonanService.save(permohonanForm);
+		userForm.setStatusPermohonan("Selesai");
+		Permohonan permohonan = new Permohonan();
+		pembelianForm.setPermohonan(permohonan);
 		
-		model.addAttribute("permohonanForm", new Permohonan());
-		model.addAttribute("kemaskiniPermohon", new Permohonan());
+		permohonanService.save(userForm);
+		pembelianService.save(pembelianForm);
+		model.addAttribute("permohonanForm", new PermohonanTemp());
+		model.addAttribute("permohonanPenerbangan", new Penerbangan());
+		model.addAttribute("permohonanBarangan", new Barangan());
+		model.addAttribute("kemaskiniPermohon", new PermohonanTemp());
 		model.addAttribute("updatePembelian", new Pembelian());
-		
+
 		return "redirect:/pembelian";
 	}
-	
-/*	@RequestMapping(value = "/batalPermohonan", method = RequestMethod.POST)
-	public String batalPermohonan(@ModelAttribute("updatePembelian") Permohonan userForm, Model model) {
-		
-		model.addAttribute("welcome", permohonanService.getAll());
-
-		userForm.setStatusPermohonan("Batal");
-		permohonanService.save(userForm);
-
-		model.addAttribute("kemaskiniPermohon", new Permohonan());
-		model.addAttribute("updatePembelian", new Pembelian());
-		
-		return "redirect:/pembelian";
-	}*/
-	
-//	@RequestMapping(value = "/updateStatusBatal", method = RequestMethod.POST)
-//	public String pembelianBatal(@ModelAttribute("pembatalanPermohonan") Pembelian userForm, Model model) {
-//
-//		pembelianService.save(userForm);
-//
-//		model.addAttribute("kemaskiniPermohon", new Permohonan());
-//		model.addAttribute("pembatalanPermohonan", new Pembelian());
-//		
-//		return "redirect:/pembelian";
-//	}
-	
-//    @RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
-//	public String pembelian( @ModelAttribute("pembelian") Pembelian userForm, Model model) {
-//		model.addAttribute("pembelian", pembelianService.getAll());
-//		
-////		userForm.setStatusPembelian("Lulus");
-//		pembelianService.save(userForm);
-//		
-//		model.addAttribute("kemaskiniPermohon", new Permohonan());
-//		model.addAttribute("pembelian", new Pembelian());
-//
-//		return "pembelian";
-//		
-//	}
-
-//	@RequestMapping(value = "/pembelian", method = RequestMethod.POST)
-//	public String registration(@ModelAttribute("pembelianForm") Pembelian userForm) {
-//
-//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		Date date = new Date();
-//		
-//		userForm.setTarikhMohon(dateFormat.format(date));
-//		pembelianService.save(userForm);
-//
-//		return "redirect:/pembelian";
-//	}
-//	
-//	@RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
-//	public String updateStatus( @ModelAttribute("kemaskiniPermohon") Permohonan userForm, Model model) {
-//		model.addAttribute("welcome", permohonanService.getAll());
-//		
-//		userForm.setStatusPermohonan("Tolak");
-//		permohonanService.save(userForm);
-//		
-//		model.addAttribute("permohonanForm", new Permohonan());
-//		model.addAttribute("kemaskiniPermohon", new Permohonan());
-//
-//		return "welcome";
-//		
-//	}
-//	
-//	@RequestMapping(value = "/updateStatusLulus", method = RequestMethod.POST)
-//	public String updateStatusLulus( @ModelAttribute("kemaskiniPermohon") Permohonan userForm, Model model) {
-//		model.addAttribute("welcome", permohonanService.getAll());
-//		
-//		userForm.setStatusPermohonan("Lulus");
-//		permohonanService.save(userForm);
-//		
-//		model.addAttribute("permohonanForm", new Permohonan());
-//		model.addAttribute("kemaskiniPermohon", new Permohonan());
-//
-//		return "welcome";
-//		
-//	}
-	
 
 }

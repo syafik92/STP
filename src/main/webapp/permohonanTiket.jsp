@@ -101,16 +101,15 @@
 									</div>
 								</section>
 								<br />
+								<c:forEach items="${user.username}" var="user">
 								<table id="example1" class="table table-bordered table-hover">
 									<thead>
 										<tr>
 											<th>Tarikh Permohonan</th>
 											<th>Tarikh Penerbangan</th>
-											<th>Nama Pemohon</th>
-											<td>Tujuan</td>
+											<th>Tujuan</th>
 											<th>Tempat Bertugas</th>
 											<th>Peruntukan</th>
-											<th>Jenis Pesawat</th>
 											<th>Status</th>
 											<th>Tindakan</th>
 										</tr>
@@ -122,11 +121,9 @@
 										<tr>
 											<td>${pemohon.tarikhMohon}</td>
 											<td>${pemohon.tarikhMula}</td>
-											<td>${pemohon.nama}</td>
 											<td>${pemohon.tujuan}</td>
 											<td>${pemohon.tempatBertugas}</td>
 											<td>${pemohon.peruntukan}</td>
-											<td></td>
 											<td>${pemohon.statusPermohonan}</td>
 											<td><spring:url
 													value="/hapusPermohonan?id=${pemohon.id}" var="deleteUrl" />
@@ -151,6 +148,7 @@
 										%>
 									</c:forEach>
 								</table>
+								</c:forEach>
 								<!-- Add permohonan  -->
 								<jsp:include page="${contextPath}/permohonanBaru.jsp" />
 								<jsp:include page="${contextPath}/permohonanHapus.jsp" />

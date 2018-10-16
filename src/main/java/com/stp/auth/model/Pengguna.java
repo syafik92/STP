@@ -1,19 +1,9 @@
 package com.stp.auth.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -31,6 +21,7 @@ public class Pengguna {
 	private String email;
 	private String noTelefon;
 	private String namaPengurus;
+	private String passport;
 	private String status;
 	private String username;
 	private String password;
@@ -151,6 +142,14 @@ public class Pengguna {
 
 	public void setJawatan(String jawatan) {
 		this.jawatan = jawatan;
+	}
+	
+	public String getPassport() {
+		return passport;
+	}
+
+	public void setPassport(String passport) {
+		this.passport = passport;
 	}
 	
 //	public Set<Permohonan> getPermohonan() {

@@ -10,7 +10,8 @@ public interface PermohonanService {
     
     List<Permohonan> getAll();
 
-    Permohonan findByUsername(String username);
+    List<Permohonan> findByNama(String nama);
+    List<Permohonan> findByNamaPelulus(String namaPelulus);
    	Permohonan findById(Long id);
    	void remove(Permohonan permohonanForm);
 }

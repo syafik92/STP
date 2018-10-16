@@ -16,25 +16,29 @@
 
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </head>
 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+
+<jsp:include page="${contextPath}/template/header.jsp" />
 <body class="hold-transition skin-blue sidebar-mini fixed">
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-
-
-
-	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
-	<jsp:include page="${contextPath}/template/header.jsp" />
 	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<form id="logoutForm" method="POST" action="${contextPath}/logout">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
 		<div class="wrapper">
 
 			<jsp:include page="${contextPath}/template/mainHeader.jsp" />
 			<!-- Left side column. contains the logo and sidebar -->
-			<jsp:include page="${contextPath}/template/adminMainSideBar.jsp" />
+			<jsp:include page="${contextPath}/template/mainSideBar.jsp" />
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
 
