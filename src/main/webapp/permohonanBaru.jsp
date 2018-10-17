@@ -195,7 +195,7 @@ function changeTab2(){
 							<div class="active tab-pane" id="activity">
 								<div class="box-body">
 									<form:form method="POST" modelAttribute="permohonanForm"
-										action="${contextPath}/permohonanForm" class="form-horizontal">
+										action="${contextPath}/permohonanForm" enctype="multipart/form-data" class="form-horizontal">
 										<div class="form-group">
 											<label for="inputEmail3" class="col-sm-2 control-label">Wakil
 												Pemohon</label>
