@@ -128,11 +128,11 @@
 													value="/admin/kemaskiniPengguna?id=${user.id}"
 													var="updateUrl" />
 
-												<button class="btn btn-info"
+												<button class="btn btn-info btn-block"
 													onclick="location.href='${userUrl}'">Lihat</button>
-												<button class="btn btn-primary"
+												<button class="btn btn-primary btn-block"
 													onclick="location.href='${updateUrl}'">Kemaskini</button>
-												<button class="btn btn-danger"
+												<button class="btn btn-danger btn-block"
 													onclick="location.href='${deleteUrl}'">Padam</button></td>
 										</tr>
 										<%
@@ -175,6 +175,16 @@
 			src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 		<script
 			src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+		<script>
+			$('#example1').DataTable({
+				'paging' : true,
+				'lengthChange' : false,
+				'searching' : false,
+				'ordering' : true,
+				'info' : true,
+				'autoWidth' : false
+			})
+		</script>
 	</c:if>
 </body>
 </html>

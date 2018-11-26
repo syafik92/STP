@@ -36,7 +36,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .permitAll();
         
+//        http.formLogin().defaultSuccessUrl("/permohonanTiket", true);
+        
+
         http.csrf().disable();
+//        if()
+        http.formLogin().defaultSuccessUrl("/permohonanTiket", true);
  
     }
 

@@ -63,6 +63,7 @@ public class Permohonan {
 //	private String jumlah;
 //	private String anggaranBerat;
 	private String catatan;
+	private String enrichNo;
 //	private String total;
 	
 	@OneToMany(mappedBy="permohonan", cascade = CascadeType.ALL)
@@ -397,6 +398,14 @@ public class Permohonan {
 
 	public void setCatatan(String catatan) {
 		this.catatan = catatan;
+	}
+
+	public String getEnrichNo() {
+		return enrichNo;
+	}
+
+	public void setEnrichNo(String enrichNo) {
+		this.enrichNo = enrichNo;
 	}
 
 //	public String getCatatan() {

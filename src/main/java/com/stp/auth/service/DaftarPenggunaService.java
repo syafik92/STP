@@ -10,4 +10,6 @@ public interface DaftarPenggunaService {
     Pengguna findByUsername(String username);
     List<Pengguna> findAll();
 	void remove(Pengguna daftarPenggunaForm);
+	List<Pengguna> findByJawatan(String jawatan);
+	List<Pengguna> findByCawangan(String cawangan);
 }

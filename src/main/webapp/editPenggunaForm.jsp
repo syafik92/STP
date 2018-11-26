@@ -3,13 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script>
-$(function(){
-var check = $('#update').val();
-if(check>0){
+	$(function() {
+		var check = $('#update').val();
+		if (check > 0) {
 
-	  $('#modal-kemaskiniPenggunaForm').modal('show');
-}
-});
+			$('#modal-kemaskiniPenggunaForm').modal('show');
+		}
+	});
 </script>
 <div class="modal fade" id="modal-kemaskiniPenggunaForm">
 	<div class="modal-dialog modal-lg">
@@ -26,8 +26,8 @@ if(check>0){
 				<div class="modal-body">
 
 					<spring:bind path="id">
-						<form:input type="hidden" class="form-control" path="id" id="update"
-							></form:input>
+						<form:input type="hidden" class="form-control" path="id"
+							id="update"></form:input>
 					</spring:bind>
 					<div class="box-body">
 						<div class="form-group">
@@ -67,8 +67,16 @@ if(check>0){
 
 							<div class="col-sm-4">
 								<spring:bind path="namaPengurus">
-									<form:input type="text" class="form-control"
-										path="namaPengurus" placeholder="Nama Pengurus"></form:input>
+									<form:select path="namaPengurus" class="form-control">
+
+										<c:forEach var="test" items="${jawatan}">
+
+											<option value="${test.namaStaff}"><c:out
+													value="${test.namaStaff}" /></option>
+
+										</c:forEach>
+
+									</form:select>
 								</spring:bind>
 							</div>
 						</div>
@@ -83,12 +91,12 @@ if(check>0){
 										placeholder="Nombor Kad Pengenalan"></form:input>
 								</spring:bind>
 							</div>
-							<label class="col-sm-2 control-label">Unit / Bahagian</label>
+							<label class="col-sm-2 control-label">Passport</label>
 
 							<div class="col-sm-4">
-								<spring:bind path="unit">
-									<form:input type="text" class="form-control" path="unit"
-										placeholder="Unit"></form:input>
+								<spring:bind path="passport">
+									<form:input type="text" class="form-control" path="passport"
+										placeholder="No Passport"></form:input>
 								</spring:bind>
 							</div>
 						</div>
@@ -118,7 +126,9 @@ if(check>0){
 								<form:select path="Jawatan" class="form-control">
 									<option></option>
 									<option>Pegawai</option>
-									<option>Staf</option>
+									<option>Ketua Pegawai</option>
+									<option>Pentadbir</option>
+									<option>Pengarah</option>
 								</form:select>
 							</div>
 							<label class="col-sm-2 control-label">Status</label>
@@ -132,29 +142,40 @@ if(check>0){
 							</div>
 						</div>
 						<div class="form-group">
-						<label class="col-sm-2 control-label">Passport</label>
+							<label class="col-sm-2 control-label">Cawangan</label>
 
 							<div class="col-sm-4">
-								<spring:bind path="passport">
-									<form:input type="text" class="form-control" path="passport"
-										placeholder="No Passport"></form:input>
+								<spring:bind path="cawangan">
+									<form:select path="cawangan" class="form-control">
+										<c:forEach var="test" items="${cawangan}">
+											<option value="${test.cawanganDesc}"><c:out
+													value="${test.cawanganDesc}" /></option>
+										</c:forEach>
+									</form:select>
 								</spring:bind>
 							</div>
+							<label class="col-sm-2 control-label">Unit / Bahagian</label>
+
+							<div class="col-sm-4">
+								<form:select path="unit" class="form-control">
+									<c:forEach var="unit" items="${unitBahagian}">
+										<option value="${unit.unitBahagianDesc}"><c:out
+												value="${unit.unitBahagianDesc}" /></option>
+									</c:forEach>
+								</form:select>
+							</div>
 						</div>
+						<button type="submit" class="btn btn-info pull-right">Kemaskini</button>
 					</div>
+
 				</div>
+
+			</form:form>
 		</div>
 
 		<!-- /.box-body -->
-		<div class="box-footer">
-			<button type="submit" class="btn btn-info pull-right">Kemaskini</button>
-		</div>
-		</form:form>
 
 		<!-- /.box-footer -->
 	</div>
 </div>
 <!-- /.modal-content -->
-</div>
-<!-- /.modal-dialog -->
-</div>

@@ -168,7 +168,8 @@
 							<div class="active tab-pane" id="activity">
 								<div class="box-body">
 									<form:form method="POST" modelAttribute="permohonanForm"
-										action="${contextPath}/permohonanForm" class="form-horizontal">
+										action="${contextPath}/permohonanForm"
+										enctype="multipart/form-data" class="form-horizontal">
 										<div class="form-group">
 											<label for="inputEmail3" class="col-sm-2 control-label">Wakil
 												Pemohon</label>
@@ -230,8 +231,7 @@
 													</spring:bind>
 												</c:forEach>
 											</div>
-											<label for="inputPassword3" class="col-sm-2 control-label">Unit
-												/ Bahagian</label>
+											<label for="inputPassword3" class="col-sm-2 control-label">Unit</label>
 
 											<div class="col-sm-4">
 												<c:forEach items="${user.unit}" var="user">
@@ -258,11 +258,11 @@
 												Pasport</label>
 
 											<div class="col-sm-4">
-											<c:forEach items="${user.passport}" var="user">
-												<spring:bind path="passport">
-													<form:input type="text" class="form-control"
-														path="passport" value="${passport}"></form:input>
-												</spring:bind>
+												<c:forEach items="${user.passport}" var="user">
+													<spring:bind path="passport">
+														<form:input type="text" class="form-control"
+															path="passport" value="${passport}"></form:input>
+													</spring:bind>
 												</c:forEach>
 											</div>
 										</div>
@@ -321,7 +321,21 @@
 													</spring:bind>
 												</c:forEach>
 											</div>
-											<label for="inputPassword3" class="col-sm-2 control-label">Peruntukan</label>
+											<label for="inputPassword3" class="col-sm-2 control-label">No Enrich</label>
+
+											<div class="col-sm-4">
+												<c:forEach items="${user.enrichNo}" var="user">
+													<spring:bind path="enrichNo">
+														<form:input type="text" class="form-control"
+															path="enrichNo" required="required"
+															value="${enrichNo}"></form:input>
+													</spring:bind>
+												</c:forEach>
+											</div>
+										
+										</div>
+										<div class="form-group">
+										<label for="inputPassword3" class="col-sm-2 control-label">Peruntukan</label>
 											<div class="col-sm-4">
 												<spring:bind path="peruntukan">
 													<form:select path="peruntukan" class="form-control"
@@ -332,8 +346,6 @@
 													</form:select>
 												</spring:bind>
 											</div>
-										</div>
-										<div class="form-group">
 											<label for="inputPassword3" class="col-sm-2 control-label">Catatan</label>
 											<div class="col-sm-4">
 												<spring:bind path="muatNaikBom">
@@ -341,19 +353,7 @@
 														id="catatan" rel="textTooltip" data-toogle="tooltip"></form:input>
 												</spring:bind>
 											</div>
-											<div id="pembangunanHidden">
-												<label for="inputPassword3" class="col-sm-2 control-label">Pembangunan</label>
-												<div class="col-sm-4">
-													<spring:bind path="pembangunan">
-														<form:select path="pembangunan" class="form-control">
-															<option></option>
-															<option value="PPE">PPE</option>
-															<option value="NPDIR">NPDIR</option>
-															<option value="MBR">MBR</option>
-														</form:select>
-													</spring:bind>
-												</div>
-											</div>
+
 										</div>
 
 										<div class="form-group">
@@ -371,6 +371,19 @@
 																	</form:select>
 																</spring:bind>
 															</div> -->
+											<div id="pembangunanHidden">
+												<label for="inputPassword3" class="col-sm-2 control-label">Pembangunan</label>
+												<div class="col-sm-4">
+													<spring:bind path="pembangunan">
+														<form:select path="pembangunan" class="form-control">
+															<c:forEach var="peruntukan" items="${peruntukan}">
+																<option value="${peruntukan.peruntukanDesc}"><c:out
+																		value="${peruntukan.peruntukanDesc}" /></option>
+															</c:forEach>
+														</form:select>
+													</spring:bind>
+												</div>
+											</div>
 											<div id="bomHidden">
 												<label for="inputPassword3" class="col-sm-2 control-label">No.
 													Bil BOM</label>
@@ -416,7 +429,6 @@
 												<form:select path="penerbangan" class="form-control"
 													id="penerbanganId" onchange="showPenerbangan()">
 													<option></option>
-													<option value="Sehala">Sehala</option>
 													<option value="Pergi">Pergi</option>
 													<option value="Balik">Balik</option>
 													<option value="Antarabandar">Antarabandar</option>
@@ -426,7 +438,7 @@
 									</div>
 									<div class="form-group">
 										<label for="inputPassword3" class="col-sm-4 control-label">Tarikh
-											Pergi</label>
+											Penerbangan</label>
 
 										<div class="col-sm-6">
 											<spring:bind path="tarikhPergi">
@@ -464,11 +476,10 @@
 											<spring:bind path="jenisPesawat">
 												<form:select id="jenisPesawat" path="jenisPesawat"
 													class="form-control">
-													<option></option>
-													<option value="MAS">MAS</option>
-													<option value="AIRASIA">AIRASIA</option>
-													<option value="MALINDO">MALINDO</option>
-													<option value="FIREFLY">FIREFLY</option>
+													<c:forEach var="pesawat" items="${pesawat}">
+														<option value="${pesawat.pesawatDesc}"><c:out
+																value="${pesawat.pesawatDesc}" /></option>
+													</c:forEach>
 												</form:select>
 											</spring:bind>
 										</div>
@@ -488,13 +499,14 @@
 										<label for="inputPassword3" class="col-sm-4 control-label">Dari
 											Lokasi</label>
 										<div class="col-sm-6">
-												<spring:bind path="dariLokasi">
-													<form:select path="dariLokasi" class="form-control">
-														<c:forEach var="test" items="${lokasi}">
-														<option value="${test.lokasiDesc}"><c:out value="${test.lokasiDesc}"/></option>
-														</c:forEach>
-													</form:select>
-												</spring:bind>
+											<spring:bind path="dariLokasi">
+												<form:select path="dariLokasi" class="form-control">
+													<c:forEach var="test" items="${lokasi}">
+														<option value="${test.lokasiDesc}"><c:out
+																value="${test.lokasiDesc}" /></option>
+													</c:forEach>
+												</form:select>
+											</spring:bind>
 										</div>
 									</div>
 									<div class="form-group">
@@ -502,29 +514,30 @@
 										<div class="col-sm-6">
 											<spring:bind path="destinasi">
 												<form:select path="destinasi" class="form-control">
-														<c:forEach var="test" items="${lokasi}">
-														<option value="${test.lokasiDesc}"><c:out value="${test.lokasiDesc}"/></option>
-														</c:forEach>
-													</form:select>
+													<c:forEach var="test" items="${lokasi}">
+														<option value="${test.lokasiDesc}"><c:out
+																value="${test.lokasiDesc}" /></option>
+													</c:forEach>
+												</form:select>
 											</spring:bind>
-											
+
 										</div>
 									</div>
-									<div></div>
-
 									<div class="form-group" id="btnTambahAntarabandarHidden"
 										onchange="showPenerbangan()">
-										<button type="button" class="btn btn-info pull-right"
-											id="btnTambahDlmTable" onclick="tambahDlmTable()">Tambah</button>
+										<div class="col-sm-12 control-label">
+											<button type="button" class="btn btn-info pull-right"
+												id="btnTambahDlmTable" onclick="tambahDlmTable()">Tambah</button>
+										</div>
 									</div>
-									<div class="box-body" id="tablePenerbangan"
+									<div class="form-group" id="tablePenerbangan"
 										onchange="showPenerbangan()">
 										<table id="tablePenerbangan2"
 											class="table table-bordered table-hover">
 											<thead>
 												<tr>
 													<th>Penerbangan</th>
-													<th>Tarikh Pergi</th>
+													<th>Tarikh Penerbangan</th>
 													<th>Waktu Berlepas</th>
 													<th>Waktu Tiba</th>
 													<th>No Pesawat</th>
@@ -600,7 +613,7 @@
 												<th>Bil</th>
 												<th>Barangan Dibawa</th>
 												<th>Jumlah</th>
-												<th>Anggaran Berat</th>
+												<th>Anggaran Berat (Dalam KG)</th>
 
 											</tr>
 										</thead>
@@ -622,7 +635,9 @@
 														<form:input type="number" id="anggaranBerat"
 															class="form-control" path="anggaranBerat"></form:input>
 													</spring:bind></td>
-												<td></td>
+												<td><button type="button" id="tambahBarangan"
+														class="btn btn-info pull-right"
+														onclick="baranganTableTambah()">Tambah</button></td>
 
 											</tr>
 											<%
@@ -630,19 +645,17 @@
 											%>
 										</tbody>
 									</table>
-
+									<!-- <div class="box-footer">
+										
+									</div> -->
 									<div class="box-footer">
 										<spring:bind path="total">
 											<form:input type="number" id="total" class="form-control"
-												path="total" placeholder="JUMLAH ANGGARAN BERAT"
+												path="total" placeholder="Jumlah Anggaran Berat"
 												disabled="true"></form:input>
 										</spring:bind>
 									</div>
-									<div class="box-footer">
-										<button type="button" id="tambahBarangan"
-											class="btn btn-info pull-right"
-											onclick="baranganTableTambah()">Tambah</button>
-									</div>
+
 									<div class="box-footer">
 										<button type="submit" class="btn btn-info pull-right">Mohon</button>
 									</div>

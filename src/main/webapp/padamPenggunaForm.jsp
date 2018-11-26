@@ -83,12 +83,12 @@
 										placeholder="Nombor Kad Pengenalan"></form:input>
 								</spring:bind>
 							</div>
-							<label class="col-sm-2 control-label">Unit / Bahagian</label>
+							<label class="col-sm-2 control-label">Passport</label>
 
 							<div class="col-sm-4">
-								<spring:bind path="unit">
-									<form:input type="text" class="form-control" path="unit"
-										placeholder="Unit"></form:input>
+								<spring:bind path="passport">
+									<form:input type="text" class="form-control" path="passport"
+										placeholder="No Passport"></form:input>
 								</spring:bind>
 							</div>
 						</div>
@@ -118,7 +118,9 @@
 								<form:select path="Jawatan" class="form-control">
 									<option></option>
 									<option>Pegawai</option>
-									<option>Staf</option>
+									<option>Ketua Pegawai</option>
+									<option>Pentadbir</option>
+									<option>Pengarah</option>
 								</form:select>
 							</div>
 							<label class="col-sm-2 control-label">Status</label>
@@ -132,27 +134,30 @@
 							</div>
 						</div>
 						<div class="form-group">
-						<label class="col-sm-2 control-label">Passport</label>
+							<label class="col-sm-2 control-label">Cawangan</label>
 
 							<div class="col-sm-4">
-								<spring:bind path="passport">
-									<form:input type="text" class="form-control" path="passport"
-										placeholder="No Passport"></form:input>
+								<spring:bind path="cawangan">
+									<form:input type="text" class="form-control" path="cawangan"
+										placeholder="Cawangan"></form:input>
+								</spring:bind>
+							</div>
+
+							<label class="col-sm-2 control-label">Unit / Bahagian</label>
+
+							<div class="col-sm-4">
+								<spring:bind path="unit">
+									<form:input type="text" class="form-control" path="unit"
+										placeholder="Unit"></form:input>
 								</spring:bind>
 							</div>
 						</div>
-					</div>
-				</div>
-		</div>
-
-		<!-- /.box-body -->
-		<div class="box-footer">
-			<!-- Button trigger modal -->
-			<button type="button"  class="btn btn btn-danger  pull-right" data-toggle="modal"
+						<button type="button"  class="btn btn btn-danger  pull-right" data-toggle="modal"
 				data-target="#padamModal">Padam</button>
 
 			<!-- Modal -->
-			<div class="modal fade" id="padamModal" tabindex="-1" role="dialog"
+					</div>
+					<div class="modal fade" id="padamModal" tabindex="-1" role="dialog"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -172,9 +177,10 @@
 					</div>
 				</div>
 			</div>
-
-
+				</div>
 		</div>
+
+		<!-- /.box-body -->
 		</form:form>
 
 		<!-- /.box-footer -->

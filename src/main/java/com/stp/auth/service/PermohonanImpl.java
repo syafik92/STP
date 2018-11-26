@@ -27,6 +27,12 @@ public class PermohonanImpl implements PermohonanService {
 		// TODO Auto-generated method stub
 		return permohonanRepo.findByNama(nama);	}
 	
+	public List<Permohonan> findByStatusPermohonan(String statusPermohonan) {
+		// TODO Auto-generated method stub
+		return permohonanRepo.findByStatusPermohonan(statusPermohonan);	}
+	
+	
+	
 	public Permohonan findById(Long id) {
 		// TODO Auto-generated method stub
 		return permohonanRepo.findById(id);

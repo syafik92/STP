@@ -12,16 +12,6 @@
 	});
 </script>
 <script>
-	$('#example1${pemohon.id}').DataTable({
-		'paging' : true,
-		'lengthChange' : false,
-		'searching' : false,
-		'ordering' : true,
-		'info' : true,
-		'autoWidth' : false
-	})
-</script>
-<script>
 	function alert() {
 		alert("Sila segera hubungi Pn. Farah Diyana di ext: 385 untuk urusan pembatalan seterusnya");
 	}
@@ -121,8 +111,7 @@
 						</div>
 
 						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-2 control-label">Unit
-								/ Bahagian</label>
+							<label for="inputPassword3" class="col-sm-2 control-label">Unit</label>
 
 							<div class="col-sm-6">
 								<spring:bind path="bahagian">
@@ -132,7 +121,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-2 control-label">Destinasi</label>
+							<label for="inputPassword3" class="col-sm-2 control-label">Tempat Bertugas</label>
 
 							<div class="col-sm-6">
 								<spring:bind path="tempatBertugas">
@@ -142,40 +131,49 @@
 								</spring:bind>
 							</div>
 						</div>
-						<for:each ${penerbangan.permohonan}>
-							<table id="example1" class="table table-bordered table-hover">
-								<thead>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-2 control-label">Tujuan</label>
+
+							<div class="col-sm-6">
+								<spring:bind path="tujuan">
+									<form:input type="text" class="form-control"
+										id="tujuan" path="tujuan"
+										value="${pemohon.tujuan}"></form:input>
+								</spring:bind>
+							</div>
+						</div>
+						<table id="example1" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>Bil</th>
+									<th>Tarikh Pergi</th>
+									<th>Waktu Berlepas</th>
+									<th>Waktu Tiba</th>
+									<th>No Pesawat</th>
+									<th>Dari Lokasi</th>
+									<th>Destinasi</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+									int i = 1;
+								%>
+								<c:forEach var="penerbangan" items="${Penerbangan}">
 									<tr>
-										<th>Bil</th>
-										<th>Tarikh Pergi</th>
-										<th>Waktu Berlepas</th>
-										<th>Waktu Tiba</th>
-										<th>No Pesawat</th>
-										<th>Dari Lokasi</th>
-										<th>Destinasi</th>
+										<td>${penerbangan.penerbangan}</td>
+										<td>${penerbangan.tarikhPergi}</td>
+										<td>${penerbangan.waktuBerlepas}</td>
+										<td>${penerbangan.waktuTiba}</td>
+										<td>${penerbangan.noPesawat}</td>
+										<td>${penerbangan.dariLokasi}</td>
+										<td>${penerbangan.destinasi}</td>
 									</tr>
-								</thead>
-								<tbody>
 									<%
-										int i = 1;
+										i++;
 									%>
-									<c:forEach var="penerbangan" items="${Penerbangan}">
-										<tr>
-											<td><%=i%></td>
-											<td>${penerbangan.tarikhPergi}</td>
-											<td>${penerbangan.waktuBerlepas}</td>
-											<td>${penerbangan.waktuTiba}</td>
-											<td>${penerbangan.noPesawat}</td>
-											<td>${penerbangan.dariLokasi}</td>
-											<td>${penerbangan.destinasi}</td>
-										</tr>
-										<%
-											i++;
-										%>
-									</c:forEach>
-								</tbody>
-							</table>
-						</for:each>
+								</c:forEach>
+							</tbody>
+						</table>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Catatan</label>
 
@@ -199,3 +197,13 @@
 		<!-- /.modal-content -->
 	</div>
 </div>
+<script>
+	$('#example1').DataTable({
+		'paging' : true,
+		'lengthChange' : false,
+		'searching' : false,
+		'ordering' : true,
+		'info' : true,
+		'autoWidth' : false
+	})
+</script>

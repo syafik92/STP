@@ -44,35 +44,6 @@
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
 				<!-- Content Header (Page header) -->
-				<section class="content-header">
-					<div class="row">
-						<div class="col-xs-2">
-							<label>Tarikh Permohonan</label>
-						</div>
-						<div class="col-xs-2">
-							<label>Tarikh Penerbangan</label>
-						</div>
-						<div class="col-xs-2">
-							<label>Tarikh Mula Bertugas</label>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-xs-2">
-							<input type="date" class="form-control" id="unit1">
-						</div>
-						<div class="col-xs-2">
-							<input type="date" class="form-control" id="unit2">
-						</div>
-						<div class="col-xs-2">
-							<input type="date" class="form-control" id="unit3">
-						</div>
-						<div class="col-xs-2">
-							<button type="button" class="btn btn-info form-control">Carian</button>
-						</div>
-					</div>
-				</section>
-
 				<!-- Main content -->
 				<section class="content">
 					<!-- /.row -->
@@ -80,27 +51,25 @@
 						<div class="col-xs-12">
 							<div class="box">
 								<div class="box-header">
-									<h3 class="box-title">Maklumat Penerbangan</h3>
+									<h3 class="box-title">Maklumat Pangkalan Data</h3>
 								</div>
 								<!-- /.box-header -->
 								<div class="box-body">
 									<table id="example1" class="table table-bordered table-hover">
 										<thead>
 											<tr>
-												<th>Tarikh Permohonan</th>
-												<th>Tarikh Penerbangan</th>
-												<th>Nama Pemohon</th>
-												<th>Tujuan</th>
-												<th>Tempat Bertugas</th>
-												<th>Peruntukan</th>
-												<th>Status</th>
+												<th>No</th>
+												<th>Nama Rujukan</th>
 												<th>Tindakan</th>
 											</tr>
 										</thead>
 										<tbody>
 											<c:forEach items="${welcome}" var="pemohon">
+												<%
+													int x = 1;
+												%>
 												<tr>
-													<td data-toggle="modal" data-target="#modal-lulus">${pemohon.tarikhMohon}</td>
+													<td><%=x%></td>
 													<td>${pemohon.tarikhMula}</td>
 													<td>${pemohon.nama}</td>
 													<td>${pemohon.tujuan}</td>
@@ -108,18 +77,14 @@
 													<td>${pemohon.peruntukan}</td>
 													<td>${pemohon.statusPermohonan}</td>
 													<td><spring:url value="/updateStatus?id=${pemohon.id}"
-															var="updateStatus" />
-															
-															<c:if test="${pemohon.statusPermohonan == 'Batal'}">
+															var="updateStatus" /> <c:if
+															test="${pemohon.statusPermohonan == 'Batal'}">
 															<button type="button" class="btn btn-info "
-															data-toggle="modal"
-															data-target="#modal-pengesahan${pemohon.id}">Pengesahan</button>
-															</c:if>
+																data-toggle="modal"
+																data-target="#modal-pengesahan${pemohon.id}">Pengesahan</button>
+														</c:if>
 
-														
-
-														<div class="modal fade"
-															id="modal-pengesahan${pemohon.id}">
+														<div class="modal fade" id="modal-pengesahan${pemohon.id}">
 															<div class="modal-dialog modal-lg">
 																<div class="modal-content">
 																	<div class="modal-header">
@@ -127,7 +92,8 @@
 																			data-dismiss="modal" aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
-																		<h4 class="modal-title">Pengesahan Pembatalan Tiket</h4>
+																		<h4 class="modal-title">Pengesahan Pembatalan
+																			Tiket</h4>
 																	</div>
 																	<div class="modal-body">
 																		<form:form method="POST"
@@ -304,7 +270,7 @@
 															<!-- /.modal-dialog -->
 														</div></td>
 												</tr>
-												
+
 												<script>
 													$(
 															'#tableKelulusan${pemohon.id}')
@@ -329,6 +295,9 @@
 																		'autoWidth' : false
 																	})
 												</script>
+												<%
+													x++;
+												%>
 											</c:forEach>
 										</tbody>
 									</table>

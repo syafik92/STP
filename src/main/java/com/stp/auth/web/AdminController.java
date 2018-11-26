@@ -1,6 +1,8 @@
 package com.stp.auth.web;
 
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+
+import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,104 +17,132 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.stp.auth.model.Pengguna;
 import com.stp.auth.model.User;
 import com.stp.auth.service.DaftarPenggunaService;
+import com.stp.auth.service.RefCawanganService;
+import com.stp.auth.service.RefUnitBahagianService;
 
 @Controller
 public class AdminController {
-    @Autowired
-    private DaftarPenggunaService userService;
+	@Autowired
+	private DaftarPenggunaService userService;
 
+	@Autowired
+	private RefCawanganService refCawanganService;
 
+	@Autowired
+	private RefUnitBahagianService refUnitBahagianService;
 
-    @RequestMapping(value = "/admin/daftarPengguna", method = RequestMethod.GET)
-    public String daftarPengguna(Model model, HttpSession session) {
-    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	ArrayList<Pengguna> user = new ArrayList<>();
 
-		Pengguna user = userService.findByUsername(username);
-		session.setAttribute("user", user);
+	@RequestMapping(value = "/admin/daftarPengguna", method = RequestMethod.GET)
+	public String daftarPengguna(Model model) {
 		model.addAttribute("listPengguna", userService.findAll());
-        model.addAttribute("daftarPenggunaForm", new Pengguna());
-        model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
-        model.addAttribute("padamPenggunaForm", new Pengguna());
-        model.addAttribute("lihatPenggunaForm", new Pengguna());
-        model.addAttribute("jawatan", user.getJawatan());
+		model.addAttribute("cawangan", refCawanganService.getAll());
 
-        return "daftarPengguna";
-    }
+		for (Pengguna jb : userService.findAll()) {
+			System.out.println("tengok siniiiiiiiii" + userService.findAll());
+			if (jb.getJawatan().equals("Ketua Pegawai")) {
+				model.addAttribute("jawatan", userService.findByJawatan(jb.getJawatan()));
+			}
+		}
 
-    @RequestMapping(value = "/admin/daftarPengguna", method = RequestMethod.POST)
-    public String daftarPengguna(@ModelAttribute("daftarPenggunaForm") Pengguna daftarPenggunaForm, BindingResult bindingResult, Model model) {
-     
-    	daftarPenggunaForm.setPassword(daftarPenggunaForm.getNoKP());
-        userService.save(daftarPenggunaForm);
-        model.addAttribute("daftarPenggunaForm", new Pengguna());
-        model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
-        model.addAttribute("padamPenggunaForm", new Pengguna());
-        model.addAttribute("lihatPenggunaForm", new Pengguna());
+		model.addAttribute("unitBahagian", refUnitBahagianService.getAll());
+		model.addAttribute("daftarPenggunaForm", new Pengguna());
+		model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
+		model.addAttribute("padamPenggunaForm", new Pengguna());
+		model.addAttribute("lihatPenggunaForm", new Pengguna());
 
+		return "daftarPengguna";
+	}
 
-        return "redirect:/admin/daftarPengguna";
-    }
-    
-    @RequestMapping(value = "/admin/kemaskiniPengguna", method = RequestMethod.GET)
-    public String kemaskiniPengguna(@RequestParam("id") Long id ,Model model,HttpSession session) {
-    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	@RequestMapping(value = "/admin/daftarPengguna", method = RequestMethod.POST)
+	public String daftarPengguna(@ModelAttribute("daftarPenggunaForm") Pengguna daftarPenggunaForm,
+			BindingResult bindingResult, Model model) {
 
-		Pengguna user = userService.findByUsername(username);
-		session.setAttribute("user", user);
+		daftarPenggunaForm.setPassword(daftarPenggunaForm.getNoKP());
+		userService.save(daftarPenggunaForm);
+		model.addAttribute("daftarPenggunaForm", new Pengguna());
+		model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
+		model.addAttribute("padamPenggunaForm", new Pengguna());
+		model.addAttribute("lihatPenggunaForm", new Pengguna());
+
+		return "redirect:/admin/daftarPengguna";
+	}
+
+	@RequestMapping(value = "/admin/kemaskiniPengguna", method = RequestMethod.GET)
+	public String kemaskiniPengguna(@RequestParam("id") Long id, Model model) {
 		model.addAttribute("listPengguna", userService.findAll());
-        model.addAttribute("daftarPenggunaForm", new Pengguna());
-        model.addAttribute("kemaskiniPenggunaForm",userService.findById(id));
-        model.addAttribute("padamPenggunaForm", new Pengguna());
-        model.addAttribute("lihatPenggunaForm", new Pengguna());
-        model.addAttribute("jawatan", user.getJawatan());
+		
+		for (Pengguna jb : userService.findAll()) {
+			System.out.println("tengok siniiiiiiiii" + userService.findAll());
+			if (jb.getJawatan().equals("Ketua Pegawai")) {
+				model.addAttribute("jawatan", userService.findByJawatan(jb.getJawatan()));
+			}
+		}
+		
+		model.addAttribute("cawangan", refCawanganService.getAll());
+		model.addAttribute("unitBahagian", refUnitBahagianService.getAll());
+		model.addAttribute("daftarPenggunaForm", new Pengguna());
+		model.addAttribute("kemaskiniPenggunaForm", userService.findById(id));
+		model.addAttribute("padamPenggunaForm", new Pengguna());
+		model.addAttribute("lihatPenggunaForm", new Pengguna());
 
+		return "daftarPengguna";
+	}
 
-        return "daftarPengguna";
-    }
-    
-    
-    @RequestMapping(value = "/admin/lihatPengguna", method = RequestMethod.GET)
-    public String lihatPengguna(@RequestParam("id") Long id ,Model model, HttpSession session) {
-    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-		Pengguna user = userService.findByUsername(username);
-		session.setAttribute("user", user);
+	@RequestMapping(value = "/admin/lihatPengguna", method = RequestMethod.GET)
+	public String lihatPengguna(@RequestParam("id") Long id, Model model) {
 		model.addAttribute("listPengguna", userService.findAll());
-        model.addAttribute("daftarPenggunaForm", new Pengguna());
-        model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
-        model.addAttribute("padamPenggunaForm", new Pengguna());
-        model.addAttribute("lihatPenggunaForm",userService.findById(id));
-        model.addAttribute("jawatan", user.getJawatan());
+		model.addAttribute("cawangan", refCawanganService.getAll());
+		
+		for (Pengguna jb : userService.findAll()) {
+			System.out.println("tengok siniiiiiiiii" + userService.findAll());
+			if (jb.getJawatan().equals("Ketua Pegawai")) {
+				model.addAttribute("jawatan", userService.findByJawatan(jb.getJawatan()));
+			}
+		}
+		
+		model.addAttribute("unitBahagian", refUnitBahagianService.getAll());
+		model.addAttribute("daftarPenggunaForm", new Pengguna());
+		model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
+		model.addAttribute("padamPenggunaForm", new Pengguna());
+		model.addAttribute("lihatPenggunaForm", userService.findById(id));
 
-        return "daftarPengguna";
-    }
-    
-    @RequestMapping(value = "/admin/padamPengguna", method = RequestMethod.GET)
-    public String padamPengguna(@RequestParam("id") Long id ,Model model, HttpSession session) {
-    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		return "daftarPengguna";
+	}
 
-		Pengguna user = userService.findByUsername(username);
-		session.setAttribute("user", user);
+	@RequestMapping(value = "/admin/padamPengguna", method = RequestMethod.GET)
+	public String padamPengguna(@RequestParam("id") Long id, Model model) {
 		model.addAttribute("listPengguna", userService.findAll());
-        model.addAttribute("daftarPenggunaForm", new Pengguna());
-        model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
-        model.addAttribute("lihatPenggunaForm", new Pengguna());
-        model.addAttribute("padamPenggunaForm",userService.findById(id));
-        model.addAttribute("jawatan", user.getJawatan());
+		model.addAttribute("cawangan", refCawanganService.getAll());
+		model.addAttribute("unitBahagian", refUnitBahagianService.getAll());
+		
+		for (Pengguna jb : userService.findAll()) {
+			System.out.println("tengok siniiiiiiiii" + userService.findAll());
+			if (jb.getJawatan().equals("Ketua Pegawai")) {
+				model.addAttribute("jawatan", userService.findByJawatan(jb.getJawatan()));
+			}
+		}
+		
+		model.addAttribute("daftarPenggunaForm", new Pengguna());
+		model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
+		model.addAttribute("lihatPenggunaForm", new Pengguna());
+		model.addAttribute("padamPenggunaForm", userService.findById(id));
 
-        return "daftarPengguna";
-    }
-    @RequestMapping(value = "/admin/padamPengguna", method = RequestMethod.POST)
-    public String padamPengguna(@ModelAttribute("daftarPenggunaForm") Pengguna daftarPenggunaForm, BindingResult bindingResult, Model model) {
-     
-    	daftarPenggunaForm.setPassword(daftarPenggunaForm.getNoKP());
-        userService.remove(daftarPenggunaForm);
-        model.addAttribute("daftarPenggunaForm", new Pengguna());
-        model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
-        model.addAttribute("padamPenggunaForm", new Pengguna());
-        model.addAttribute("lihatPenggunaForm", new Pengguna());
+		return "daftarPengguna";
+	}
 
-        return "redirect:/admin/daftarPengguna";
-    }
+	@RequestMapping(value = "/admin/padamPengguna", method = RequestMethod.POST)
+	public String padamPengguna(@ModelAttribute("daftarPenggunaForm") Pengguna daftarPenggunaForm,
+			BindingResult bindingResult, Model model) {
+
+		daftarPenggunaForm.setPassword(daftarPenggunaForm.getNoKP());
+		userService.remove(daftarPenggunaForm);
+		model.addAttribute("daftarPenggunaForm", new Pengguna());
+		model.addAttribute("kemaskiniPenggunaForm", new Pengguna());
+		model.addAttribute("padamPenggunaForm", new Pengguna());
+		model.addAttribute("lihatPenggunaForm", new Pengguna());
+
+		return "redirect:/admin/daftarPengguna";
+	}
 
 }

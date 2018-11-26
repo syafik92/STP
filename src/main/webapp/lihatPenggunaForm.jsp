@@ -3,13 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script>
-$(function(){
-var check = $('#lihat').val();
-if(check>0){
+	$(function() {
+		var check = $('#lihat').val();
+		if (check > 0) {
 
-	  $('#modal-lihatPenggunaForm').modal('show');
-}
-});
+			$('#modal-lihatPenggunaForm').modal('show');
+		}
+	});
 </script>
 <div class="modal fade" id="modal-lihatPenggunaForm">
 	<div class="modal-dialog modal-lg">
@@ -22,12 +22,12 @@ if(check>0){
 				<h4 class="modal-title">Kemaskini Pengguna</h4>
 			</div>
 			<form:form method="POST" modelAttribute="lihatPenggunaForm"
-				action="${contextPath}/admin/daftarPengguna" class="form-horizontal">
+				action="${contextPath}/daftarPengguna" class="form-horizontal">
 				<div class="modal-body">
 
 					<spring:bind path="id">
-						<form:input type="hidden" class="form-control" path="id" id="lihat"
-							></form:input>
+						<form:input type="hidden" class="form-control" path="id"
+							id="lihat"></form:input>
 					</spring:bind>
 					<div class="box-body">
 						<div class="form-group">
@@ -83,14 +83,15 @@ if(check>0){
 										placeholder="Nombor Kad Pengenalan"></form:input>
 								</spring:bind>
 							</div>
-							<label class="col-sm-2 control-label">Unit / Bahagian</label>
+							<label class="col-sm-2 control-label">Passport</label>
 
 							<div class="col-sm-4">
-								<spring:bind path="unit">
-									<form:input type="text" class="form-control" path="unit"
-										placeholder="Unit"></form:input>
+								<spring:bind path="passport">
+									<form:input type="text" class="form-control" path="passport"
+										placeholder="No Passport"></form:input>
 								</spring:bind>
 							</div>
+
 						</div>
 
 						<div class="form-group">
@@ -118,7 +119,9 @@ if(check>0){
 								<form:select path="Jawatan" class="form-control">
 									<option></option>
 									<option>Pegawai</option>
-									<option>Staf</option>
+									<option>Ketua Pegawai</option>
+									<option>Pentadbir</option>
+									<option>Pengarah</option>
 								</form:select>
 							</div>
 							<label class="col-sm-2 control-label">Status</label>
@@ -132,12 +135,21 @@ if(check>0){
 							</div>
 						</div>
 						<div class="form-group">
-						<label class="col-sm-2 control-label">Passport</label>
+							<label class="col-sm-2 control-label">Cawangan</label>
 
 							<div class="col-sm-4">
-								<spring:bind path="passport">
-									<form:input type="text" class="form-control" path="passport"
-										placeholder="No Passport"></form:input>
+								<spring:bind path="cawangan">
+									<form:input type="text" class="form-control" path="cawangan"
+										placeholder="Cawangan"></form:input>
+								</spring:bind>
+							</div>
+
+							<label class="col-sm-2 control-label">Unit / Bahagian</label>
+
+							<div class="col-sm-4">
+								<spring:bind path="unit">
+									<form:input type="text" class="form-control" path="unit"
+										placeholder="Unit"></form:input>
 								</spring:bind>
 							</div>
 						</div>
@@ -146,8 +158,6 @@ if(check>0){
 		</div>
 
 		<!-- /.box-body -->
-		<div class="box-footer">
-		</div>
 		</form:form>
 
 		<!-- /.box-footer -->

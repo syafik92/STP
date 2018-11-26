@@ -1,5 +1,7 @@
 package com.stp.auth.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PermohonanTemp {
 	
 
@@ -9,7 +11,7 @@ public class PermohonanTemp {
 	private Boolean wakilPermohon;
 
 	private String noBilBom;
-	private String muatNaikBom;
+	private MultipartFile muatNaikBom;
 	private String nama;
 	private String namaPelulus;
 	private String namaPemohon;
@@ -29,6 +31,7 @@ public class PermohonanTemp {
 	private String staffNo;
 	private String statusPermohonan;
 	private String catatan;
+	private String enrichNo;
 	
 	private Long penerbanganId;
 	
@@ -420,13 +423,11 @@ public class PermohonanTemp {
 		this.tempatBertugas = tempatBertugas;
 	}
 
-
-
-	public String getMuatNaikBom() {
+	public MultipartFile getMuatNaikBom() {
 		return muatNaikBom;
 	}
 
-	public void setMuatNaikBom(String muatNaikBom) {
+	public void setMuatNaikBom(MultipartFile muatNaikBom) {
 		this.muatNaikBom = muatNaikBom;
 	}
 
@@ -436,6 +437,18 @@ public class PermohonanTemp {
 
 	public void setCatatan(String catatan) {
 		this.catatan = catatan;
+	}
+
+
+
+	public String getEnrichNo() {
+		return enrichNo;
+	}
+
+
+
+	public void setEnrichNo(String enrichNo) {
+		this.enrichNo = enrichNo;
 	}
 
 

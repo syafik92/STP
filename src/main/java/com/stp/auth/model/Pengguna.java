@@ -17,6 +17,7 @@ public class Pengguna {
 	private String staffNo;
 	private String namaStaff;
 	private String noKP;
+	private String cawangan;
 	private String unit;
 	private String email;
 	private String noTelefon;
@@ -27,6 +28,8 @@ public class Pengguna {
 	private String password;
 	private String passwordConfirm;
 	private String jawatan;
+	private String userJawatan;
+	private String enrichNo;
 //	private Set<Role> roles;
 	
 	public Long getId() {
@@ -150,6 +153,30 @@ public class Pengguna {
 
 	public void setPassport(String passport) {
 		this.passport = passport;
+	}
+
+	public String getUserJawatan() {
+		return userJawatan;
+	}
+
+	public void setUserJawatan(String userJawatan) {
+		this.userJawatan = userJawatan;
+	}
+
+	public String getCawangan() {
+		return cawangan;
+	}
+
+	public void setCawangan(String cawangan) {
+		this.cawangan = cawangan;
+	}
+
+	public String getEnrichNo() {
+		return enrichNo;
+	}
+
+	public void setEnrichNo(String enrichNo) {
+		this.enrichNo = enrichNo;
 	}
 	
 //	public Set<Permohonan> getPermohonan() {

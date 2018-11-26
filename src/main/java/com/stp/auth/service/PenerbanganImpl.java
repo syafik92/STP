@@ -22,10 +22,14 @@ public class PenerbanganImpl implements PenerbanganService{
 		
 	}
 	
-//	public Penerbangan findById(Long penerbanganId) {
-//		// TODO Auto-generated method stub
-//		return penerbanganRepo.findById(penerbanganId);
-//	}
+	public List<Penerbangan> findByPermohonan(Permohonan permohonan) {
+		// TODO Auto-generated method stub
+		return penerbanganRepo.findByPermohonan(permohonan);
+	}
+	
+	public List<Penerbangan> findByPenerbanganId(Long penerbanganId){
+		return penerbanganRepo.findByPenerbanganId(penerbanganId);
+	}
 
 	@Override
 	public List<Penerbangan> getAll() {
