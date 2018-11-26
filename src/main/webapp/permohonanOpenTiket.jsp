@@ -211,8 +211,7 @@
 												<div class="col-sm-4">
 													<spring:bind path="nama">
 														<form:input type="text" class="form-control" path="nama"
-															placeholder="Seperti Dalam Kad Pengenalan"
-															disabled="true"></form:input>
+															placeholder="Seperti Dalam Kad Pengenalan"></form:input>
 													</spring:bind>
 												</div>
 												<label for="inputEmail3" class="col-sm-2 control-label">Nama
@@ -232,8 +231,7 @@
 
 												<div class="col-sm-4">
 													<spring:bind path="kp">
-														<form:input type="text" class="form-control" path="kp"
-															disabled="true"></form:input>
+														<form:input type="text" class="form-control" path="kp"></form:input>
 													</spring:bind>
 												</div>
 												<label for="inputPassword3" class="col-sm-2 control-label">Unit
@@ -242,7 +240,7 @@
 												<div class="col-sm-4">
 													<spring:bind path="bahagian">
 														<form:input type="text" class="form-control"
-															path="bahagian" disabled="true"></form:input>
+															path="bahagian"></form:input>
 													</spring:bind>
 												</div>
 											</div>
@@ -252,8 +250,7 @@
 
 												<div class="col-sm-4">
 													<spring:bind path="emel">
-														<form:input type="email" class="form-control" path="emel"
-															disabled="true"></form:input>
+														<form:input type="email" class="form-control" path="emel"></form:input>
 													</spring:bind>
 												</div>
 												<label for="inputPassword3" class="col-sm-2 control-label">No.
@@ -262,7 +259,7 @@
 												<div class="col-sm-4">
 													<spring:bind path="passport">
 														<form:input type="text" class="form-control"
-															path="passport" disabled="true"></form:input>
+															path="passport"></form:input>
 													</spring:bind>
 												</div>
 											</div>
@@ -272,8 +269,7 @@
 
 												<div class="col-sm-4">
 													<spring:bind path="tujuan">
-														<form:input type="text" class="form-control" path="tujuan"
-															disabled="true"></form:input>
+														<form:input type="text" class="form-control" path="tujuan"></form:input>
 													</spring:bind>
 												</div>
 												<label for="inputPassword3" class="col-sm-2 control-label">Tempat
@@ -282,7 +278,7 @@
 												<div class="col-sm-4">
 													<spring:bind path="tempatBertugas">
 														<form:input type="text" class="form-control"
-															path="tempatBertugas" disabled="true"></form:input>
+															path="tempatBertugas"></form:input>
 													</spring:bind>
 												</div>
 											</div>
@@ -294,7 +290,7 @@
 												<div class="col-sm-4">
 													<spring:bind path="tarikhMula">
 														<form:input type="date" class="form-control"
-															path="tarikhMula" disabled="true"></form:input>
+															path="tarikhMula"></form:input>
 													</spring:bind>
 												</div>
 												<label for="inputPassword3" class="col-sm-2 control-label">Tarikh
@@ -303,7 +299,7 @@
 												<div class="col-sm-4">
 													<spring:bind path="tarikhTamat">
 														<form:input type="date" class="form-control"
-															path="tarikhTamat" disabled="true"></form:input>
+															path="tarikhTamat"></form:input>
 													</spring:bind>
 												</div>
 											</div>

@@ -23,11 +23,15 @@ public class PermohonanImpl implements PermohonanService {
 		
 	}
 
-	@Override
-	public Permohonan findByUsername(String username) {
+	public List<Permohonan> findByNama(String nama) {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		return permohonanRepo.findByNama(nama);	}
+	
+	public List<Permohonan> findByStatusPermohonan(String statusPermohonan) {
+		// TODO Auto-generated method stub
+		return permohonanRepo.findByStatusPermohonan(statusPermohonan);	}
+	
+	
 	
 	public Permohonan findById(Long id) {
 		// TODO Auto-generated method stub
@@ -45,5 +49,11 @@ public class PermohonanImpl implements PermohonanService {
 		List<Permohonan> pemohon = new ArrayList<>();
 		permohonanRepo.findAll().forEach(pemohon::add);
 		return pemohon;
+	}
+
+	@Override
+	public List<Permohonan> findByNamaPelulus(String namaPelulus) {
+		// TODO Auto-generated method stub
+		return permohonanRepo.findByNamaPelulus(namaPelulus);
 	}
 }

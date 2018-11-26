@@ -32,7 +32,7 @@ public class DaftarPenggunaImpl implements DaftarPenggunaService {
 	@Override
 	public Pengguna findByUsername(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return daftarPenggunaRepo.findByUsername(username);
 	}
 
 	@Override
@@ -44,7 +44,19 @@ public class DaftarPenggunaImpl implements DaftarPenggunaService {
 	@Override
 	public Pengguna findById(Long id) {
 		// TODO Auto-generated method stub
-		return daftarPenggunaRepo.findById( id);
+		return daftarPenggunaRepo.findById(id);
+	}
+	
+	@Override
+	public List<Pengguna> findByJawatan(String jawatan){
+		
+		return daftarPenggunaRepo.findByJawatan(jawatan);
+	}
+	
+	@Override
+	public List<Pengguna> findByCawangan(String cawangan){
+		
+		return daftarPenggunaRepo.findByCawangan(cawangan);
 	}
 
 	@Override

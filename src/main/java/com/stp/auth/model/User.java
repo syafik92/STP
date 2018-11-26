@@ -33,11 +33,14 @@ public class User {
 	private String email;
 	private String noTelefon;
 	private String namaPengurus;
+	private String passport;
 	private String status;
 	private String username;
 	private String password;
 	private String passwordConfirm;
 	private String jawatan;
+	private String cawangan;
+	private String enrichNo;
 	private Set<Role> roles;
 
 	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
@@ -158,6 +161,30 @@ public class User {
 
 	public void setJawatan(String jawatan) {
 		this.jawatan = jawatan;
+	}
+	
+	public String getPassport() {
+		return passport;
+	}
+
+	public void setPassport(String passport) {
+		this.passport = passport;
+	}
+
+	public String getCawangan() {
+		return cawangan;
+	}
+
+	public void setCawangan(String cawangan) {
+		this.cawangan = cawangan;
+	}
+
+	public String getEnrichNo() {
+		return enrichNo;
+	}
+
+	public void setEnrichNo(String enrichNo) {
+		this.enrichNo = enrichNo;
 	}
 	
 }

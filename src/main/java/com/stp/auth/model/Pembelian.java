@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "pembelian")
@@ -27,6 +28,11 @@ public class Pembelian {
 	private String alasan;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "penerbangan_penerbanganId", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Penerbangan penerbangan;
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "permohonan_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Permohonan permohonan;
@@ -37,6 +43,14 @@ public class Pembelian {
 
 	public void setPermohonan(Permohonan permohonan) {
 		this.permohonan = permohonan;
+	}
+	
+	public Penerbangan getPenerbangan() {
+		return penerbangan;
+	}
+
+	public void setPenerbangan(Penerbangan penerbangan) {
+		this.penerbangan = penerbangan;
 	}
 
 	public Long getId() {

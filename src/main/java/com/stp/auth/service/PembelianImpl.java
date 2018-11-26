@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stp.auth.model.Pembelian;
+import com.stp.auth.model.Penerbangan;
 import com.stp.auth.repository.PembelianRepository;
 
 @Service
@@ -26,6 +27,10 @@ public class PembelianImpl implements PembelianService {
 		List<Pembelian> pembelian = new ArrayList<>();
 		pembelianRepo.findAll().forEach(pembelian::add);
 		return pembelian;
+	}
+	
+	public List<Pembelian> findByPenerbangan(Penerbangan penerbangan){
+		return pembelianRepo.findByPenerbangan(penerbangan);
 	}
 
 	@Override

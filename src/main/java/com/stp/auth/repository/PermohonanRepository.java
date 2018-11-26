@@ -11,4 +11,9 @@ import com.stp.auth.model.User;
 public interface PermohonanRepository extends JpaRepository<Permohonan, Long> {
 
 	public Permohonan findById(Long id);
+	public List<Permohonan> findByNama(String nama);
+	public List<Permohonan> findByNamaPelulus(String namaPelulus);
+	public List<Permohonan> findByStatusPermohonan(String statusPermohonan);
+
+
 }

@@ -16,7 +16,14 @@
 
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </head>
+
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <body class="hold-transition skin-blue sidebar-mini fixed">
 
@@ -30,15 +37,21 @@
 		src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
 
-	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-	<jsp:include page="${contextPath}/template/header.jsp" />
+
+<jsp:include page="${contextPath}/template/header.jsp" />
+<body class="hold-transition skin-blue sidebar-mini fixed">
 	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<form id="logoutForm" method="POST" action="${contextPath}/logout">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
 		<div class="wrapper">
 
 			<jsp:include page="${contextPath}/template/mainHeader.jsp" />
 			<!-- Left side column. contains the logo and sidebar -->
-			<jsp:include page="${contextPath}/template/adminMainSideBar.jsp" />
+			<jsp:include page="${contextPath}/template/mainSideBar.jsp" />
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
 
@@ -128,11 +141,11 @@
 													value="/admin/kemaskiniPengguna?id=${user.id}"
 													var="updateUrl" />
 
-												<button class="btn btn-info"
+												<button class="btn btn-info btn-block"
 													onclick="location.href='${userUrl}'">Lihat</button>
-												<button class="btn btn-primary"
+												<button class="btn btn-primary btn-block"
 													onclick="location.href='${updateUrl}'">Kemaskini</button>
-												<button class="btn btn-danger"
+												<button class="btn btn-danger btn-block"
 													onclick="location.href='${deleteUrl}'">Padam</button></td>
 										</tr>
 										<%
@@ -170,6 +183,24 @@
 		<script src="${contextPath}/resources/css/dist/js/adminlte.min.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="${contextPath}/resources/css/dist/js/demo.js"></script>
+
+		<!-- DataTables -->
+		<script
+			src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+		<script
+			src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+		<script>
+			$('#example1').DataTable({
+				'paging' : true,
+				'lengthChange' : false,
+				'searching' : false,
+				'ordering' : true,
+				'info' : true,
+				'autoWidth' : false
+			})
+		</script>
+
+
 	</c:if>
 </body>
 </html>

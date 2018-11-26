@@ -1,5 +1,9 @@
 package com.stp.auth.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -7,13 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "Penerbangan")
+@Table(name = "penerbangan")
 public class Penerbangan {
 	
 	@Id
@@ -28,11 +33,15 @@ public class Penerbangan {
 	private String noPesawat;
 	private String dariLokasi;
 	private String destinasi;
+	private Boolean status;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "permohonan_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Permohonan permohonan;
+	
+	@OneToMany(mappedBy="penerbangan", cascade = CascadeType.ALL)
+	private Set<Pembelian> pembelian = new HashSet<>();
 		
 	public Permohonan getPermohonan() {
 		return permohonan;
@@ -94,6 +103,19 @@ public class Penerbangan {
 	}
 	public void setJenisPesawat(String jenisPesawat) {
 		this.jenisPesawat = jenisPesawat;
+	}
+	
+	public Set<Pembelian> getPembelian() {
+		return pembelian;
+	}
+	public void setPembelian(Set<Pembelian> pembelian) {
+		this.pembelian = pembelian;
+	}
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 }

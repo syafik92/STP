@@ -17,6 +17,11 @@
 	});
 </script>
 <script>
+
+	function alert() {
+		alert("Sila segera hubungi Pn. Farah Diyana di ext: 385 untuk urusan pembatalan seterusnya");
+	}
+
 	$('#example1').DataTable({
 		'paging' : true,
 		'lengthChange' : false,
@@ -25,6 +30,7 @@
 		'info' : true,
 		'autoWidth' : false
 	})
+
 </script>
 <div class="modal fade" id="modal-batal${pemohon.id}">
 	<div class="modal-dialog modal-lg">
@@ -93,6 +99,10 @@
 								<form:input type="hidden" class="form-control" path="kelulusan"
 									value="${pemohon.namaPemohon}"></form:input>
 							</spring:bind>
+							<spring:bind path="tarikhMula">
+								<form:input type="hidden" class="form-control" path="tarikhMula"
+									value="${pemohon.tarikhMula}"></form:input>
+							</spring:bind>
 
 							<label for="inputEmail3" class="col-sm-2 control-label">Nama
 								Pemohon</label>
@@ -110,15 +120,14 @@
 
 							<div class="col-sm-6">
 								<spring:bind path="tarikhMohon">
-									<form:input type="date" class="form-control" id="tarikhMohon"
+									<form:input type="text" class="form-control" id="tarikhMohon"
 										path="tarikhMohon" value="${pemohon.tarikhMohon}"></form:input>
 								</spring:bind>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-2 control-label">Unit
-								/ Bahagian</label>
+							<label for="inputPassword3" class="col-sm-2 control-label">Unit</label>
 
 							<div class="col-sm-6">
 								<spring:bind path="bahagian">
@@ -128,7 +137,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-2 control-label">Destinasi</label>
+							<label for="inputPassword3" class="col-sm-2 control-label">Tempat Bertugas</label>
 
 							<div class="col-sm-6">
 								<spring:bind path="tempatBertugas">
@@ -138,6 +147,7 @@
 								</spring:bind>
 							</div>
 						</div>
+
 						<table id="example1" class="table table-bordered table-hover">
 							<thead>
 								<tr>
@@ -172,19 +182,50 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-2 control-label">Tarikh
-								Balik</label>
 
-							<div class="col-sm-8">
-								<div class="col-sm-4">
-									<spring:bind path="tarikhTamat">
-										<form:input type="date" class="form-control" id="tarikhTamat"
-											path="tarikhTamat" value="${pemohon.tarikhTamat}"></form:input>
-									</spring:bind>
-								</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-2 control-label">Tujuan</label>
+
+							<div class="col-sm-6">
+								<spring:bind path="tujuan">
+									<form:input type="text" class="form-control"
+										id="tujuan" path="tujuan"
+										value="${pemohon.tujuan}"></form:input>
+								</spring:bind>
 							</div>
 						</div>
+						<table id="example1" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>Bil</th>
+									<th>Tarikh Pergi</th>
+									<th>Waktu Berlepas</th>
+									<th>Waktu Tiba</th>
+									<th>No Pesawat</th>
+									<th>Dari Lokasi</th>
+									<th>Destinasi</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+									int i = 1;
+								%>
+								<c:forEach var="penerbangan" items="${Penerbangan}">
+									<tr>
+										<td>${penerbangan.penerbangan}</td>
+										<td>${penerbangan.tarikhPergi}</td>
+										<td>${penerbangan.waktuBerlepas}</td>
+										<td>${penerbangan.waktuTiba}</td>
+										<td>${penerbangan.noPesawat}</td>
+										<td>${penerbangan.dariLokasi}</td>
+										<td>${penerbangan.destinasi}</td>
+									</tr>
+									<%
+										i++;
+									%>
+								</c:forEach>
+							</tbody>
+						</table>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Catatan</label>
 
@@ -198,7 +239,8 @@
 					</div>
 					<!-- /.box-body -->
 					<div class="box-footer">
-						<button type="submit" class="btn btn-info pull-right">Batal</button>
+						<button type="submit" onClick="alert()"
+							class="btn btn-info pull-right">Batal</button>
 					</div>
 					<!-- /.box-footer -->
 				</form:form>
@@ -207,3 +249,13 @@
 		<!-- /.modal-content -->
 	</div>
 </div>
+<script>
+	$('#example1').DataTable({
+		'paging' : true,
+		'lengthChange' : false,
+		'searching' : false,
+		'ordering' : true,
+		'info' : true,
+		'autoWidth' : false
+	})
+</script>

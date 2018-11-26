@@ -95,10 +95,9 @@
 												<th>Tarikh Permohonan</th>
 												<th>Tarikh Penerbangan</th>
 												<th>Nama Pemohon</th>
-												<td>Tujuan</td>
+												<th>Tujuan</th>
 												<th>Tempat Bertugas</th>
 												<th>Peruntukan</th>
-												<th>Jenis Pesawat</th>
 												<th>Status</th>
 												<th>Tindakan</th>
 											</tr>
@@ -112,14 +111,17 @@
 													<td>${pemohon.tujuan}</td>
 													<td>${pemohon.tempatBertugas}</td>
 													<td>${pemohon.peruntukan}</td>
-													<td></td>
 													<td>${pemohon.statusPermohonan}</td>
 													<td><spring:url value="/updateStatus?id=${pemohon.id}"
 															var="updateStatus" />
-
-														<button type="button" class="btn btn-info "
+															
+															<c:if test="${pemohon.statusPermohonan == 'Batal'}">
+															<button type="button" class="btn btn-info "
 															data-toggle="modal"
 															data-target="#modal-pengesahan${pemohon.id}">Pengesahan</button>
+															</c:if>
+
+														
 
 														<div class="modal fade" id="modal-pengesahan${pemohon.id}">
 															<div class="modal-dialog modal-lg">
@@ -129,7 +131,7 @@
 																			data-dismiss="modal" aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
-																		<h4 class="modal-title">Pengesahan</h4>
+																		<h4 class="modal-title">Pengesahan Pembatalan Tiket</h4>
 																	</div>
 																	<div class="modal-body">
 																		<form:form method="POST"
@@ -190,7 +192,11 @@
 																					</spring:bind>
 																					<spring:bind path="namaPemohon">
 																						<form:input type="hidden" class="form-control"
-																							path="kelulusan" value="${pemohon.namaPemohon}"></form:input>
+																							path="namaPemohon" value="${pemohon.namaPemohon}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="tarikhMula">
+																						<form:input type="hidden" class="form-control"
+																							path="tarikhMula" value="${pemohon.tarikhMula}"></form:input>
 																					</spring:bind>
 
 																					<label for="inputEmail3"
@@ -211,7 +217,7 @@
 
 																					<div class="col-sm-6">
 																						<spring:bind path="tarikhMohon">
-																							<form:input type="date" class="form-control"
+																							<form:input type="text" class="form-control"
 																								id="tarikhMohon" path="tarikhMohon"
 																								value="${pemohon.tarikhMohon}"></form:input>
 																						</spring:bind>
@@ -243,36 +249,39 @@
 																						</spring:bind>
 																					</div>
 																				</div>
-																				<div class="form-group">
-																					<label for="inputPassword3"
-																						class="col-sm-2 control-label">Tarikh
-																						Pergi</label>
-
-																					<div class="col-sm-8">
-																						<div class="col-sm-4">
-																							<spring:bind path="tarikhMula">
-																								<form:input type="date" class="form-control"
-																									id="tarikhMula" path="tarikhMula"
-																									value="${pemohon.tarikhMula}"></form:input>
-																							</spring:bind>
-																						</div>
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label for="inputPassword3"
-																						class="col-sm-2 control-label">Tarikh
-																						Balik</label>
-
-																					<div class="col-sm-8">
-																						<div class="col-sm-4">
-																							<spring:bind path="tarikhTamat">
-																								<form:input type="date" class="form-control"
-																									id="tarikhTamat" path="tarikhTamat"
-																									value="${pemohon.tarikhTamat}"></form:input>
-																							</spring:bind>
-																						</div>
-																					</div>
-																				</div>
+																				<table class="table table-bordered table-hover"
+																					id="tableKelulusan${pemohon.id}">
+																					<thead>
+																						<tr>
+																							<th>Tarikh Pergi</th>
+																							<th>Waktu Berlepas</th>
+																							<th>Waktu Tiba</th>
+																							<th>No Pesawat</th>
+																							<th>Dari Lokasi</th>
+																							<th>Destinasi</th>
+																						</tr>
+																					</thead>
+																					<tbody>
+																						<%
+																							int i = 1;
+																						%>
+																						<c:forEach var="penerbangan"
+																							items="${Penerbangan}">
+																							<tr>
+																								<td>${penerbangan.penerbangan}</td>
+																								<td>${penerbangan.tarikhPergi}</td>
+																								<td>${penerbangan.waktuBerlepas}</td>
+																								<td>${penerbangan.waktuTiba}</td>
+																								<td>${penerbangan.noPesawat}</td>
+																								<td>${penerbangan.dariLokasi}</td>
+																								<td>${penerbangan.destinasi}</td>
+																							</tr>
+																							<%
+																								i++;
+																							%>
+																						</c:forEach>
+																					</tbody>
+																				</table>
 																				<div class="form-group">
 																					<label for="inputPassword3"
 																						class="col-sm-2 control-label">Alasan</label>
@@ -299,6 +308,31 @@
 															<!-- /.modal-dialog -->
 														</div></td>
 												</tr>
+												
+												<script>
+													$(
+															'#tableKelulusan${pemohon.id}')
+															.DataTable(
+																	{
+																		'paging' : true,
+																		'lengthChange' : false,
+																		'searching' : false,
+																		'ordering' : true,
+																		'info' : true,
+																		'autoWidth' : false
+																	})
+													$(
+															'#tableTolak${pemohon.id}')
+															.DataTable(
+																	{
+																		'paging' : true,
+																		'lengthChange' : false,
+																		'searching' : false,
+																		'ordering' : true,
+																		'info' : true,
+																		'autoWidth' : false
+																	})
+												</script>
 											</c:forEach>
 										</tbody>
 									</table>

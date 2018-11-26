@@ -11,21 +11,15 @@
 						class="img-circle" alt="User Image">
 				</div>
 				<div class="pull-left info">
+					<p>${namaStaff}</p>
 					<p>${jawatan}</p>
 				</div>
 			</div>
 			<ul class="sidebar-menu" data-widget="tree">
 				<li class="header" style="text-align: center;">SELAMAT DATANG</li>
-				<li class="treeview"><a href="#"> <i
-						class="fa fa-dashboard"></i> <span>Menu</span> <span
-						class="pull-right-container"> <i
-							class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-					<ul class="treeview-menu">
-						<li class="active"><a href="permohonanTiket"><i
-								class="fa fa-circle-o"></i>Permohonan</a></li>
-					</ul></li>
+				<li class="active"><a href="permohonanTiket"><i
+						class="fa fa-edit"></i>Permohonan</a></li>
+
 			</ul>
 		</section>
 	</aside>
@@ -41,22 +35,21 @@
 						class="img-circle" alt="User Image">
 				</div>
 				<div class="pull-left info">
+					<p>${namaStaff}</p>
 					<p>${jawatan}</p>
 				</div>
 			</div>
 			<ul class="sidebar-menu" data-widget="tree">
 				<li class="header" style="text-align: center;">SELAMAT DATANG</li>
-				<li class="treeview"><a href="#"> <i
-						class="fa fa-dashboard"></i> <span>Menu</span> <span
+				<li class="treeview active"><a href="#"><span>Menu</span> <span
 						class="pull-right-container"> <i
 							class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
+					</span> </a>
 					<ul class="treeview-menu">
 						<li class="active"><a href="permohonanTiket"><i
-								class="fa fa-circle-o"></i>Permohonan</a></li>
+								class="fa fa-edit"></i>Permohonan</a></li>
 						<li class="active"><a href="welcome"><i
-								class="fa fa-circle-o"></i>Kelulusan</a></li>
+								class="fa fa-check-square-o"></i>Kelulusan</a></li>
 					</ul></li>
 			</ul>
 
@@ -74,42 +67,42 @@
 						class="img-circle" alt="User Image">
 				</div>
 				<div class="pull-left info">
+					<p>${namaStaff}</p>
 					<p>${jawatan}</p>
 				</div>
 			</div>
 			<ul class="sidebar-menu" data-widget="tree">
 				<li class="header" style="text-align: center;">SELAMAT DATANG</li>
-				<li class="treeview"><a href="#"> <i
-						class="fa fa-dashboard"></i> <span>Menu</span> <span
+				<li class="treeview"><a href="#"><span>Menu</span> <span
 						class="pull-right-container"> <i
 							class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
+					</span> </a>
 					<ul class="treeview-menu">
 						<li class="active"><a href="permohonanTiket"><i
-								class="fa fa-circle-o"></i>Permohonan</a></li>
+								class="fa fa-edit"></i>Permohonan</a></li>
 						<li class="active"><a href="pembelian"><i
-								class="fa fa-circle-o"></i>Pembelian</a></li>
+								class="fa fa-dollar"></i>Pembelian</a></li>
 						<li class="active"><a href="report"><i
-								class="fa fa-circle-o"></i>Laporan</a></li>
+								class="fa fa-file-text-o"></i>Laporan</a></li>
+						<li class="active"><a href="admin/daftarPengguna"><i
+								class="fa fa-circle-o"></i>Daftar Pengguna</a></li>
+						<li class="active"><a href="maintenancePage"><i
+								class="fa  fa-check-circle-o"></i>Selenggara</a></li>
 
 					</ul></li>
-				<li class="treeview"><a href="#"> <i
-						class="fa fa-dashboard"></i> <span>Syarikat Penerbangan</span> <span
-						class="pull-right-container"> <i
+				<li class="treeview"><a href="#"><span>Syarikat
+							Penerbangan</span> <span class="pull-right-container"> <i
 							class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
+					</span> </a>
 					<ul class="treeview-menu">
 						<li class="active"><a href="https://www.malaysiaairlines.com"
-							target="_blank"><i class="fa fa-circle-o"></i>MALAYSIA
-								AIRLINES</a></li>
+							target="_blank"><i class="fa fa-plane"></i>MALAYSIA AIRLINES</a></li>
 						<li class="active"><a href="https://www.airasia.com"
-							target="_blank"><i class="fa fa-circle-o"></i>AIR ASIA</a></li>
+							target="_blank"><i class="fa fa-plane"></i>AIR ASIA</a></li>
 						<li class="active"><a href="https://www.malindoair.com"
-							target="_blank"><i class="fa fa-circle-o"></i>MALINDO</a></li>
+							target="_blank"><i class="fa fa-plane"></i>MALINDO</a></li>
 						<li class="active"><a href="http://www.fireflyz.com"
-							target="_blank"><i class="fa fa-circle-o"></i>FIREFLY</a></li>
+							target="_blank"><i class="fa fa-plane"></i>FIREFLY</a></li>
 					</ul></li>
 
 			</ul>
@@ -128,23 +121,21 @@
 						class="img-circle" alt="User Image">
 				</div>
 				<div class="pull-left info">
+					<p>${namaStaff}</p>
 					<p>${jawatan}</p>
 				</div>
 			</div>
 			<ul class="sidebar-menu" data-widget="tree">
 				<li class="header" style="text-align: center;">SELAMAT DATANG</li>
-				<li class="treeview"><a href="#"> <i
-						class="fa fa-dashboard"></i> <span>Menu</span> <span
+				<li class="treeview"><a href="#"><span>Menu</span> <span
 						class="pull-right-container"> <i
 							class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
+					</span> </a>
 					<ul class="treeview-menu">
 						<li class="active"><a href="permohonanTiket"><i
-								class="fa fa-circle-o"></i>Permohonan</a></li>
+								class="fa fa-edit"></i>Permohonan</a></li>
 						<li class="active"><a href="pengesahan"><i
-								class="fa fa-circle-o"></i>Pengesahan</a></li>
-
+								class="fa  fa-check-circle-o"></i>Pengesahan</a></li>
 					</ul></li>
 			</ul>
 
