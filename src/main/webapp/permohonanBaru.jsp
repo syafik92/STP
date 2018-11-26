@@ -137,20 +137,187 @@
 	function changeTab2() {
 		$('[href="#settings"]').tab('show');
 	}
+
+
+
+<script>
+
+		// Get the form fields and hidden div
+		var checkbox = $("#wakil");
+		var hidden = $("#hidden");
+
+		// Hide the fields.
+		// Use JS to do this in case the user doesn't have JS 
+		// enabled.
+		hidden.hide();
+
+		// Setup an event listener for when the state of the 
+		// checkbox changes.
+		checkbox.change(function() {
+			// Check to see if the checkbox is checked.
+			// If it is, show the fields and populate the input.
+			// If not, hide the fields.
+			if (checkbox.is(':checked')) {
+				// Show the hidden fields.
+				hidden.show();
+				// Populate the input.
+			} else {
+				// Make sure that the hidden fields are indeed
+				// hidden.
+				hidden.hide();
+
+				// You may also want to clear the value of the 
+				// hidden fields here. Just in case somebody 
+				// shows the fields, enters data to them and then 
+				// unticks the checkbox.
+				//
+				// This would do the job:
+				//
+				// $("#hidden_field").val("");
+			}
+		});
+</script>
+
+<script>
+
+	var baranganCount = 1;
+
+	var totalAnggaran = 0;
+	
+	function baranganTableTambah(){
+		var baranganDibawa = document.getElementById('baranganDibawa').value;
+		var jumlah = document.getElementById('jumlah').value;
+		var anggaranBerat = document.getElementById('anggaranBerat').value;
+		var total = document.getElementById('total');
+		var table = document.getElementById('tableBarangan');
+
+
+		totalAnggaran = totalAnggaran + parseInt(anggaranBerat,10);
+
+		
+		$("<tr><td>"+baranganCount+"</td><td>"+baranganDibawa+"</td><td>"+jumlah+"</td><td>"+anggaranBerat+"</td></tr>").appendTo(table); 
+		baranganCount++;
+
+		total.value = totalAnggaran;
+	
+
+
+	  
+	    var butiranBarangan = {
+	   	"baranganDibawa":baranganDibawa,
+	   	"anggaranBerat":anggaranBerat,
+	   	"jumlah":jumlah,
+		"total":totalAnggaran
+	   };
+	
+	   
+	   $.ajax
+	   ({
+	       type: "POST",
+	       //the url where you want to sent the userName and password to
+	       url: '/baranganTemp',
+	       contentType: 'application/json',
+	       data: JSON.stringify(butiranBarangan),
+	       success: function () {
+	
+	       }
+	   })
+
+
+		var baranganDibawa2 = document.getElementById('baranganDibawa');
+		var jumlah2 = document.getElementById('jumlah');
+		var anggaranBerat2 = document.getElementById('anggaranBerat');
+		baranganDibawa2.setValue = "";
+		jumlah2.setValue = "";	
+		anggaranBerat2.setValue = "";		   
+	}
+
+</script>
+
+<script>
+
+
+function tambahDlmTable(){
+	var destinasi = document.getElementById('destinasi');
+	var dariLokasi = document.getElementById('dariLokasi');
+	var noPesawat = document.getElementById('noPesawat');
+	var jenisPesawat = document.getElementById('jenisPesawat');
+	var waktuTiba = document.getElementById('waktuTiba');
+	var tarikhPergi = document.getElementById('tarikhPergi');
+	var waktuBerlepas = document.getElementById('waktuBerlepas');
+	var penerbanganId = document.getElementById('penerbanganId');
+
+	var table = document.getElementById('tablePenerbangan2');
+
+    $("<tr><td>"+penerbanganId.value+"</td><td>"+tarikhPergi.value+"</td><td>"+waktuBerlepas.value+"</td><td>"+waktuTiba.value+"</td><td>"+noPesawat.value+"</td><td>"+dariLokasi.value+"</td><td>"+destinasi.value+"</td></tr>").appendTo(table); 
+
+
+     var butiranPenerbangan = {
+    	"penerbangan":penerbanganId.value,
+    	"tarikhPergi":tarikhPergi.value,
+    	"waktuBerlepas":waktuBerlepas.value,
+    	"waktuTiba":waktuTiba.value,
+    	"noPesawat":noPesawat.value,
+    	"dariLokasi":dariLokasi.value,
+    	"destinasi":destinasi.value,
+    	"jenisPesawat":jenisPesawat.value,
+    };
+
+    
+    $.ajax
+    ({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: '/penerbanganTemp',
+        contentType: 'application/json',
+        data: JSON.stringify(butiranPenerbangan),
+        success: function () {
+
+        }
+    })
+
+	destinasi.value = "";
+	dariLokasi.value = "";
+	noPesawat.value = "";
+	jenisPesawat.value = "";
+	waktuTiba.value = "";
+	tarikhPergi.value = "";
+	waktuBerlepas.value = "";
+	penerbanganId.value = "";
+
+}
+
+</script>
+
+<script>
+
+function changeTab(){
+	 $('[href="#timeline"]').tab('show');
+}
+
+function changeTab2(){
+	 $('[href="#settings"]').tab('show');
+}
+	
+
 </script>
 
 <div class="modal fade" id="modal-permohonan${pemohon.id}">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 
+
 			<div class="modal-header" id="modalHeader">
+
+		
+			<div class="modal-header" id="modalHeader">	
+
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<h4 class="modal-title">Permohonan</h4>
 			</div>
-
 
 
 			<div class="modal-body" id="modalBody">
@@ -168,8 +335,12 @@
 							<div class="active tab-pane" id="activity">
 								<div class="box-body">
 									<form:form method="POST" modelAttribute="permohonanForm"
+
 										action="${contextPath}/permohonanForm"
 										enctype="multipart/form-data" class="form-horizontal">
+
+										action="${contextPath}/permohonanForm" enctype="multipart/form-data" class="form-horizontal">
+
 										<div class="form-group">
 											<label for="inputEmail3" class="col-sm-2 control-label">Wakil
 												Pemohon</label>
@@ -409,10 +580,16 @@
 										</div>
 
 
+
 										<div class="box-footer">
 											<button type="button" onclick="changeTab()"
 												class="btn btn-info pull-right">Seterusnya</button>
 										</div>
+				
+									<div class="box-footer">
+										<button type="button" onclick="changeTab()" class="btn btn-info pull-right">Seterusnya</button>
+									</div>
+
 								</div>
 								<!-- /.box-body -->
 
@@ -422,6 +599,7 @@
 							<div class="tab-pane" id="timeline">
 								<!-- /.box-header -->
 								<div class="box-body">
+
 									<div class="form-group">
 										<label for="inputPassword3" class="col-sm-4 control-label">Penerbangan</label>
 										<div class="col-sm-6">
@@ -434,6 +612,21 @@
 													<option value="Antarabandar">Antarabandar</option>
 												</form:select>
 											</spring:bind>
+
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-4 control-label">Penerbangan</label>
+											<div class="col-sm-6">
+												<spring:bind path="penerbangan">
+													<form:select path="penerbangan" class="form-control"
+														id="penerbanganId" onchange="showPenerbangan()">
+														<option></option>
+														<option value="Sehala">Sehala</option>
+														<option value="PergiBalik">Pergi Balik</option>
+														<option value="Antarabandar">Antarabandar</option>
+													</form:select>
+												</spring:bind>
+											</div>
+
 										</div>
 									</div>
 									<div class="form-group">
@@ -446,6 +639,7 @@
 													class="form-control" path="tarikhPergi"></form:input>
 											</spring:bind>
 										</div>
+
 									</div>
 									<div class="form-group">
 										<label for="inputPassword3" class="col-sm-4 control-label">Waktu
@@ -534,6 +728,115 @@
 										onchange="showPenerbangan()">
 										<table id="tablePenerbangan2"
 											class="table table-bordered table-hover">
+
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-4 control-label">Waktu
+												Berlepas</label>
+
+											<div class="col-sm-6">
+												<spring:bind path="waktuBerlepas">
+													<form:input id="waktuBerlepas" type="time" class="form-control"
+														path="waktuBerlepas"></form:input>
+												</spring:bind>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-4 control-label">Waktu
+												Tiba</label>
+
+											<div class="col-sm-6">
+												<spring:bind path="waktuTiba">
+													<form:input id="waktuTiba" type="time" class="form-control"
+														path="waktuTiba"></form:input>
+												</spring:bind>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-4 control-label">Jenis
+												Pesawat</label>
+											<div class="col-sm-6">
+												<spring:bind path="jenisPesawat">
+													<form:select id="jenisPesawat" path="jenisPesawat" class="form-control">
+														<option></option>
+														<option value="MAS">MAS</option>
+														<option value="AIRASIA">AIRASIA</option>
+														<option value="MALINDO">MALINDO</option>
+														<option value="FIREFLY">FIREFLY</option>
+													</form:select>
+												</spring:bind>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-4 control-label">No.
+												Pesawat</label>
+
+											<div class="col-sm-6">
+												<spring:bind path="noPesawat">
+													<form:input id="noPesawat" type="text" class="form-control"
+														path="noPesawat"></form:input>
+												</spring:bind>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-4 control-label">Dari
+												Lokasi</label>
+											<div class="col-sm-6">
+												<spring:bind path="dariLokasi">
+													<form:select id="dariLokasi" path="dariLokasi" class="form-control">
+														<option></option>
+														<option value="KLIA">Lapangan Terbang
+															Antarabangsa Kuala Lumpur</option>
+														<option value="Langkawi">Lapangan Terbang
+															Antarabangsa Langkawi</option>
+														<option value="Kuching">Lapangan Terbang
+															Antarabangsa Kuching</option>
+														<option value="PPinang">Lapangan Terbang
+															Antarabangsa Pulau Pinang</option>
+														<option value="KKinabalu">Lapangan Terbang
+															Antarabangsa Kota Kinabalu</option>
+														<option value="Senai">Lapangan Terbang
+															Antarabangsa Senai</option>
+													</form:select>
+												</spring:bind>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-4 control-label">Destinasi</label>
+											<div class="col-sm-6">
+												<spring:bind path="destinasi">
+													<form:select id="destinasi" path="destinasi" class="form-control">
+														<option></option>
+														<option value="KLIA">Lapangan Terbang
+															Antarabangsa Kuala Lumpur</option>
+														<option value="Langkawi">Lapangan Terbang
+															Antarabangsa Langkawi</option>
+														<option value="Kuching">Lapangan Terbang
+															Antarabangsa Kuching</option>
+														<option value="PPinang">Lapangan Terbang
+															Antarabangsa Pulau Pinang</option>
+														<option value="KKinabalu">Lapangan Terbang
+															Antarabangsa Kota Kinabalu</option>
+														<option value="Senai">Lapangan Terbang
+															Antarabangsa Senai</option>
+													</form:select>
+												</spring:bind>
+											</div>
+										</div>
+										
+										<div>
+										
+										</div>
+										
+										<div class="form-group"  id="btnTambahAntarabandarHidden"
+												onchange="showPenerbangan()" >
+											<button type="button" class="btn btn-info pull-right" id="btnTambahDlmTable" onclick="tambahDlmTable()">Tambah</button>
+										</div>
+										<div class="box-body" id="tablePenerbangan"
+											onchange="showPenerbangan()" >
+										<table id="tablePenerbangan2" class="table table-bordered table-hover">
+
+                      
+                      
 											<thead>
 												<tr>
 													<th>Penerbangan</th>
@@ -597,15 +900,22 @@
 												</c:forEach>
 											</tbody>
 										</table>
+
 									</div>
 									<div class="box-footer">
 										<button type="button" onclick="changeTab2()"
 											class="btn btn-info pull-right">Seterusnya</button>
+
+										</div>
+									<div class="box-footer">
+										<button type="button" onclick="changeTab2()" class="btn btn-info pull-right">Seterusnya</button>
+
 									</div>
 								</div>
 							</div>
 							<div class="tab-pane" id="settings">
 								<div class="box-body">
+
 									<table id="tableBarangan"
 										class="table table-bordered table-hover">
 										<thead>
@@ -660,6 +970,58 @@
 										<button type="submit" class="btn btn-info pull-right">Mohon</button>
 									</div>
 									</form:form>
+
+										<table id="tableBarangan" class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>Bil</th>
+													<td>Barangan Dibawa</td>
+													<th>Jumlah</th>
+													<th>Anggaran Berat</th>
+					
+												</tr>
+											</thead>
+											<tbody>
+												<%
+					
+												%>
+												<tr>
+													<td></td>
+													<td><spring:bind path="baranganDibawa">
+															<form:input type="text" id="baranganDibawa" class="form-control"
+																path="baranganDibawa"></form:input>
+														</spring:bind></td>
+													<td><spring:bind path="jumlah">
+															<form:input type="number" id="jumlah" class="form-control"
+																path="jumlah"></form:input>
+														</spring:bind></td>
+													<td><spring:bind path="anggaranBerat">
+															<form:input type="number" id="anggaranBerat" class="form-control"
+																path="anggaranBerat"></form:input>
+														</spring:bind></td>
+													<td></td>
+		
+												</tr>
+												<%
+
+												%>
+											</tbody>
+										</table>
+										
+										<div class="box-footer">
+										<spring:bind path="total">
+															<form:input type="number" id="total" class="form-control" path="total"
+																placeholder="JUMLAH ANGGARAN BERAT" disabled="true"></form:input>
+														</spring:bind>
+										</div>
+										<div class="box-footer">
+										 <button type="button" id="tambahBarangan" class="btn btn-info pull-right" onclick="baranganTableTambah()">Tambah</button>
+										</div>
+										<div class="box-footer">
+											<button type="submit" class="btn btn-info pull-right">Mohon</button>
+										</div>
+										</form:form>
+
 								</div>
 							</div>
 							<!-- /.tab-pane -->
@@ -671,12 +1033,15 @@
 				<!-- col-md-12 -->
 			</div>
 			<!-- /.modal-body -->
+
+
 		</div>
 		<!-- /.modal-content -->
 	</div>
 </div>
 
 <script>
+
 	var today = new Date();
 	var dd = today.getDate() + 1;
 	var mm = today.getMonth() + 1;
@@ -689,7 +1054,16 @@
 	}
 	today = yyyy + '-' + mm + '-' + dd;
 
+
 	document.getElementById("date").setAttribute("min", today);
 	document.getElementById("to").setAttribute("min", today);
 	document.getElementById("tarikhPergi").setAttribute("min", today);
 </script>
+
+	
+	document.getElementById("date").setAttribute("min", today);
+	document.getElementById("to").setAttribute("min", today);
+	document.getElementById("tarikhPergi").setAttribute("min", today);
+
+</script>
+

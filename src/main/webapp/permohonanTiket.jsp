@@ -19,6 +19,42 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<!--  wrapper -->
+
+<!-- jQuery 3 -->
+<script
+	src="${contextPath}/resources/css/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script
+	src="${contextPath}/resources/css/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script
+	src="${contextPath}/resources/css/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script
+	src="${contextPath}/resources/css/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="${contextPath}/resources/css/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="${contextPath}/resources/css/dist/js/demo.js"></script>
+<!-- DataTables -->
+
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<script>
+	$('#example1').DataTable({
+		'paging' : true,
+		'lengthChange' : false,
+		'searching' : false,
+		'ordering' : true,
+		'info' : true,
+		'autoWidth' : false
+	})
+</script>
+
 </head>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -101,6 +137,7 @@
 									</div>
 								</section>
 								<br />
+
 								<c:forEach items="${user.username}" var="user">
 									<div class="table-responsive">
 										<table id="example1" class="table table-bordered table-hover">
@@ -176,6 +213,56 @@
 										</table>
 									</div>
 								</c:forEach>
+
+								<table id="example1" class="table table-bordered table-hover">
+									<thead>
+										<tr>
+											<th>Tarikh Permohonan</th>
+											<th>Tarikh Penerbangan</th>
+											<th>Nama Pemohon</th>
+											<td>Tujuan</td>
+											<th>Tempat Bertugas</th>
+											<th>Peruntukan</th>
+											<th>Status</th>
+											<th>Tindakan</th>
+										</tr>
+									</thead>
+									<%
+										int i = 1;
+									%>
+									<c:forEach var="pemohon" items="${welcome}">
+										<tr>
+											<td>${pemohon.tarikhMohon}</td>
+											<td>${pemohon.tarikhMula}</td>
+											<td>${pemohon.nama}</td>
+											<td>${pemohon.tujuan}</td>
+											<td>${pemohon.tempatBertugas}</td>
+											<td>${pemohon.peruntukan}</td>
+											<td>${pemohon.statusPermohonan}</td>
+											<td><spring:url
+													value="/hapusPermohonan?id=${pemohon.id}" var="deleteUrl" />
+												<spring:url value="/permohonanOpen?id=${pemohon.id}"
+													var="updateUrl" /> <spring:url
+													value="/batalPermohonan?id=${pemohon.id}" var="batalUrl" />
+
+												<c:if test="${pemohon.statusPermohonan == 'Baru'}">
+													<button id="btnHapus" class="btn btn-warning"
+														onclick="location.href='${deleteUrl}'">Hapus</button>
+												</c:if> <c:if test="${pemohon.statusPermohonan == 'Tiket Terbuka'}">
+													<button id="btnPermohonanSemula" class="btn btn-primary"
+														onclick="location.href='${updateUrl}'">Permohonan
+														Semula</button>
+												</c:if> <c:if test="${pemohon.statusPermohonan == 'Proses'}">
+													<button id="btnBatal" class="btn btn-danger"
+														onclick="location.href='${batalUrl}'">Batal</button>
+												</c:if>
+										</tr>
+										<%
+											i++;
+										%>
+									</c:forEach>
+								</table>
+
 								<!-- Add permohonan  -->
 								<jsp:include page="${contextPath}/permohonanBaru.jsp" />
 								<jsp:include page="${contextPath}/permohonanHapus.jsp" />
@@ -189,40 +276,8 @@
 				</div>
 			</div>
 		</div>
-		<!--  wrapper -->
-
-		<!-- jQuery 3 -->
-		<script
-			src="${contextPath}/resources/css/bower_components/jquery/dist/jquery.min.js"></script>
-		<!-- Bootstrap 3.3.7 -->
-		<script
-			src="${contextPath}/resources/css/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<!-- Slimscroll -->
-		<script
-			src="${contextPath}/resources/css/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-		<!-- FastClick -->
-		<script
-			src="${contextPath}/resources/css/bower_components/fastclick/lib/fastclick.js"></script>
-		<!-- AdminLTE App -->
-		<script src="${contextPath}/resources/css/dist/js/adminlte.min.js"></script>
-		<!-- AdminLTE for demo purposes -->
-		<script src="${contextPath}/resources/css/dist/js/demo.js"></script>
-		<!-- DataTables -->
-		<script
-			src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-		<script
-			src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-		<script>
-			$('#example1').DataTable({
-				'paging' : true,
-				'lengthChange' : false,
-				'searching' : false,
-				'ordering' : true,
-				'info' : true,
-				'autoWidth' : false
-			})
-		</script>
 	</c:if>
 </body>
+
 </html>
 

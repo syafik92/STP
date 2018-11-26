@@ -13,5 +13,6 @@ public interface PenerbanganRepository extends JpaRepository<Penerbangan, Long> 
 
 	List<Penerbangan> findByPenerbanganId(Long penerbanganId);
 
-//	public Penerbangan findById(Long penerbanganId);
+
 }
+

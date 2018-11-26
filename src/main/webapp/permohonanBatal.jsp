@@ -2,6 +2,11 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!-- DataTables -->
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="${contextPath}/resources/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
 	$(function() {
 		var check = $('#batal').val();
@@ -12,9 +17,20 @@
 	});
 </script>
 <script>
+
 	function alert() {
 		alert("Sila segera hubungi Pn. Farah Diyana di ext: 385 untuk urusan pembatalan seterusnya");
 	}
+
+	$('#example1').DataTable({
+		'paging' : true,
+		'lengthChange' : false,
+		'searching' : false,
+		'ordering' : true,
+		'info' : true,
+		'autoWidth' : false
+	})
+
 </script>
 <div class="modal fade" id="modal-batal${pemohon.id}">
 	<div class="modal-dialog modal-lg">
@@ -131,6 +147,42 @@
 								</spring:bind>
 							</div>
 						</div>
+
+						<table id="example1" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>Bil</th>
+									<td>Barangan Dibawa</td>
+									<th>Jumlah</th>
+									<th>Anggaran Berat</th>
+									<th>Tambahan</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+									int i = 1;
+								%>
+								<tr>
+								</tr>
+								<%
+									i++;
+								%>
+							</tbody>
+						</table>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-2 control-label">Tarikh
+								Pergi</label>
+
+							<div class="col-sm-8">
+								<div class="col-sm-4">
+									<spring:bind path="tarikhMula">
+										<form:input type="date" class="form-control" id="tarikhMula"
+											path="tarikhMula" value="${pemohon.tarikhMula}"></form:input>
+									</spring:bind>
+								</div>
+							</div>
+						</div>
+
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Tujuan</label>
 

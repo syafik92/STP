@@ -22,6 +22,7 @@ public class PenerbanganImpl implements PenerbanganService{
 		
 	}
 	
+
 	public List<Penerbangan> findByPermohonan(Permohonan permohonan) {
 		// TODO Auto-generated method stub
 		return penerbanganRepo.findByPermohonan(permohonan);
@@ -30,6 +31,7 @@ public class PenerbanganImpl implements PenerbanganService{
 	public List<Penerbangan> findByPenerbanganId(Long penerbanganId){
 		return penerbanganRepo.findByPenerbanganId(penerbanganId);
 	}
+
 
 	@Override
 	public List<Penerbangan> getAll() {

@@ -72,6 +72,8 @@
 		penerbanganId.value = "";
 	}
 </script>
+
+
 </head>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -140,6 +142,7 @@
 										<table id="example1" class="table table-bordered table-hover">
 											<thead>
 												<tr>
+
 													<th>Tarikh Permohonan</th>
 													<th>Tarikh Penerbangan</th>
 													<th>Nama Pemohon</th>
@@ -186,6 +189,76 @@
 																					class="form-horizontal">
 
 																					<spring:bind path="permohonan">
+
+													<td data-toggle="modal" data-target="#modal-lulus">${pemohon.tarikhMohon}</td>
+													<td>${pemohon.tarikhMula}</td>
+													<td>${pemohon.nama}</td>
+													<td>${pemohon.tujuan}</td>
+													<td>${pemohon.tempatBertugas}</td>
+													<td>${pemohon.peruntukan}</td>
+													<td></td>
+													<td>${pemohon.statusPermohonan}</td>
+													<td><spring:url value="/updateStatus?id=${pemohon.id}"
+															var="updateStatus" /> <c:if
+															test="${pemohon.statusPermohonan == 'Lulus'}">
+															<button type="button" class="btn btn-info "
+																data-toggle="modal"
+																data-target="#modal-lulus${pemohon.id}">Pembelian</button>
+														</c:if>
+
+
+														<div class="modal fade" id="modal-lulus${pemohon.id}">
+															<div class="modal-dialog modal-lg">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close"
+																			data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																		<h4 class="modal-title">Pembelian</h4>
+																	</div>
+																	<div class="modal-body">
+																		<form:form method="POST"
+																			modelAttribute="kemaskiniPermohon"
+																			action="${contextPath}/updateStatusLulus"
+																			class="form-horizontal">
+																			<div class="box-body">
+																				<div class="form-group">
+																					<spring:bind path="id">
+																						<form:input type="hidden" class="form-control"
+																							path="id" value="${pemohon.id}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="namaPelulus">
+																						<form:input type="hidden" class="form-control"
+																							path="namaPelulus" value="${pemohon.namaPelulus}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="kp">
+																						<form:input type="hidden" class="form-control"
+																							path="kp" value="${pemohon.kp}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="emel">
+																						<form:input type="hidden" class="form-control"
+																							path="emel" value="${pemohon.emel}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="passport">
+																						<form:input type="hidden" class="form-control"
+																							path="passport" value="${pemohon.passport}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="tujuan">
+																						<form:input type="hidden" class="form-control"
+																							path="tujuan" value="${pemohon.tujuan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="noTelefonBimbit">
+																						<form:input type="hidden" class="form-control"
+																							path="noTelefonBimbit"
+																							value="${pemohon.noTelefonBimbit}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="peruntukan">
+																						<form:input type="hidden" class="form-control"
+																							path="peruntukan" value="${pemohon.peruntukan}"></form:input>
+																					</spring:bind>
+																					<spring:bind path="pembangunan">
+
 																						<form:input type="hidden" class="form-control"
 																							path="permohonan" value="${pemohon.id}"></form:input>
 																					</spring:bind>
@@ -751,6 +824,27 @@
 		<script src="${contextPath}/resources/css/dist/js/adminlte.min.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="${contextPath}/resources/css/dist/js/demo.js"></script>
+
+		<script>
+			var waranHidden = document.getElementById('waranHidden');
+			waranHidden.style.display = "none";
+
+			var hargaPenguranganHidden = document
+					.getElementById('hargaPenguranganHidden');
+			hargaPenguranganHidden.style.display = "none";
+
+			function showCaraBeli() {
+				var caraBeliId = document.getElementById('caraBeliId').value;
+
+				if (caraBeliId == 'Waran') {
+					waranHidden.style.display = "inline";
+					hargaPenguranganHidden.style.display = "inline";
+				} else if (caraBeliId == "KadKredit") {
+					waranHidden.style.display = "none";
+					hargaPenguranganHidden.style.display = "none";
+				}
+			}
+		</script>
 
 		<script>
 	function tambahDlmTable() {
